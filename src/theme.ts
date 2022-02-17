@@ -21,13 +21,26 @@ export const theme: Theme = {
     body:'1.5'
   },
   buttons: {
-    primary: {
+    reply: {
       color:'moderateblue',
       cursor: 'pointer',
       bg:'transparent',
       fontWeight:'bold',
       fontFamily:'main',
-      fontSize:1
+      fontSize:1,
+      padding:'.5em 1em'
+    },
+    icon: {
+      cursor: 'pointer',
+      height: "auto",
+      outline:"none",
+      p:"1rem",
+      "& svg" : {
+        transition: 'transform .2s ease',
+      },
+      "&:hover svg,&:focus svg": {
+        transform: 'translateY(-2px) scale(1.05)'
+      }
     }
   },
   fontSizes:["1rem","1.6rem"],

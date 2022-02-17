@@ -1,12 +1,13 @@
-import { Box } from "theme-ui";
+import { Box, Grid } from "theme-ui";
 import Comment from "./Components/Comment/Comment";
 /** @jsxImportSource theme-ui */
 
 function App() {
   return (
-    <Box p="1">
+    <Grid p="1" gap="1">
       <Comment/>
-    </Box>
+      <Comment/>
+    </Grid>
   );
 }
 
