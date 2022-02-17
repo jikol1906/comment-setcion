@@ -1,10 +1,12 @@
-
+import { Box } from "theme-ui";
+import Comment from "./Components/Comment/Comment";
+/** @jsxImportSource theme-ui */
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <Box p="1">
+      <Comment/>
+    </Box>
   );
 }
 

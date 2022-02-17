@@ -1,4 +1,3 @@
-import { lineHeight } from "styled-system";
 import type { Theme } from "theme-ui";
 
 export const theme: Theme = {
@@ -16,23 +15,42 @@ export const theme: Theme = {
     verylightgray: "hsl(228, 33%, 97%)",
     white: "hsl(0, 0%, 100%)",
   },
-  space:["1rem","2rem","4rem","6rem","8rem","10rem"],
+  space:["0","1.8rem","2rem","4rem","6rem","8rem","10rem"],
   lineHeights: {
+    heading:1,
     body:'1.5'
   },
+  buttons: {
+    primary: {
+      color:'moderateblue',
+      cursor: 'pointer',
+      bg:'transparent',
+      fontWeight:'bold',
+      fontFamily:'main',
+      fontSize:1
+    }
+  },
+  fontSizes:["1rem","1.6rem"],
   fontWeights: {
     normal:'400',
     bold:'500',
     bolder:'700'
   },
+  images: {
+    avatar: {
+        width: 35,
+    }
+  },
   text: {
       default: {
         fontFamily:'main',
         lineHeight:'body',
-        fontSize:['1.6rem']
+        fontSize:1
       },
       heading: {
-          fontFamily:'main'
+          fontFamily:'main',
+          fontWeight:'bold',    
+          lineHeight:'heading',
       }
   },
   styles: {
