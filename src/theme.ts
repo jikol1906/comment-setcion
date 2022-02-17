@@ -47,6 +47,12 @@ export const theme: Theme = {
         lineHeight:'body',
         fontSize:1
       },
+      muted: {
+        fontFamily:'main',
+        lineHeight:'body',
+        fontSize:1,
+        color:'grayishBlue'
+      },
       heading: {
           fontFamily:'main',
           fontWeight:'bold',    

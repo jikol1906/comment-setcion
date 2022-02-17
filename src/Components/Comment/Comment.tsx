@@ -11,15 +11,13 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
       <Flex sx={{ gridArea: "userinfo", alignItems: "center", gap: 1 }}>
         <Avatar src={img} />
         <Heading as="h2">amyrobson</Heading>
-        <Text sx={{ color: "grayishBlue" }}>1 month ago</Text>
+        <Text variant="muted">1 month ago</Text>
       </Flex>
-      <Box sx={{ gridArea: "content" }}>
-        <Text as="p" sx={{ color: "grayishBlue" }}>
-          Impressive! Though it seems the drag feature could be improved. But
-          overall it looks incredible. You've nailed the design and the
-          responsiveness at various breakpoints works really well.
-        </Text>
-      </Box>
+      <Text as="p" variant="muted" sx={{ gridArea: "content" }}>
+        Impressive! Though it seems the drag feature could be improved. But
+        overall it looks incredible. You've nailed the design and the
+        responsiveness at various breakpoints works really well.
+      </Text>
       <Box sx={{ gridArea: "likedislike" }}>
         <button>like/dislike</button>
       </Box>
