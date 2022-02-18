@@ -75,7 +75,7 @@ export const theme: Theme = {
   styles: {
       root: {
           bg:'lightgray',
-          fontSize:'62.5%'
+          fontSize:'50%'
       },
   }
   
