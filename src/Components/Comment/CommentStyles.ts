@@ -24,6 +24,7 @@ export const commentStyleEdit : ThemeUICSSObject = {
 export const buttonStyles : ThemeUICSSObject = {
     display: 'flex',
     alignItems:'center',
+    padding:'.5em 0',
     ...opacityHover,
     '& svg': {
         fill:'currentcolor'

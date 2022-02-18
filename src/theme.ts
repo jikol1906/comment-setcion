@@ -1,4 +1,5 @@
 import type { Theme } from "theme-ui";
+import { opacityHover } from "./defaultStyles";
 
 export const theme: Theme = {
   fonts: {
@@ -28,6 +29,8 @@ export const theme: Theme = {
       fontWeight:'bolder',
       borderRadius:7,
       letterSpacing:.4,
+      p:"1.5rem 2rem",
+      cursor: 'pointer',
       ...opacityHover
     },
     blank: {
@@ -37,7 +40,6 @@ export const theme: Theme = {
       fontWeight:'bold',
       fontFamily:'main',
       fontSize:1,
-      padding:'.5em 1em'
     },
     icon: {
       cursor: 'pointer',

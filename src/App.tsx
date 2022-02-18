@@ -6,8 +6,8 @@ import CommentReplyThread from "./Layout/CommentReplyThread/CommentReplyThread";
 function App() {
   return (
     <Grid p="1" gap="1">
-      <Comment />
-      <Comment />
+      <Comment isCurrentUser />
+      <Comment isEditing />
       <CommentReplyThread>
         <Comment />
         <Comment />

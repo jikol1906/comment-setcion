@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { Avatar, Box, Button, Flex, Grid, Heading, IconButton, Image, Text, Textarea } from "theme-ui";
-import { buttonStyles, commentStylePresent } from "./CommentStyles";
+import { buttonStyles, commentStyleEdit, commentStylePresent } from "./CommentStyles";
 import img from "../../images/avatars/image-amyrobson.png";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
@@ -19,6 +19,9 @@ interface ICommentProps {
   isEditing?:boolean
 }
 
+const text = `Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.`
+
+
 const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing}) => {
   return (
     <CommentContainer>
@@ -29,7 +32,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditin
           {isCurrentUser && <Text sx={{}}>you</Text>}
           <Text variant="muted">1 month ago</Text>
         </Flex>
-        {isEditing ? <EditCommentText text={text}/> : <PresentCommentText text={text}/>}
+        {isEditing ? <EditCommentText text={text}/> : <PresentCommentText isCurrentUser={isCurrentUser} text={text}/>}
         <Flex sx={{ gridArea: "likedislike" }}>
           <LikeDislikeButton/>
         </Flex>
