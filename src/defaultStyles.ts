@@ -5,3 +5,9 @@ export const opacityHover : ThemeUICSSObject = {
         opacity:.6
     }
 }
+
+export const buttonReset : ThemeUICSSObject = {
+    outline:'none',
+    cursor: 'pointer',
+    fontFamily:'main',
+}
