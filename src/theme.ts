@@ -21,8 +21,8 @@ export const theme: Theme = {
     body:'1.5'
   },
   buttons: {
-    reply: {
-      color:'moderateblue',
+    blank: {
+      outline:'none',
       cursor: 'pointer',
       bg:'transparent',
       fontWeight:'bold',
