@@ -21,6 +21,15 @@ export const theme: Theme = {
     body:'1.5'
   },
   buttons: {
+    primary: {
+      bg:'moderateblue',
+      fontSize:'1.3rem',
+      textTransform:'uppercase',
+      fontWeight:'bolder',
+      borderRadius:7,
+      letterSpacing:.4,
+      p:"1.5rem 2rem"
+    },
     blank: {
       outline:'none',
       cursor: 'pointer',
