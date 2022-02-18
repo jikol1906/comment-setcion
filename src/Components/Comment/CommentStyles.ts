@@ -16,5 +16,8 @@ export const buttonStyles : ThemeUICSSObject = {
     alignItems:'center',
     "&:hover,&:focus": {
         opacity:.6
+    },
+    '& svg': {
+        fill:'currentcolor'
     }
 }
