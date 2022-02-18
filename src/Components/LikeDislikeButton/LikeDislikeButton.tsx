@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Flex, IconButton,Text } from "theme-ui";
 
-interface ILikeDislikeButtonProps {}
+interface ILikeDislikeButtonProps {
+  score:number
+}
 
 const LikeDislikeButton: React.FunctionComponent<ILikeDislikeButtonProps> = (
-  props
+  {score}
 ) => {
   return (
     <Flex bg="verylightgray" sx={{ borderRadius: "10px" }}>
@@ -17,7 +19,7 @@ const LikeDislikeButton: React.FunctionComponent<ILikeDislikeButtonProps> = (
         </svg>
       </IconButton>
       <Flex sx={{ alignItems: "center" }}>
-        <Text sx={{ color: "moderateblue", fontWeight: "bold" }}>12</Text>
+        <Text sx={{ color: "moderateblue", fontWeight: "bold" }}>{score}</Text>
       </Flex>
       <IconButton aria-label="dislike">
         <svg width="11" height="3" xmlns="http://www.w3.org/2000/svg">

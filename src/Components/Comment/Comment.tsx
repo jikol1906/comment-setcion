@@ -27,7 +27,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditin
         </Flex>
         {isEditing ? <EditCommentText text={content}/> : <PresentCommentText isCurrentUser={isCurrentUser} text={content}/>}
         <Flex sx={{ gridArea: "likedislike" }}>
-          <LikeDislikeButton/>
+          <LikeDislikeButton score={score}/>
         </Flex>
 
       </Grid>
