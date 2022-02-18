@@ -16,9 +16,10 @@ interface ICommentProps {
   // user:string,
   // replyTo?:string,
   isCurrentUser?:boolean
+  isEditing?:boolean
 }
 
-const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser}) => {
+const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing}) => {
   return (
     <CommentContainer>
       <Grid sx={commentStylePresent}>
