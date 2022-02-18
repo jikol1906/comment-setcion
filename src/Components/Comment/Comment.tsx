@@ -22,7 +22,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser}) => {
   return (
     <CommentContainer>
       <Grid sx={commentStyle}>
-        <Flex sx={{ gridArea: "userinfo", alignItems: "center", gap: 1 }}>
+        <Flex sx={{ gridArea: "userinfo", alignItems: "center", gap: "8px" }}>
           <Avatar src={img} />
           <Heading as="h2">amyrobson</Heading>
           {isCurrentUser && <Text sx={{}}>you</Text>}
