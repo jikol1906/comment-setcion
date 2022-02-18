@@ -19,7 +19,7 @@ const CommentReplyThread: React.FunctionComponent<ICommentReplyThreadProps> = (
         },
       }}
     >
-      <Flex sx={{ flexDirection: "column", gap: 1 }}>
+      <Flex sx={{ flexDirection: "column", gap: 1, flex:1 }}>
         {children}
       </Flex>
     </Flex>
