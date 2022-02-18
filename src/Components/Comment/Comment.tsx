@@ -8,6 +8,7 @@ import { Comment as IComment } from "../../interfaces";
 
 interface ICommentProps extends Omit<IComment,"id"|"replies"> {
   replyingTo?:string
+  onReplyButtonClicked?:() => void,
   isCurrentUser?:boolean
   isEditing?:boolean
 }

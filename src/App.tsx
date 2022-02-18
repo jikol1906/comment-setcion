@@ -4,7 +4,7 @@ import Comment from "./Components/Comment/Comment";
 import CommentReplyThread from "./Layout/CommentReplyThread/CommentReplyThread";
 import useComments from "./useComment";
 import data from "./data.json";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
@@ -16,29 +16,27 @@ function App() {
 
   comments.forEach((c) => {
     commentsRendered.push(
-      <>
+      <React.Fragment key={c.id}>
         <Comment
           isCurrentUser={c.user.username === currentUser.username}
-          key={c.id}
           {...c}
         />
         {replyingTo === c.id && <AddComment/>}
-      </>
+      </React.Fragment>
     );
 
     if (c.replies.length > 0) {
       commentsRendered.push(
         <CommentReplyThread key={`r${c.id}`}>
           {c.replies.map((r) => (
-            <>
+            <React.Fragment key={r.id}>
               <Comment
                 isCurrentUser={r.user.username === currentUser.username}
-                key={r.id}
                 {...r}
                 replyingTo={r.replyingTo}
               />
               {replyingTo === r.id && <AddComment/>}
-            </>
+            </React.Fragment>
           ))}
         </CommentReplyThread>
       );
