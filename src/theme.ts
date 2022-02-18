@@ -52,6 +52,16 @@ export const theme: Theme = {
       }
     }
   },
+  forms: {
+    textarea: {
+      p:".5rem 1rem",
+      fontSize:1,
+      fontFamily:'main',
+      color:'grayishBlue',
+      resize:'none',
+      outline: 'moderateblue'
+    }
+  },  
   fontSizes:["1rem","1.6rem"],
   fontWeights: {
     normal:'400',
