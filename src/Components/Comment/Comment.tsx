@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { Avatar, Box, Button, Flex, Grid, Heading, IconButton, Image, Text } from "theme-ui";
-import { commentStyle } from "./CommentStyles";
+import { buttonStyles, commentStyle } from "./CommentStyles";
 import img from "../../images/avatars/image-amyrobson.png";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";

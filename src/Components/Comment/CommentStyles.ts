@@ -10,3 +10,11 @@ export const commentStyle : ThemeUICSSObject = {
     `,
     gridTemplateColumns:"1fr auto"
 }
+
+export const buttonStyles : ThemeUICSSObject = {
+    display: 'flex',
+    alignItems:'center',
+    "&:hover,&:focus": {
+        opacity:.6
+    }
+}
