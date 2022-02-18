@@ -4,13 +4,14 @@ import Comment from "./Components/Comment/Comment";
 import CommentReplyThread from "./Layout/CommentReplyThread/CommentReplyThread";
 import useComments from "./useComment";
 import data from './data.json'
+import { useEffect } from "react";
 
 const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
 
 function App() {
 
-  const comments = useComments();  
+  const [comments,setComments] = useComments();  
 
   let commentsRendered : JSX.Element[] = [];
 
