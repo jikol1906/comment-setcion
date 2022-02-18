@@ -6,7 +6,7 @@ import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
 import { Comment } from "../../interfaces";
 
-interface ICommentProps extends Comment {
+interface ICommentProps extends Omit<Comment,"id"|"replies"> {
   
   isCurrentUser?:boolean
   isEditing?:boolean
@@ -15,17 +15,17 @@ interface ICommentProps extends Comment {
 const text = `Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.`
 
 
-const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing}) => {
+const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing,content,createdAt,score,user}) => {
   return (
     <CommentContainer>
       <Grid sx={isEditing ? commentStyleEdit : commentStylePresent}>
         <Flex sx={{ gridArea: "userinfo", alignItems: "center", gap: "8px" }}>
           <Avatar src={img} />
-          <Heading as="h2">amyrobson</Heading>
+          <Heading as="h2">{user.username}</Heading>
           {isCurrentUser && <Text sx={youBadge}>you</Text>}
-          <Text variant="muted">1 month ago</Text>
+          <Text variant="muted">{createdAt}</Text>
         </Flex>
-        {isEditing ? <EditCommentText text={text}/> : <PresentCommentText isCurrentUser={isCurrentUser} text={text}/>}
+        {isEditing ? <EditCommentText text={content}/> : <PresentCommentText isCurrentUser={isCurrentUser} text={content}/>}
         <Flex sx={{ gridArea: "likedislike" }}>
           <LikeDislikeButton/>
         </Flex>
