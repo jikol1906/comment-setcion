@@ -16,7 +16,7 @@ interface ICommentProps extends Omit<IComment,"id"|"replies"> {
 
 
 
-const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing,content,createdAt,score,user}) => {
+const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing,content,createdAt,score,user,onReplyButtonClicked}) => {
   return (
     <CommentContainer>
       <Grid sx={isEditing ? commentStyleEdit : commentStylePresent}>
@@ -26,7 +26,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditin
           {isCurrentUser && <Text sx={youBadge}>you</Text>}
           <Text variant="muted">{createdAt}</Text>
         </Flex>
-        {isEditing ? <EditCommentText text={content}/> : <PresentCommentText isCurrentUser={isCurrentUser} text={content}/>}
+        {isEditing ? <EditCommentText text={content}/> : <PresentCommentText onReplyButtonClicked={onReplyButtonClicked} isCurrentUser={isCurrentUser} text={content}/>}
         <Flex sx={{ gridArea: "likedislike" }}>
           <LikeDislikeButton score={score}/>
         </Flex>
@@ -55,15 +55,16 @@ const EditCommentText : React.FunctionComponent<IEditCommentText> = ({text}) => 
 
 interface IPresentCommentText {
   text:string,
-  isCurrentUser?:boolean
+  isCurrentUser?:boolean,
+  onReplyButtonClicked?:() => void,
 }
-const PresentCommentText : React.FunctionComponent<IPresentCommentText> = ({text,isCurrentUser}) => {
+const PresentCommentText : React.FunctionComponent<IPresentCommentText> = ({text,isCurrentUser,onReplyButtonClicked}) => {
   return <>
           <Text as="p" variant="muted" sx={{ gridArea: "content" }}>
           {text}
         </Text>
       <Flex sx={{gridArea:'actions', gap:1}}>
-        { !isCurrentUser ? <Button variant="blank" sx={{...buttonStyles,color:'moderateblue'}}>
+        { !isCurrentUser ? <Button variant="blank" sx={{...buttonStyles,color:'moderateblue'}} onClick={onReplyButtonClicked}>
         
           <svg sx={{mr:'6px'}} width="14" height="13" xmlns="http://www.w3.org/2000/svg"><path d="M.227 4.316 5.04.16a.657.657 0 0 1 1.085.497v2.189c4.392.05 7.875.93 7.875 5.093 0 1.68-1.082 3.344-2.279 4.214-.373.272-.905-.07-.767-.51 1.24-3.964-.588-5.017-4.829-5.078v2.404c0 .566-.664.86-1.085.496L.227 5.31a.657.657 0 0 1 0-.993Z" /></svg>
             Reply

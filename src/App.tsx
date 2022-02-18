@@ -10,8 +10,9 @@ const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
 
 function App() {
-  const { comments, replyingTo } = useComments();
-
+  const { comments, replyingTo, setReplyingTo } = useComments();
+  console.log(replyingTo);
+  
   let commentsRendered: JSX.Element[] = [];
 
   comments.forEach((c) => {
@@ -19,6 +20,7 @@ function App() {
       <React.Fragment key={c.id}>
         <Comment
           isCurrentUser={c.user.username === currentUser.username}
+          onReplyButtonClicked={() => setReplyingTo(c.id)}
           {...c}
         />
         {replyingTo === c.id && <AddComment/>}
@@ -34,6 +36,7 @@ function App() {
                 isCurrentUser={r.user.username === currentUser.username}
                 {...r}
                 replyingTo={r.replyingTo}
+                onReplyButtonClicked={() => setReplyingTo(r.id)}
               />
               {replyingTo === r.id && <AddComment/>}
             </React.Fragment>

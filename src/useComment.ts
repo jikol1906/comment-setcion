@@ -6,7 +6,7 @@ import { Comment } from './interfaces'
 export default function useComments()  {
 
     const [comments,setComments] = useLocalStorage<Comment[]>('comments',data.comments)
-    const [replyingTo,setReplyingTo] = useState<number>(1);
+    const [replyingTo,setReplyingTo] = useState<number>(3);
 
 
     return {comments,replyingTo,setReplyingTo}
