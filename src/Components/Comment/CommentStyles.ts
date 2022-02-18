@@ -11,6 +11,15 @@ export const commentStylePresent : ThemeUICSSObject = {
     `,
     gridTemplateColumns:"1fr auto"
 }
+export const commentStyleEdit : ThemeUICSSObject = {
+    gap:1,
+    gridTemplateAreas:`
+        "userinfo userinfo"
+        "textarea textarea"
+        "likedislike updatebtn"
+    `,
+    gridTemplateColumns:"1fr auto"
+}
 
 export const buttonStyles : ThemeUICSSObject = {
     display: 'flex',
