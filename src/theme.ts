@@ -28,7 +28,7 @@ export const theme: Theme = {
       fontWeight:'bolder',
       borderRadius:7,
       letterSpacing:.4,
-      p:"1.5rem 2rem"
+      ...opacityHover
     },
     blank: {
       outline:'none',

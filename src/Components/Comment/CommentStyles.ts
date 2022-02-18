@@ -14,9 +14,7 @@ export const commentStyle : ThemeUICSSObject = {
 export const buttonStyles : ThemeUICSSObject = {
     display: 'flex',
     alignItems:'center',
-    "&:hover,&:focus": {
-        opacity:.6
-    },
+    ...opacityHover,
     '& svg': {
         fill:'currentcolor'
     }
