@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Avatar, Box, Button, Flex, Grid, Heading, IconButton, Image, Text } from "theme-ui";
+import { Avatar, Box, Button, Flex, Grid, Heading, IconButton, Image, Text, Textarea } from "theme-ui";
 import { buttonStyles, commentStyle } from "./CommentStyles";
 import img from "../../images/avatars/image-amyrobson.png";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
@@ -48,3 +48,23 @@ const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser}) => {
 };
 
 export default Comment;
+
+interface IEditCommentText {
+  text:string
+}
+
+const EditCommentText : React.FunctionComponent<IEditCommentText> = ({text}) => {
+  return <>
+    <Box as="form" id="editcommentform">
+      <Textarea defaultValue={text}>
+      
+      </Textarea>
+    </Box>
+    <Button type="submit" form="editcommentform">Update</Button>
+  </>
+}
+const PresentCommentText : React.FunctionComponent<ICommentProps> = () => {
+  return <>
+  
+  </>
+}
