@@ -23,7 +23,7 @@ function App() {
           onReplyButtonClicked={() => setReplyingTo(c.id)}
           {...c}
         />
-        {replyingTo === c.id && <AddComment/>}
+        {replyingTo === c.id && <AddComment replying/>}
       </React.Fragment>
     );
 
@@ -38,7 +38,7 @@ function App() {
                 replyingTo={r.replyingTo}
                 onReplyButtonClicked={() => setReplyingTo(r.id)}
               />
-              {replyingTo === r.id && <AddComment/>}
+              {replyingTo === r.id && <AddComment replying/>}
             </React.Fragment>
           ))}
         </CommentReplyThread>
@@ -49,6 +49,7 @@ function App() {
   return (
     <Grid p="1" gap="1">
       {commentsRendered}
+      <AddComment/>
     </Grid>
   );
 }

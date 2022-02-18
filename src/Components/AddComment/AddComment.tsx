@@ -5,9 +5,7 @@ import data from '../../data.json'
 
 const currentUser = data.currentUser;
 
-interface IAddCommentProps {}
-
-const AddComment: React.FunctionComponent<IAddCommentProps> = (props) => {
+const AddComment: React.FunctionComponent<{replying?:boolean}> = ({replying}) => {
   return (
     <CommentContainer>
       <Grid
@@ -25,7 +23,7 @@ const AddComment: React.FunctionComponent<IAddCommentProps> = (props) => {
         <Box as="form" id="sendcommentform" style={{ gridArea: "textarea" }}>
           <Textarea rows={6}></Textarea>
         </Box>
-        <Button type="submit" form="sendcommentform" style={{ gridArea: "sendbtn" }}>Send</Button>
+        <Button type="submit" form="sendcommentform" style={{ gridArea: "sendbtn" }}>{replying ? "Reply" : "Send"}</Button>
       </Grid>
     </CommentContainer>
   );
