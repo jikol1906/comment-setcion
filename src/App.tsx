@@ -1,4 +1,5 @@
 import { Box, Flex, Grid } from "theme-ui";
+import AddComment from "./Components/AddComment/AddComment";
 import Comment from "./Components/Comment/Comment";
 import CommentReplyThread from "./Layout/CommentReplyThread/CommentReplyThread";
 /** @jsxImportSource theme-ui */
@@ -12,6 +13,7 @@ function App() {
         <Comment />
         <Comment />
       </CommentReplyThread>
+      <AddComment/>
 
     </Grid>
   );
