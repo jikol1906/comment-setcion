@@ -30,3 +30,10 @@ export const buttonStyles : ThemeUICSSObject = {
         fill:'currentcolor'
     }
 }
+
+export const youBadge : ThemeUICSSObject = {
+    color:'white', 
+    bg:'moderateblue',
+    borderRadius:'5px',
+    padding:'1px 7px'
+}

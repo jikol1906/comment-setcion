@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { Avatar, Box, Button, Flex, Grid, Heading, IconButton, Image, Text, Textarea } from "theme-ui";
-import { buttonStyles, commentStyleEdit, commentStylePresent } from "./CommentStyles";
+import { buttonStyles, commentStyleEdit, commentStylePresent, youBadge } from "./CommentStyles";
 import img from "../../images/avatars/image-amyrobson.png";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
@@ -29,7 +29,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditin
         <Flex sx={{ gridArea: "userinfo", alignItems: "center", gap: "8px" }}>
           <Avatar src={img} />
           <Heading as="h2">amyrobson</Heading>
-          {isCurrentUser && <Text sx={{}}>you</Text>}
+          {isCurrentUser && <Text sx={youBadge}>you</Text>}
           <Text variant="muted">1 month ago</Text>
         </Flex>
         {isEditing ? <EditCommentText text={text}/> : <PresentCommentText isCurrentUser={isCurrentUser} text={text}/>}
