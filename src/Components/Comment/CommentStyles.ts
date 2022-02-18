@@ -1,5 +1,6 @@
 import { gridTemplateColumns } from "styled-system";
 import { ThemeUICSSObject } from "theme-ui";
+import { opacityHover } from "../../defaultStyles";
 
 export const commentStyle : ThemeUICSSObject = {
     gap:1,
