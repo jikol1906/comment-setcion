@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { Avatar, Box, Button, Flex, Grid, Heading, IconButton, Image, Text, Textarea } from "theme-ui";
-import { buttonStyles, commentStyle } from "./CommentStyles";
+import { buttonStyles, commentStylePresent } from "./CommentStyles";
 import img from "../../images/avatars/image-amyrobson.png";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
@@ -21,7 +21,7 @@ interface ICommentProps {
 const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser}) => {
   return (
     <CommentContainer>
-      <Grid sx={commentStyle}>
+      <Grid sx={commentStylePresent}>
         <Flex sx={{ gridArea: "userinfo", alignItems: "center", gap: "8px" }}>
           <Avatar src={img} />
           <Heading as="h2">amyrobson</Heading>

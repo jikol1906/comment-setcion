@@ -2,7 +2,7 @@ import { gridTemplateColumns } from "styled-system";
 import { ThemeUICSSObject } from "theme-ui";
 import { opacityHover } from "../../defaultStyles";
 
-export const commentStyle : ThemeUICSSObject = {
+export const commentStylePresent : ThemeUICSSObject = {
     gap:1,
     gridTemplateAreas:`
         "userinfo userinfo"
