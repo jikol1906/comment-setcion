@@ -22,16 +22,14 @@ interface ICommentProps {
 const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing}) => {
   return (
     <CommentContainer>
-      <Grid sx={commentStylePresent}>
+      <Grid sx={isEditing ? commentStyleEdit : commentStylePresent}>
         <Flex sx={{ gridArea: "userinfo", alignItems: "center", gap: "8px" }}>
           <Avatar src={img} />
           <Heading as="h2">amyrobson</Heading>
           {isCurrentUser && <Text sx={{}}>you</Text>}
           <Text variant="muted">1 month ago</Text>
         </Flex>
-        <PresentCommentText text={`Impressive! Though it seems the drag feature could be improved. But
-          overall it looks incredible. You've nailed the design and the
-          responsiveness at various breakpoints works really well.`}/>
+        {isEditing ? <EditCommentText text={text}/> : <PresentCommentText text={text}/>}
         <Flex sx={{ gridArea: "likedislike" }}>
           <LikeDislikeButton/>
         </Flex>
@@ -49,12 +47,12 @@ interface IEditCommentText {
 
 const EditCommentText : React.FunctionComponent<IEditCommentText> = ({text}) => {
   return <>
-    <Box as="form" id="editcommentform" sx={{gridArea:'content'}}>
+    <Box as="form" id="editcommentform" sx={{gridArea:'textarea'}}>
       <Textarea defaultValue={text} rows={5}>
       
       </Textarea>
     </Box>
-    <Button sx={{gridArea:'actions'}} type="submit" form="editcommentform">Update</Button>
+    <Button sx={{gridArea:'updatebtn'}} type="submit" form="editcommentform">Update</Button>
   </>
 }
 
