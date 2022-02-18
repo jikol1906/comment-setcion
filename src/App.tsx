@@ -1,17 +1,27 @@
-import { Box, Flex, Grid } from "theme-ui";
+import { Grid } from "theme-ui";
 import AddComment from "./Components/AddComment/AddComment";
-import Comment from "./Components/Comment/Comment";
 import CommentReplyThread from "./Layout/CommentReplyThread/CommentReplyThread";
+import useComments from "./useComment";
+
+
+
 /** @jsxImportSource theme-ui */
 
 function App() {
+
+  const comments = useComments();  
+
+  
+  
+  
+
   return (
     <Grid p="1" gap="1">
-      <Comment isCurrentUser />
-      <Comment isEditing />
+      {/* <Comment isCurrentUser />
+      <Comment isEditing /> */}
       <CommentReplyThread>
-        <Comment />
-        <Comment />
+        {/* <Comment />
+        <Comment /> */}
       </CommentReplyThread>
       <AddComment/>
 

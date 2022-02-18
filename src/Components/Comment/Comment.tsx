@@ -4,17 +4,10 @@ import { buttonStyles, commentStyleEdit, commentStylePresent, youBadge } from ".
 import img from "../../images/avatars/image-amyrobson.png";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
+import { Comment } from "../../interfaces";
 
-interface ICommentProps {
-  // id:number
-  // content:string
-  // createdAt:Date
-  // score:number
-  // user :
-  // likeClicked:(commentId:number) => void
-  // dislikeClicked:(commentId:number) => void
-  // user:string,
-  // replyTo?:string,
+interface ICommentProps extends Comment {
+  
   isCurrentUser?:boolean
   isEditing?:boolean
 }
