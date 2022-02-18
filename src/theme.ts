@@ -59,7 +59,8 @@ export const theme: Theme = {
       fontFamily:'main',
       color:'grayishBlue',
       resize:'none',
-      outline: 'moderateblue'
+      outline: 'moderateblue',
+      lineHeight:'body'
     }
   },  
   fontSizes:["1rem","1.6rem"],
