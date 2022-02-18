@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Avatar, Box, Button, Grid, Textarea } from "theme-ui";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
-import img from "../../images/avatars/image-amyrobson.png";
+import data from '../../data.json'
+
+const currentUser = data.currentUser;
 
 interface IAddCommentProps {}
 
@@ -19,7 +21,7 @@ const AddComment: React.FunctionComponent<IAddCommentProps> = (props) => {
           alignItems: "flex-start",
         }}
       >
-        <Avatar style={{ gridArea: "avatar" }} src={img} />
+        <Avatar style={{ gridArea: "avatar" }} src={`${process.env.PUBLIC_URL}${currentUser.image.webp.split("./")[1]}`} />
         <Box as="form" id="sendcommentform" style={{ gridArea: "textarea" }}>
           <Textarea rows={6}></Textarea>
         </Box>

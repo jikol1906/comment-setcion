@@ -1,18 +1,18 @@
 /** @jsxImportSource theme-ui */
 import { Avatar, Box, Button, Flex, Grid, Heading, IconButton, Image, Text, Textarea } from "theme-ui";
 import { buttonStyles, commentStyleEdit, commentStylePresent, youBadge } from "./CommentStyles";
-import img from "../../images/avatars/image-amyrobson.png";
+
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
-import { Comment } from "../../interfaces";
+import { Comment as IComment } from "../../interfaces";
 
-interface ICommentProps extends Omit<Comment,"id"|"replies"> {
-  
+interface ICommentProps extends Omit<IComment,"id"|"replies"> {
+  replyingTo?:string
   isCurrentUser?:boolean
   isEditing?:boolean
 }
 
-const text = `Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.`
+
 
 
 const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing,content,createdAt,score,user}) => {
@@ -20,7 +20,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditin
     <CommentContainer>
       <Grid sx={isEditing ? commentStyleEdit : commentStylePresent}>
         <Flex sx={{ gridArea: "userinfo", alignItems: "center", gap: "8px" }}>
-          <Avatar src={img} />
+          <Avatar src={`${process.env.PUBLIC_URL}${user.image.webp.split("./")[1]}`} />
           <Heading as="h2">{user.username}</Heading>
           {isCurrentUser && <Text sx={youBadge}>you</Text>}
           <Text variant="muted">{createdAt}</Text>
