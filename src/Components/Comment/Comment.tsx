@@ -49,12 +49,12 @@ interface IEditCommentText {
 
 const EditCommentText : React.FunctionComponent<IEditCommentText> = ({text}) => {
   return <>
-    <Box as="form" id="editcommentform">
-      <Textarea defaultValue={text}>
+    <Box as="form" id="editcommentform" sx={{gridArea:'content'}}>
+      <Textarea defaultValue={text} rows={5}>
       
       </Textarea>
     </Box>
-    <Button type="submit" form="editcommentform">Update</Button>
+    <Button sx={{gridArea:'actions'}} type="submit" form="editcommentform">Update</Button>
   </>
 }
 
