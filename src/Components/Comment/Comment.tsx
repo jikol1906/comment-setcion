@@ -63,7 +63,7 @@ interface IPresentCommentText {
 }
 const PresentCommentText : React.FunctionComponent<IPresentCommentText> = ({text,isCurrentUser,onReplyButtonClicked, onDeleteButtonClicked}) => {
   return <>
-          <Text as="p" variant="muted" sx={{ gridArea: "content" }}>
+          <Text as="p" variant="muted" sx={{ gridArea: "content", whiteSpace:'pre-line' }}>
           {text}
         </Text>
       <Flex sx={{gridArea:'actions', gap:1}}>
