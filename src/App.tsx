@@ -4,7 +4,7 @@ import Comment from "./Components/Comment/Comment";
 import CommentReplyThread from "./Layout/CommentReplyThread/CommentReplyThread";
 import useComments from "./useComment";
 import data from "./data.json";
-import React, { useEffect } from "react";
+import React from "react";
 
 const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
