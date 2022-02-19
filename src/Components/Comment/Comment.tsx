@@ -9,14 +9,16 @@ import { Comment as IComment } from "../../interfaces";
 interface ICommentProps extends Omit<IComment,"id"|"replies"> {
   replyingTo?:string
   onReplyButtonClicked?:() => void,
-  isCurrentUser?:boolean
+  deleteButtonClicked?:() => void,
+  isCurrentUser?:boolean,
   isEditing?:boolean
 }
 
 
 
 
-const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing,content,createdAt,score,user,onReplyButtonClicked}) => {
+const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditing,content,createdAt,score,user,onReplyButtonClicked,deleteButtonClicked
+}) => {
   return (
     <CommentContainer>
       <Grid sx={isEditing ? commentStyleEdit : commentStylePresent}>
@@ -26,7 +28,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({isCurrentUser,isEditin
           {isCurrentUser && <Text sx={youBadge}>you</Text>}
           <Text variant="muted">{createdAt}</Text>
         </Flex>
-        {isEditing ? <EditCommentText text={content}/> : <PresentCommentText onReplyButtonClicked={onReplyButtonClicked} isCurrentUser={isCurrentUser} text={content}/>}
+        {isEditing ? <EditCommentText text={content}/> : <PresentCommentText onDeleteButtonClicked={deleteButtonClicked} onReplyButtonClicked={onReplyButtonClicked} isCurrentUser={isCurrentUser} text={content}/>}
         <Flex sx={{ gridArea: "likedislike" }}>
           <LikeDislikeButton score={score}/>
         </Flex>
@@ -57,8 +59,9 @@ interface IPresentCommentText {
   text:string,
   isCurrentUser?:boolean,
   onReplyButtonClicked?:() => void,
+  onDeleteButtonClicked?:() => void
 }
-const PresentCommentText : React.FunctionComponent<IPresentCommentText> = ({text,isCurrentUser,onReplyButtonClicked}) => {
+const PresentCommentText : React.FunctionComponent<IPresentCommentText> = ({text,isCurrentUser,onReplyButtonClicked, onDeleteButtonClicked}) => {
   return <>
           <Text as="p" variant="muted" sx={{ gridArea: "content" }}>
           {text}
@@ -70,7 +73,7 @@ const PresentCommentText : React.FunctionComponent<IPresentCommentText> = ({text
             Reply
         </Button> :
         <>
-        <Button variant="blank" sx={{...buttonStyles,color:'softRed'}}>
+        <Button onClick={onDeleteButtonClicked} variant="blank" sx={{...buttonStyles,color:'softRed'}}>
         <svg sx={{mr:'6px'}} width="12" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M1.167 12.448c0 .854.7 1.552 1.555 1.552h6.222c.856 0 1.556-.698 1.556-1.552V3.5H1.167v8.948Zm10.5-11.281H8.75L7.773 0h-3.88l-.976 1.167H0v1.166h11.667V1.167Z" /></svg>
             Delete
           </Button>

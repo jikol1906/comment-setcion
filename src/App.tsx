@@ -10,7 +10,7 @@ const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
 
 function App() {
-  const { comments, replyingTo, setReplyingTo, addComment } = useComments();
+  const { comments, replyingTo, setReplyingTo, addComment,deleteComment } = useComments();
 
   let commentsRendered: JSX.Element[] = [];
 
@@ -19,6 +19,7 @@ function App() {
       <React.Fragment key={c.id}>
         <Comment
           isCurrentUser={c.user.username === currentUser.username}
+          deleteButtonClicked={() => deleteComment(c.id)}
           onReplyButtonClicked={() => setReplyingTo(c.id)}
           {...c}
         />
@@ -33,6 +34,7 @@ function App() {
             <React.Fragment key={r.id}>
               <Comment
                 isCurrentUser={r.user.username === currentUser.username}
+                deleteButtonClicked={() => deleteComment(r.id)}
                 {...r}
                 replyingTo={r.replyingTo}
                 onReplyButtonClicked={() => setReplyingTo(r.id)}
