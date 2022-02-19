@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import data from './data.json'
-import { Comment, Reply } from './interfaces'
+import { Comment, Reply, ReplyInfo, User } from './interfaces'
 
 export default function useComments()  {
 
@@ -9,10 +9,32 @@ export default function useComments()  {
     const [noOfComments,setNoOfComments] = useLocalStorage<number>('noOfComments',4)
     const [replyingTo,setReplyingTo] = useState<number>(0);
 
-    const addComment = (content:string,replyingTo?:number) => { 
-        
-        if(replyingTo) {
 
+
+    const addComment = (content:string,replyInfo?:ReplyInfo) => { 
+        
+        const user : User = {
+            image:{
+                webp:data.currentUser.image.webp,
+                png:data.currentUser.image.png,
+            },
+            username:data.currentUser.username
+        }
+        
+        if(replyInfo) {
+            const {replyingTo,replyingToNestedComment,replyingToUsername} = replyInfo
+            
+            const newReply : Reply = {
+                replyingTo:replyingToUsername,
+                content,
+                createdAt:"Now",
+                id: noOfComments + 1,
+                score:0,
+                user
+
+            }
+
+            
         } else {
             const newComment : Comment = {
                 id:noOfComments + 1,
@@ -20,13 +42,8 @@ export default function useComments()  {
                 replies:[],
                 score:0,
                 createdAt:'Now',
-                user: {
-                    image:{
-                        webp:data.currentUser.image.webp,
-                        png:data.currentUser.image.png,
-                    },
-                    username:data.currentUser.username
-                }
+                user
+                
             }
     
             setComments([...comments,newComment])
@@ -35,7 +52,9 @@ export default function useComments()  {
         
     }
 
-    const reply = (commentId:number) => (content:string) => addComment(content,commentId)
+    const reply = (commentId:number,replyInfo:ReplyInfo) => 
+        (content:string) => 
+            addComment(content,replyInfo)
     
 
     const deleteComment = (commentId:number) => {

@@ -23,7 +23,7 @@ function App() {
           onReplyButtonClicked={() => setReplyingTo(c.id)}
           {...c}
         />
-        {replyingTo === c.id && <AddComment submit={reply(c.id)} replying />}
+        {replyingTo === c.id && <AddComment submit={reply(c.id,{replyingToUsername:c.user.username,replyingTo:c.id,replyingToNestedComment:false})} replying />}
       </React.Fragment>
     );
 
@@ -40,7 +40,7 @@ function App() {
                 onReplyButtonClicked={() => setReplyingTo(r.id)}
               />
               {replyingTo === r.id && (
-                <AddComment submit={reply(r.id)} replying />
+                <AddComment submit={reply(r.id,{replyingToUsername:r.user.username,replyingTo:r.id,replyingToNestedComment:true})} replying />
               )}
             </React.Fragment>
           ))}

@@ -25,3 +25,9 @@ export interface Image {
   png: string;
   webp: string;
 }
+
+export interface ReplyInfo {
+  replyingToNestedComment:boolean,
+  replyingTo:number,
+  replyingToUsername:string
+}

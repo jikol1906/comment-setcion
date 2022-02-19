@@ -45,6 +45,7 @@ const AddComment: React.FunctionComponent<{
           onSubmit={(e) => submitHandler(e)}
         >
           <Textarea
+            required
             rows={6}
             value={content}
             onChange={(e) => setContent(e.target.value)}
