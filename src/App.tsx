@@ -10,7 +10,7 @@ const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
 
 function App() {
-  const { comments, replyingTo, setReplyingTo, addComment,deleteComment } = useComments();
+  const { comments, replyingTo, setReplyingTo,reply, addComment,deleteComment } = useComments();
 
   let commentsRendered: JSX.Element[] = [];
 
@@ -23,7 +23,7 @@ function App() {
           onReplyButtonClicked={() => setReplyingTo(c.id)}
           {...c}
         />
-        {replyingTo === c.id && <AddComment submit={addComment} replying />}
+        {replyingTo === c.id && <AddComment submit={reply(c.id)} replying />}
       </React.Fragment>
     );
 
@@ -40,7 +40,7 @@ function App() {
                 onReplyButtonClicked={() => setReplyingTo(r.id)}
               />
               {replyingTo === r.id && (
-                <AddComment submit={addComment} replying />
+                <AddComment submit={reply(r.id)} replying />
               )}
             </React.Fragment>
           ))}

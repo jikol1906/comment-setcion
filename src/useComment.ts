@@ -9,27 +9,34 @@ export default function useComments()  {
     const [noOfComments,setNoOfComments] = useLocalStorage<number>('noOfComments',4)
     const [replyingTo,setReplyingTo] = useState<number>(0);
 
-    const addComment = (content:string) => { 
+    const addComment = (content:string,replyingTo?:number) => { 
         
-        
-        const newComment : Comment = {
-            id:noOfComments + 1,
-            content,
-            replies:[],
-            score:0,
-            createdAt:'Now',
-            user: {
-                image:{
-                    webp:data.currentUser.image.webp,
-                    png:data.currentUser.image.png,
-                },
-                username:data.currentUser.username
-            }
-        }
+        if(replyingTo) {
 
-        setComments([...comments,newComment])
-        setNoOfComments(noOfComments+1)
+        } else {
+            const newComment : Comment = {
+                id:noOfComments + 1,
+                content,
+                replies:[],
+                score:0,
+                createdAt:'Now',
+                user: {
+                    image:{
+                        webp:data.currentUser.image.webp,
+                        png:data.currentUser.image.png,
+                    },
+                    username:data.currentUser.username
+                }
+            }
+    
+            setComments([...comments,newComment])
+            setNoOfComments(noOfComments+1)
+        }
+        
     }
+
+    const reply = (commentId:number) => (content:string) => addComment(content,commentId)
+    
 
     const deleteComment = (commentId:number) => {
         let updatedComments : Comment[] = [];
@@ -58,6 +65,6 @@ export default function useComments()  {
         
     }
 
-    return {comments,replyingTo,setReplyingTo,addComment,deleteComment}
+    return {comments,replyingTo,setReplyingTo,reply,addComment,deleteComment}
 
 }
