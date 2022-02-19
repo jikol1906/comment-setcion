@@ -27,7 +27,6 @@ export interface Image {
 }
 
 export interface ReplyInfo {
-  replyingToNestedComment:boolean,
-  replyingTo:number,
   replyingToUsername:string
+  topLevelCommentId:number;
 }

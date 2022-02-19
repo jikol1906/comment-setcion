@@ -22,8 +22,8 @@ export default function useComments()  {
         }
         
         if(replyInfo) {
-            const {replyingTo,replyingToNestedComment,replyingToUsername} = replyInfo
-            
+            const {replyingToUsername,topLevelCommentId} = replyInfo
+
             const newReply : Reply = {
                 replyingTo:replyingToUsername,
                 content,
@@ -33,6 +33,14 @@ export default function useComments()  {
                 user
 
             }
+
+                const topLevelComment = comments.find(c => c.id === topLevelCommentId)
+                const oldCommentRemoved = comments.filter(c => c.id !== topLevelCommentId)
+                topLevelComment?.replies.push(newReply)
+                
+                setComments([...oldCommentRemoved,topLevelComment!])
+
+            setReplyingTo(0)
 
             
         } else {
@@ -47,8 +55,8 @@ export default function useComments()  {
             }
     
             setComments([...comments,newComment])
-            setNoOfComments(noOfComments+1)
         }
+        setNoOfComments(noOfComments+1)
         
     }
 
