@@ -10,9 +10,14 @@ const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
 
     function App() {
-        const { comments, replyingTo, setReplyingTo,addComment } = useComments();
+        const { comments, replyingTo, setReplyingTo } = useComments();
       
   let commentsRendered: JSX.Element[] = [];
+
+  const addComment = (content:string) => {
+    console.log('adding', content);
+    
+  }
 
   comments.forEach((c) => {
     commentsRendered.push(
