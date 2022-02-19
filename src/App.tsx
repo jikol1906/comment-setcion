@@ -9,10 +9,9 @@ import React, { useEffect } from "react";
 const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
 
-function App() {
-  const { comments, replyingTo, setReplyingTo } = useComments();
-  console.log(replyingTo);
-  
+    function App() {
+        const { comments, replyingTo, setReplyingTo,addComment } = useComments();
+      
   let commentsRendered: JSX.Element[] = [];
 
   comments.forEach((c) => {
@@ -23,7 +22,7 @@ function App() {
           onReplyButtonClicked={() => setReplyingTo(c.id)}
           {...c}
         />
-        {replyingTo === c.id && <AddComment replying/>}
+        {replyingTo === c.id && <AddComment add={addComment} replying/>}
       </React.Fragment>
     );
 
@@ -38,20 +37,23 @@ function App() {
                 replyingTo={r.replyingTo}
                 onReplyButtonClicked={() => setReplyingTo(r.id)}
               />
-              {replyingTo === r.id && <AddComment replying/>}
+              {replyingTo === r.id && <AddComment add={addComment} replying/>}
             </React.Fragment>
           ))}
         </CommentReplyThread>
       );
     }
   });
+  
 
-  return (
-    <Grid p="1" gap="1">
-      {commentsRendered}
-      <AddComment/>
-    </Grid>
-  );
+
+
+    return (
+      <Grid p="1" gap="1">
+        {commentsRendered}
+        <AddComment add={addComment}/>
+      </Grid>
+    );
 }
 
 export default App;
