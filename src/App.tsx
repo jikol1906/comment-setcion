@@ -10,55 +10,51 @@ const currentUser = data.currentUser;
 /** @jsxImportSource theme-ui */
 
     function App() {
-        const { comments, replyingTo, setReplyingTo } = useComments();
-      
-  let commentsRendered: JSX.Element[] = [];
+      const { comments, replyingTo, setReplyingTo } = useComments();
 
-  const addComment = (content:string) => {
-    console.log('adding', content);
-    
-  }
+      let commentsRendered: JSX.Element[] = [];
 
-  comments.forEach((c) => {
-    commentsRendered.push(
-      <React.Fragment key={c.id}>
-        <Comment
-          isCurrentUser={c.user.username === currentUser.username}
-          onReplyButtonClicked={() => setReplyingTo(c.id)}
-          {...c}
-        />
-        {replyingTo === c.id && <AddComment add={addComment} replying/>}
-      </React.Fragment>
-    );
+      const addComment = (content: string) => {
+        console.log("adding", content);
+      };
 
-    if (c.replies.length > 0) {
-      commentsRendered.push(
-        <CommentReplyThread key={`r${c.id}`}>
-          {c.replies.map((r) => (
-            <React.Fragment key={r.id}>
-              <Comment
-                isCurrentUser={r.user.username === currentUser.username}
-                {...r}
-                replyingTo={r.replyingTo}
-                onReplyButtonClicked={() => setReplyingTo(r.id)}
-              />
-              {replyingTo === r.id && <AddComment add={addComment} replying/>}
-            </React.Fragment>
-          ))}
-        </CommentReplyThread>
+      comments.forEach((c) => {
+        commentsRendered.push(
+          <React.Fragment key={c.id}>
+            <Comment
+              isCurrentUser={c.user.username === currentUser.username}
+              onReplyButtonClicked={() => setReplyingTo(c.id)}
+              {...c}
+            />
+            {replyingTo === c.id && <AddComment add={addComment} />}
+          </React.Fragment>
+        );
+
+        if (c.replies.length > 0) {
+          commentsRendered.push(
+            <CommentReplyThread key={`r${c.id}`}>
+              {c.replies.map((r) => (
+                <React.Fragment key={r.id}>
+                  <Comment
+                    isCurrentUser={r.user.username === currentUser.username}
+                    {...r}
+                    replyingTo={r.replyingTo}
+                    onReplyButtonClicked={() => setReplyingTo(r.id)}
+                  />
+                  {replyingTo === r.id && <AddComment add={addComment} />}
+                </React.Fragment>
+              ))}
+            </CommentReplyThread>
+          );
+        }
+      });
+
+      return (
+        <Grid p="1" gap="1">
+          {commentsRendered}
+          <AddComment add={addComment} />
+        </Grid>
       );
     }
-  });
-  
 
-
-
-    return (
-      <Grid p="1" gap="1">
-        {commentsRendered}
-        <AddComment add={addComment}/>
-      </Grid>
-    );
-}
-
-export default App;
+    export default App;
