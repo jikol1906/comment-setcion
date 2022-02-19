@@ -40,7 +40,7 @@ const AddComment: React.FunctionComponent<{
           }`}
         />
         <form
-          id="sendcommentform"
+          id={replying ? "replycommentform":"sendcommentform"}
           style={{ gridArea: "textarea" }}
           onSubmit={(e) => submitHandler(e)}
         >
@@ -49,11 +49,10 @@ const AddComment: React.FunctionComponent<{
             value={content}
             onChange={(e) => setContent(e.target.value)}
           ></Textarea>
-          <input type="submit" value="test" />
         </form>
         <Button
           type="submit"
-          form="sendcommentform"
+          form={replying ? "replycommentform":"sendcommentform"}
           style={{ gridArea: "sendbtn" }}
         >
           {replying ? "Reply" : "Send"}
