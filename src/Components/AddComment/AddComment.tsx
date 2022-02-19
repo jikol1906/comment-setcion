@@ -8,8 +8,8 @@ const currentUser = data.currentUser;
 
 const AddComment: React.FunctionComponent<{
   replying?: boolean;
-  add: (content: string) => void;
-}> = ({ replying, add }) => {
+  submit: (content: string) => void;
+}> = ({ replying, submit }) => {
 
   const [content, setContent] = useState("");
 
@@ -17,7 +17,7 @@ const AddComment: React.FunctionComponent<{
     e.preventDefault();
     console.log(content);
 
-    add(content);
+    submit(content);
   };
 
   return (

@@ -22,7 +22,7 @@ const currentUser = data.currentUser;
           onReplyButtonClicked={() => setReplyingTo(c.id)}
           {...c}
         />
-        {replyingTo === c.id && <AddComment add={addComment} replying/>}
+        {replyingTo === c.id && <AddComment submit={addComment} replying/>}
       </React.Fragment>
     );
 
@@ -37,7 +37,7 @@ const currentUser = data.currentUser;
                 replyingTo={r.replyingTo}
                 onReplyButtonClicked={() => setReplyingTo(r.id)}
               />
-              {replyingTo === r.id && <AddComment add={addComment} replying/>}
+              {replyingTo === r.id && <AddComment submit={addComment} replying/>}
             </React.Fragment>
           ))}
         </CommentReplyThread>
@@ -51,7 +51,7 @@ const currentUser = data.currentUser;
     return (
       <Grid p="1" gap="1">
         {commentsRendered}
-        <AddComment add={addComment}/>
+        <AddComment submit={addComment}/>
       </Grid>
     );
 }
