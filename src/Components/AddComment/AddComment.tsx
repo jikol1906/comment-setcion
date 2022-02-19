@@ -49,7 +49,6 @@ const AddComment: React.FunctionComponent<{
             value={content}
             onChange={(e) => setContent(e.target.value)}
           ></Textarea>
-          <input type="submit" value="test" />
         </form>
         <Button
           type="submit"
