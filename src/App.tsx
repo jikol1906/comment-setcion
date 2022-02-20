@@ -15,6 +15,7 @@ function App() {
   let commentsRendered: JSX.Element[] = [];
 
   comments.forEach((c) => {
+    
     commentsRendered.push(
       <React.Fragment key={c.id}>
         <Comment
