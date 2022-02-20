@@ -30,17 +30,32 @@ function App() {
     if (c.replies.length > 0) {
       commentsRendered.push(
         <CommentReplyThread key={`r${c.id}`}>
-          {c.replies.map((r) => (
-            <React.Fragment key={r.id}>
-              {c.user.username === currentUser.username ?
-                <CurrentUserComment {...c} onDeleteButtonClicked={() => deleteComment(c.id)}/>:
-                <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
-              }
-              {replyingTo === r.id && (
-                <AddComment submit={reply(r.id,{replyingToUsername:r.user.username,topLevelCommentId:c.id})} replying />
-              )}
-            </React.Fragment>
-          ))}
+          {c.replies.map((r) => {
+            return (
+              <React.Fragment key={r.id}>
+                {r.user.username === currentUser.username ? (
+                  <CurrentUserComment
+                    {...r}
+                    onDeleteButtonClicked={() => deleteComment(c.id)}
+                  />
+                ) : (
+                  <Comment
+                    onReplyButtonClicked={() => setReplyingTo(c.id)}
+                    {...r}
+                  />
+                )}
+                {replyingTo === r.id && (
+                  <AddComment
+                    submit={reply(r.id, {
+                      replyingToUsername: r.user.username,
+                      topLevelCommentId: c.id,
+                    })}
+                    replying
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
         </CommentReplyThread>
       );
     }

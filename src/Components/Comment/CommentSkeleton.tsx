@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
-import { Box, Grid } from "theme-ui";
+import { Box, Flex, Grid } from "theme-ui";
 
 export interface ICommentSkeleton {
   userInfo: React.ReactNode;
@@ -15,6 +15,7 @@ const CommentSkeleton: React.FunctionComponent<ICommentSkeleton> = ({
   buttons,
   likedislike,
 }) => {
+  console.log('here');
   return (
     <CommentContainer>
       <Grid
@@ -30,7 +31,7 @@ const CommentSkeleton: React.FunctionComponent<ICommentSkeleton> = ({
       >
         <Box style={{ gridArea: "userinfo" }}>{userInfo}</Box>
         <Box style={{ gridArea: "content" }}>{content}</Box>
-        <Box style={{ gridArea: "likedislike" }}>{likedislike}</Box>
+        <Flex style={{ gridArea: "likedislike" }}>{likedislike}</Flex>
         <Box style={{ gridArea: "actions" }}>{buttons}</Box>
       </Grid>
     </CommentContainer>

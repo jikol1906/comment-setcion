@@ -1,7 +1,8 @@
 /** @jsxImportSource theme-ui */
-import { Avatar, Button, Heading, Text } from "theme-ui";
+import { Avatar, Button, Flex, Heading, Text } from "theme-ui";
 import { CommentProps, User } from "../../interfaces";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
+import UserInfo from "../UserInfo";
 import CommentSkeleton from "./CommentSkeleton";
 import { buttonStyles, youBadge } from "./CommentStyles";
 import CommentText from "./CommentText";
@@ -16,12 +17,14 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   score,
   user
 }) => {
+  
+  
   return (
     <CommentSkeleton
       content={<CommentText text={content} />}
       likedislike={<LikeDislikeButton score={score} />}
       buttons={
-        <>
+        <Flex sx={{gap:1}}>
           <Button
             onClick={onDeleteButtonClicked}
             variant="blank"
@@ -51,16 +54,9 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
             </svg>
             Edit
           </Button>
-        </>
+        </Flex>
       }
-      userInfo={
-        <>
-        <Avatar src={`${process.env.PUBLIC_URL}${user.image.webp.split("./")[1]}`} />
-        <Heading as="h2">{user.username}</Heading>
-        <Text sx={youBadge}>you</Text>
-        <Text variant="muted">Now</Text>
-        </>
-      }
+      userInfo={<UserInfo user={user} currentUser/>}
     />
   );
 };
