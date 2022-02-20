@@ -4,7 +4,7 @@ import { CommentProps } from "../../interfaces";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import UserInfo from "../UserInfo";
-import { buttonStyles } from "./CommentStyles";
+import { baseCommentGridAreas, buttonStyles } from "./CommentStyles";
 import CommentText from "./CommentText";
 
 interface ICurrentUserComment extends CommentProps {
@@ -21,11 +21,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
     <CommentContainer>
       <Grid
         sx={{
-          gridTemplateAreas: `
-                "userinfo userinfo"
-                "content content"
-                "likedislike actions"
-            `,
+          gridTemplateAreas: baseCommentGridAreas,
           gridTemplateColumns: "1fr auto",
           gap: 1,
         }}
