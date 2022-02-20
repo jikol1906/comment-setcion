@@ -9,7 +9,7 @@ const LikeDislikeButton: React.FunctionComponent<ILikeDislikeButtonProps> = (
   {score}
 ) => {
   return (
-    <Flex bg="verylightgray" sx={{ borderRadius: "10px" }}>
+    <Flex bg="verylightgray" sx={{ borderRadius: "10px", flexDirection:[null,'column'],alignItems:'center'}}>
       <IconButton aria-label="like">
         <svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
           <path

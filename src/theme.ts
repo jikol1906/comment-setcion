@@ -2,6 +2,8 @@ import type { Theme } from "theme-ui";
 import { opacityHover } from "./defaultStyles";
 
 export const theme: Theme = {
+  breakpoints:["90em"],
+
   fonts: {
     main: "'Rubik', sans-serif;",
   },
@@ -43,7 +45,6 @@ export const theme: Theme = {
     },
     icon: {
       cursor: 'pointer',
-      height: "auto",
       outline:"none",
       p:"1rem",
       "& svg" : {
