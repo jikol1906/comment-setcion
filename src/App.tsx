@@ -36,11 +36,11 @@ function App() {
                 {r.user.username === currentUser.username ? (
                   <CurrentUserComment
                     {...r}
-                    onDeleteButtonClicked={() => deleteComment(c.id)}
+                    onDeleteButtonClicked={() => deleteComment(r.id)}
                   />
                 ) : (
                   <Comment
-                    onReplyButtonClicked={() => setReplyingTo(c.id)}
+                    onReplyButtonClicked={() => setReplyingTo(r.id)}
                     {...r}
                   />
                 )}
