@@ -30,3 +30,9 @@ export interface ReplyInfo {
   replyingToUsername:string
   topLevelCommentId:number;
 }
+
+export interface CommentProps {
+  content: string;
+  score: number;
+  user:User
+}

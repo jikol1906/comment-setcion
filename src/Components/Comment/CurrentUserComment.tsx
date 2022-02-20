@@ -1,54 +1,68 @@
 /** @jsxImportSource theme-ui */
-import { Button } from "theme-ui";
-import CommentBase, { ICommentBase } from "./CommentBase";
-import { buttonStyles } from "./CommentStyles";
+import { Avatar, Button, Heading, Text } from "theme-ui";
+import { CommentProps, User } from "../../interfaces";
+import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
+import CommentSkeleton from "./CommentSkeleton";
+import { buttonStyles, youBadge } from "./CommentStyles";
+import CommentText from "./CommentText";
 
-
-interface ICurrentUserComment extends ICommentBase {
-  onReplyButtonClicked: () => void;
+interface ICurrentUserComment extends CommentProps {
   onDeleteButtonClicked: () => void;
 }
 
 const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
-  onReplyButtonClicked,
   onDeleteButtonClicked,
-  ...rest
+  content,
+  score,
+  user
 }) => {
   return (
-    <CommentBase {...rest}>
-
-      
-      
-        <Button
-          onClick={onDeleteButtonClicked}
-          variant="blank"
-          sx={{ ...buttonStyles, color: "softRed" }}
-        >
-          <svg
-            sx={{ mr: "6px" }}
-            width="12"
-            height="14"
-            xmlns="http://www.w3.org/2000/svg"
+    <CommentSkeleton
+      content={<CommentText text={content} />}
+      likedislike={<LikeDislikeButton score={score} />}
+      buttons={
+        <>
+          <Button
+            onClick={onDeleteButtonClicked}
+            variant="blank"
+            sx={{ ...buttonStyles, color: "softRed" }}
           >
-            <path d="M1.167 12.448c0 .854.7 1.552 1.555 1.552h6.222c.856 0 1.556-.698 1.556-1.552V3.5H1.167v8.948Zm10.5-11.281H8.75L7.773 0h-3.88l-.976 1.167H0v1.166h11.667V1.167Z" />
-          </svg>
-          Delete
-        </Button>
-        <Button variant="blank" sx={{ ...buttonStyles, color: "moderateblue" }}>
-          <svg
-            sx={{ mr: "6px" }}
-            width="14"
-            height="14"
-            xmlns="http://www.w3.org/2000/svg"
+            <svg
+              sx={{ mr: "6px" }}
+              width="12"
+              height="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M1.167 12.448c0 .854.7 1.552 1.555 1.552h6.222c.856 0 1.556-.698 1.556-1.552V3.5H1.167v8.948Zm10.5-11.281H8.75L7.773 0h-3.88l-.976 1.167H0v1.166h11.667V1.167Z" />
+            </svg>
+            Delete
+          </Button>
+          <Button
+            variant="blank"
+            sx={{ ...buttonStyles, color: "moderateblue" }}
           >
-            <path d="M13.479 2.872 11.08.474a1.75 1.75 0 0 0-2.327-.06L.879 8.287a1.75 1.75 0 0 0-.5 1.06l-.375 3.648a.875.875 0 0 0 .875.954h.078l3.65-.333c.399-.04.773-.216 1.058-.499l7.875-7.875a1.68 1.68 0 0 0-.061-2.371Zm-2.975 2.923L8.159 3.449 9.865 1.7l2.389 2.39-1.75 1.706Z" />
-          </svg>
-          Edit
-        </Button>
-      
-    </CommentBase>
+            <svg
+              sx={{ mr: "6px" }}
+              width="14"
+              height="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M13.479 2.872 11.08.474a1.75 1.75 0 0 0-2.327-.06L.879 8.287a1.75 1.75 0 0 0-.5 1.06l-.375 3.648a.875.875 0 0 0 .875.954h.078l3.65-.333c.399-.04.773-.216 1.058-.499l7.875-7.875a1.68 1.68 0 0 0-.061-2.371Zm-2.975 2.923L8.159 3.449 9.865 1.7l2.389 2.39-1.75 1.706Z" />
+            </svg>
+            Edit
+          </Button>
+        </>
+      }
+      userInfo={
+        <>
+        <Avatar src={`${process.env.PUBLIC_URL}${user.image.webp.split("./")[1]}`} />
+        <Heading as="h2">{user.username}</Heading>
+        <Text sx={youBadge}>you</Text>
+        <Text variant="muted">Now</Text>
+        </>
+      }
+    />
   );
 };
-
 
 export default CurrentUserComment;
