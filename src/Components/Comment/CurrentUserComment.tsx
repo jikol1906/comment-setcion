@@ -33,7 +33,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
           <CommentText text={content} />
         </Box>
         <Flex style={{ gridArea: "likedislike" }}>
-          <LikeDislikeButton score={0} />
+          <LikeDislikeButton score={score} />
         </Flex>
         <Box style={{ gridArea: "actions" }}>
           <Flex sx={{ gap: 1 }}>
