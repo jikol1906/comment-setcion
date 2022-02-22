@@ -1,21 +1,28 @@
-import * as React from 'react';
+import * as React from "react";
 
-interface IIconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
-    icon:React.ReactNode
-    variant:'normal' | 'danger',
+interface IIconButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  icon: React.ReactNode;
+  variant: "normal" | "danger";
 }
 
-const IconButton: React.FunctionComponent<IIconButtonProps> = ({children,icon,variant,...rest}) => {
-
-   
-
-  return <button
-    className={`flex items-center btn-hover-styles font-semibold text-sm ${variant === 'normal' ? 'text-moderateblue' : 'text-softRed'}`}
-    {...rest}
-  >
-      {icon}
+const IconButton: React.FunctionComponent<IIconButtonProps> = ({
+  children,
+  icon,
+  variant,
+  ...rest
+}) => {
+  return (
+    <button
+      className={`flex items-center btn-hover-styles font-semibold text-sm ${
+        variant === "normal" ? "text-moderateblue" : "text-softRed"
+      }`}
+      {...rest}
+    >
+      <div className="mr-2 w-3 fill-current">{icon}</div>
       {children}
-  </button>;
+    </button>
+  );
 };
 
 export default IconButton;
