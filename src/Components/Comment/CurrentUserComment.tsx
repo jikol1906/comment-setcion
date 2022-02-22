@@ -18,7 +18,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   return (
     <CommentSkeleton>
       <div className="col-span-full">
-        <UserInfo user={user} />
+        <UserInfo user={user} currentUser />
       </div>
       <div className="col-span-full">
         <CommentText text={content} />

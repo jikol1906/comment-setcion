@@ -61,7 +61,7 @@ function App() {
   });
 
   return (
-    <div className="grid gap-2 p-4">
+    <div className="grid gap-2 p-2">
       {commentsRendered}
       <AddComment submit={addComment} />
     </div>

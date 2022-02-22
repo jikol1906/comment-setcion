@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Text } from "theme-ui";
 import { User } from "../interfaces";
 
 
@@ -18,9 +17,9 @@ const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
         src={`${process.env.PUBLIC_URL}${user.image.webp.split("./")[1]}`}
         className="w-7"
       />
-      <div>
+      <div className="flex items-center space-x-1">
         <h2 className="font-semibold">{user.username}</h2>
-        {currentUser && <span >you</span>}
+        {currentUser && <span className="bg-moderateblue  text-white text-xs rounded px-2 py-[.1rem]">you</span>}
       </div>
       <span className="text-sm text-grayishBlue">Now</span>
     </div>
