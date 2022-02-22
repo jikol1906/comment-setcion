@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Flex, Avatar, Heading, Text } from "theme-ui";
+import { Text } from "theme-ui";
 import { User } from "../interfaces";
 import { youBadge } from "./Comment/CommentStyles";
 
@@ -13,14 +13,16 @@ const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
   user,
 }) => {
   return (
-    <div className="flex items-center">
-      <Avatar
+    <div className="flex items-center space-x-3">
+      <img
         src={`${process.env.PUBLIC_URL}${user.image.webp.split("./")[1]}`}
-        mr="10px"
+        className="w-9"
       />
-      <Heading as="h2" mr="5px">{user.username}</Heading>
-      {currentUser && <Text mr="5px" sx={youBadge}>you</Text>}
-      <Text variant="muted">Now</Text>
+      <div>
+        <h2 className="font-semibold">{user.username}</h2>
+        {currentUser && <Text mr="5px" sx={youBadge}>you</Text>}
+      </div>
+      <span className="text-sm text-grayishBlue">Now</span>
     </div>
   );
 };

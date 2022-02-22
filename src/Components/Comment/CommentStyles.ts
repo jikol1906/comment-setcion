@@ -42,3 +42,5 @@ export const youBadge : ThemeUICSSObject = {
     borderRadius:'5px',
     padding:'1px 7px'
 }
+
+export const commentGridStyle = "grid grid-cols-[1fr__auto] gap-4"

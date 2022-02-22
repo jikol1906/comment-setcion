@@ -7,22 +7,12 @@ const CommentReplyThread: React.FunctionComponent<ICommentReplyThreadProps> = (
   {children}
 ) => {
   return (
-    <Flex
-      sx={{
-        "&::before": {
-          content: "''",
-          display: "block",
-          width: "3px",
-          bg: "lightgrayishblue",
-          marginRight: "1",
-          flexShrink: 0,
-        },
-      }}
-    >
-      <Flex sx={{ flexDirection: "column", gap: 1, flex:1 }}>
+    <div className="flex">
+      <span className="mr-4 h-full bg-gray-200 w-[2px]"></span>
+      <div className="grid gap-2 flex-1">
         {children}
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 

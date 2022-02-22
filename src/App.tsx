@@ -62,10 +62,10 @@ function App() {
   });
 
   return (
-    <Grid p="1" gap="1">
+    <div className="grid gap-2 p-4">
       {commentsRendered}
       <AddComment submit={addComment} />
-    </Grid>
+    </div>
   );
 }
 

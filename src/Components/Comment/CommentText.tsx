@@ -7,7 +7,7 @@ interface ICommentTextProps {
 
 const CommentText: React.FunctionComponent<ICommentTextProps> = ({ text }) => {
   return (
-    <p className="font-main text-grayishBlue whitespace-pre-line">
+    <p className="font-main text-sm text-grayishBlue whitespace-pre-line">
       {text}
     </p>
   );
