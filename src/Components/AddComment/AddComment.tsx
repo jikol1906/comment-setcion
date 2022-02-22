@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Avatar, Box, Button, Grid, Textarea } from "theme-ui";
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
 import data from "../../data.json";
 import { useState } from "react";
+import TextArea from "../TextArea/TextArea";
 
 const currentUser = data.currentUser;
 
@@ -28,14 +28,13 @@ const AddComment: React.FunctionComponent<{
           id={replying ? "replycommentform":"sendcommentform"}
           onSubmit={(e) => submitHandler(e)}
         >
-          <textarea
+          <TextArea
             required
             placeholder="Add a comment..."
-            className="w-full border-2 border-gray-200 resize-none rounded-lg p-3"
             rows={3}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-          ></textarea>
+          ></TextArea>
         </form>
         <img
           className="w-9"
