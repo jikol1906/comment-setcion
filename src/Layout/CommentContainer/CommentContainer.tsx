@@ -5,13 +5,9 @@ interface ICommentContainerProps {
 }
 
 const CommentContainer: React.FunctionComponent<ICommentContainerProps> = ({children}) => {
-  return <Box sx={{
-    bg:"white",
-    p:1,
-    borderRadius:10,
-  }}>
+  return <div className='rounded bg-white p-4'>
     {children}    
-  </Box>;
+  </div>;
 };
 
 export default CommentContainer;

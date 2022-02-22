@@ -22,43 +22,35 @@ const AddComment: React.FunctionComponent<{
 
   return (
     <CommentContainer>
-      <Grid
-        gap={1}
-        sx={{
-          gridTemplateAreas: `
-          "textarea textarea textarea"
-          "avatar   .       sendbtn"
-          `,
-          gridTemplateColumns: "auto 1fr auto",
-          alignItems: "flex-start",
-        }}
-      >
-        <Avatar
-          style={{ gridArea: "avatar" }}
+      <div className="grid gap-2 grid-cols-[auto__1fr__auto]">
+        <form
+          className="col-span-full"
+          id={replying ? "replycommentform":"sendcommentform"}
+          onSubmit={(e) => submitHandler(e)}
+        >
+          <textarea
+            required
+            placeholder="Add a comment..."
+            className="w-full border-2 border-gray-200 resize-none rounded-lg p-4"
+            rows={4}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+        </form>
+        <img
+          className="w-9"
           src={`${process.env.PUBLIC_URL}${
             currentUser.image.webp.split("./")[1]
           }`}
         />
-        <form
-          id={replying ? "replycommentform":"sendcommentform"}
-          style={{ gridArea: "textarea" }}
-          onSubmit={(e) => submitHandler(e)}
-        >
-          <Textarea
-            required
-            rows={6}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          ></Textarea>
-        </form>
-        <Button
+        <button
           type="submit"
+          className="btn col-start-3 self-center"
           form={replying ? "replycommentform":"sendcommentform"}
-          style={{ gridArea: "sendbtn" }}
         >
           {replying ? "Reply" : "Send"}
-        </Button>
-      </Grid>
+        </button>
+      </div>
     </CommentContainer>
   );
 };

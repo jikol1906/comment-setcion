@@ -13,7 +13,7 @@ const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
   user,
 }) => {
   return (
-    <Flex sx={{ alignItems: "center" }}>
+    <div className="flex items-center">
       <Avatar
         src={`${process.env.PUBLIC_URL}${user.image.webp.split("./")[1]}`}
         mr="10px"
@@ -21,7 +21,7 @@ const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
       <Heading as="h2" mr="5px">{user.username}</Heading>
       {currentUser && <Text mr="5px" sx={youBadge}>you</Text>}
       <Text variant="muted">Now</Text>
-    </Flex>
+    </div>
   );
 };
 

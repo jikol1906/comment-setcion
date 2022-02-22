@@ -1,5 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+@layer base {
+
+    html {
+        @apply bg-verylightgray
+    }
+}
+
+@layer components {
+    .btn {
+        @apply py-3 px-6 bg-moderateblue text-white text-sm rounded-lg uppercase font-bold 
+    }
+}
+
