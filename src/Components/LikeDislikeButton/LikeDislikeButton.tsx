@@ -19,7 +19,7 @@ const LikeDislikeButton: React.FunctionComponent<ILikeDislikeButtonProps> = (
         </svg>
       </button>
       <div className="flex items-center">
-        <p className="text-moderateblue font-bold">{score}</p>
+        <p className="text-moderateblue text-sm font-bold">{score}</p>
       </div>
       <button className="w-8 h-8 flex justify-center items-center" aria-label="dislike">
         <svg width="11" height="3" xmlns="http://www.w3.org/2000/svg">

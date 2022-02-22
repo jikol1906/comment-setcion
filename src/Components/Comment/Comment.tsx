@@ -1,12 +1,9 @@
 /** @jsxImportSource theme-ui */
 
-import { Avatar, Button, Heading, Text, Flex, Grid} from "theme-ui";
 import { CommentProps } from "../../interfaces";
-import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import UserInfo from "../UserInfo";
 import CommentSkeleton from "./CommentSkeleton";
-import { baseCommentGridAreas, buttonStyles } from "./CommentStyles";
 import CommentText from "./CommentText";
 
 interface ICommentProps extends CommentProps {

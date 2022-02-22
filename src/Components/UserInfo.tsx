@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Text } from "theme-ui";
 import { User } from "../interfaces";
-import { youBadge } from "./Comment/CommentStyles";
+
 
 interface IUserInfoProps {
   currentUser?: boolean;
@@ -20,7 +20,7 @@ const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
       />
       <div>
         <h2 className="font-semibold">{user.username}</h2>
-        {currentUser && <Text mr="5px" sx={youBadge}>you</Text>}
+        {currentUser && <span >you</span>}
       </div>
       <span className="text-sm text-grayishBlue">Now</span>
     </div>
