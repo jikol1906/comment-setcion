@@ -31,7 +31,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
         <Box style={{ gridArea: "userinfo" }}>
           <UserInfo user={user} />
         </Box>
-        <Box style={{ gridArea: "content" }}>
+        <Box className="bg-red-400" style={{ gridArea: "content" }}>
           <CommentText text={content} />
         </Box>
         <Flex style={{ gridArea: "likedislike" }}>

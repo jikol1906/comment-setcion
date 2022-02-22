@@ -8,9 +8,10 @@ import { theme } from './theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+    <div className="bg-black">
       <App />
-    </ThemeProvider>
+    </div>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
