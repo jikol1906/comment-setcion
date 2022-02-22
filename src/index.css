@@ -12,7 +12,13 @@
 
 @layer components {
     .btn {
-        @apply py-3 px-6 bg-moderateblue text-white text-sm rounded-lg uppercase font-bold 
+        @apply py-3 px-6 bg-moderateblue text-white text-sm rounded-lg uppercase font-bold hover:opacity-50 
+    }
+}
+
+@layer utilities {
+    .btn-hover-styles {
+        @apply hover:opacity-50 focus:opacity-50 outline-none
     }
 }
 

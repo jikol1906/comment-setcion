@@ -45,7 +45,7 @@ const AddComment: React.FunctionComponent<{
         />
         <button
           type="submit"
-          className="btn col-start-3 self-center"
+          className="btn col-start-3 self-center btn-hover-styles"
           form={replying ? "replycommentform":"sendcommentform"}
         >
           {replying ? "Reply" : "Send"}

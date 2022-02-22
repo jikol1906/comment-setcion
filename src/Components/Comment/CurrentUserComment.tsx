@@ -27,7 +27,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
         <LikeDislikeButton score={score} />
       </div>
       <div className="flex col-start-3 space-x-2">
-        <button className="flex items-center font-semibold text-sm text-softRed" onClick={onDeleteButtonClicked}>
+        <button className="flex items-center font-semibold text-sm text-softRed btn-hover-styles" onClick={onDeleteButtonClicked}>
           <svg
             className="mr-2 fill-current"
             width="12"
@@ -38,7 +38,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
           </svg>
           Delete
         </button>
-        <button className="flex items-center font-semibold text-sm text-moderateblue">
+        <button className="flex items-center font-semibold text-sm text-moderateblue btn-hover-styles">
           <svg
             className="mr-2 fill-current"
             width="14"

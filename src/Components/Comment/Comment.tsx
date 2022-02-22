@@ -27,7 +27,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
       <div className="flex">
         <LikeDislikeButton score={score} />
       </div>
-      <button className="flex items-center self-center text-moderateblue col-start-3">
+      <button className="flex items-center self-center text-moderateblue col-start-3 btn-hover-styles">
         <svg
           className="fill-current mr-2"
           width="14"
