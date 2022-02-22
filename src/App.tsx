@@ -1,4 +1,3 @@
-import { Grid } from "theme-ui";
 import AddComment from "./Components/AddComment/AddComment";
 import Comment from "./Components/Comment/Comment";
 import CommentReplyThread from "./Layout/CommentReplyThread/CommentReplyThread";
@@ -8,7 +7,7 @@ import React from "react";
 import CurrentUserComment from "./Components/Comment/CurrentUserComment";
 
 const currentUser = data.currentUser;
-/** @jsxImportSource theme-ui */
+
 
 function App() {
   const { comments, replyingTo, setReplyingTo,reply, addComment,deleteComment } = useComments();

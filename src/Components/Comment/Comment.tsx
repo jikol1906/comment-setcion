@@ -1,4 +1,4 @@
-/** @jsxImportSource theme-ui */
+
 
 import { CommentProps } from "../../interfaces";
 import IconButton from "../Button/IconButton";

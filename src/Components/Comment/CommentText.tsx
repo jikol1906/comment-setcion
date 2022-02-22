@@ -1,4 +1,4 @@
-/** @jsxImportSource theme-ui */
+
 import { Text } from "theme-ui";
 
 interface ICommentTextProps {

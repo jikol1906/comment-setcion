@@ -1,4 +1,4 @@
-/** @jsxImportSource theme-ui */
+
 import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
 
 const CommentSkeleton: React.FunctionComponent= ({

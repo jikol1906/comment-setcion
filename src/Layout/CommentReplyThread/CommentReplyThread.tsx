@@ -1,4 +1,4 @@
-/** @jsxImportSource theme-ui */
+
 import { Flex } from "theme-ui";
 
 interface ICommentReplyThreadProps {}
