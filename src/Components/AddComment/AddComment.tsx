@@ -31,8 +31,8 @@ const AddComment: React.FunctionComponent<{
           <textarea
             required
             placeholder="Add a comment..."
-            className="w-full border-2 border-gray-200 resize-none rounded-lg p-4"
-            rows={4}
+            className="w-full border-2 border-gray-200 resize-none rounded-lg p-3"
+            rows={3}
             value={content}
             onChange={(e) => setContent(e.target.value)}
           ></textarea>

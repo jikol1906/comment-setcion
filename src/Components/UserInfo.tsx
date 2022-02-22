@@ -16,7 +16,7 @@ const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
     <div className="flex items-center space-x-3">
       <img
         src={`${process.env.PUBLIC_URL}${user.image.webp.split("./")[1]}`}
-        className="w-9"
+        className="w-7"
       />
       <div>
         <h2 className="font-semibold">{user.username}</h2>
