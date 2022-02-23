@@ -18,7 +18,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
   return (
     <CommentSkeleton
       userInfo={<UserInfo user={user} />}
-      text={<CommentText text={content} />}
+      content={<CommentText text={content} />}
       score={score}
       buttons={
         <IconButton

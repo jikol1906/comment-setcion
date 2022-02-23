@@ -3,14 +3,14 @@ import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 
 interface CommentSkeletonProps {
   userInfo: React.ReactNode;
-  text: React.ReactNode;
+  content: React.ReactNode;
   buttons: React.ReactNode;
   score: number;
 }
 //Component that is responsible for the layout of the comment
 const CommentSkeleton: React.FunctionComponent<CommentSkeletonProps> = ({
   userInfo,
-  text,
+  content,
   buttons,
   score,
 }) => {
@@ -18,7 +18,7 @@ const CommentSkeleton: React.FunctionComponent<CommentSkeletonProps> = ({
     <CommentContainer>
       <div className="grid gap-4 grid-cols-[auto__1fr__auto] md:gap-6">
         <div className="col-span-full md:col-start-2 md:col-end-3">{userInfo}</div>
-        <div className="col-span-full md:col-start-2 md:col-end-4">{text}</div>
+        <div className="col-span-full md:col-start-2 md:col-end-4">{content}</div>
         <div className="md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-3">
           <LikeDislikeButton score={score} />
         </div>

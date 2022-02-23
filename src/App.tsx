@@ -19,7 +19,7 @@ function App() {
     commentsRendered.push(
       <React.Fragment key={c.id}>
         {c.user.username === currentUser.username ?
-          <CurrentUserComment {...c} onDeleteButtonClicked={() => deleteComment(c.id)}/>:
+          <CurrentUserComment {...c} editing onDeleteButtonClicked={() => deleteComment(c.id)}/>:
           <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
         }
         {replyingTo === c.id && <AddComment submit={reply(c.id,{replyingToUsername:c.user.username, topLevelCommentId:c.id})} replying />}
