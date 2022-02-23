@@ -1,12 +1,14 @@
 import { CommentProps } from "../../interfaces";
 import IconButton from "../Button/IconButton";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
+import TextArea from "../TextArea/TextArea";
 import UserInfo from "../UserInfo";
 import CommentSkeleton from "./CommentSkeleton";
 import CommentText from "./CommentText";
 
 interface ICurrentUserComment extends CommentProps {
   onDeleteButtonClicked: () => void;
+  editing?:boolean
 }
 
 const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
@@ -14,11 +16,25 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   content,
   score,
   user,
+  editing
 }) => {
+
+  const textSection = editing ?<>
+    <form>
+      <TextArea>
+
+      </TextArea>
+      <button className="btn">
+          Update
+      </button>
+    </form>
+  </> : <CommentText text={content} />
+
+
   return (
     <CommentSkeleton
       userInfo={<UserInfo user={user} currentUser />}
-      text={<CommentText text={content} />}
+      text={textSection}
       score={score}
       buttons={
         <>
