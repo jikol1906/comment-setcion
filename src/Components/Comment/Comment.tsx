@@ -16,17 +16,11 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
   user,
 }) => {
   return (
-    <CommentSkeleton>
-      <div className="col-span-full">
-        <UserInfo user={user} />
-      </div>
-      <div className="col-span-full">
-        <CommentText text={content} />
-      </div>
-
-      <LikeDislikeButton score={score} />
-
-      <div className="col-start-3 self-center">
+    <CommentSkeleton
+      userInfo={<UserInfo user={user} />}
+      text={<CommentText text={content} />}
+      score={score}
+      buttons={
         <IconButton
           variant="normal"
           icon={
@@ -37,8 +31,8 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
         >
           Reply
         </IconButton>
-      </div>
-    </CommentSkeleton>
+      }
+    />
   );
 };
 
