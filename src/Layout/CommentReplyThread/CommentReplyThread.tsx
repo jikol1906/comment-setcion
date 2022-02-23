@@ -1,6 +1,3 @@
-
-import { Flex } from "theme-ui";
-
 interface ICommentReplyThreadProps {}
 
 const CommentReplyThread: React.FunctionComponent<ICommentReplyThreadProps> = (

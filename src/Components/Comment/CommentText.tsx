@@ -1,6 +1,4 @@
 
-import { Text } from "theme-ui";
-
 interface ICommentTextProps {
   text: string;
 }
