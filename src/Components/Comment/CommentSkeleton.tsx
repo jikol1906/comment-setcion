@@ -7,7 +7,7 @@ interface CommentSkeletonProps {
   buttons: React.ReactNode;
   score: number;
 }
-
+//Component that is responsible for the layout of the comment
 const CommentSkeleton: React.FunctionComponent<CommentSkeletonProps> = ({
   userInfo,
   text,
