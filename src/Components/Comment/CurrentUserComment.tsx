@@ -20,9 +20,11 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
 }) => {
   const textSection = editing ? (
     <>
-      <form className="flex flex-col items-end space-y-4">
-        <TextArea rows={4}>{content}</TextArea>
-        <button className="btn">Update</button>
+      <form id="updateform" className="flex flex-col items-end space-y-4">
+        <TextArea rows={4} value={content}></TextArea>
+        <button type="submit" form="updateform" className="btn">
+          Update
+        </button>
       </form>
     </>
   ) : (

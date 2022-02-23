@@ -47,7 +47,7 @@ const AddComment: React.FunctionComponent<{
           className="btn col-start-3 self-center btn-hover-styles"
           form={replying ? "replycommentform":"sendcommentform"}
         >
-          {replying ? "Reply" : "Send"}
+            {replying ? "Reply" : "Send"}
         </button>
       </div>
     </CommentContainer>
