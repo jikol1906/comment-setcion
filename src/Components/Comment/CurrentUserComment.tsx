@@ -18,19 +18,6 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   user,
   editing,
 }) => {
-  const textSection = editing ? (
-    <>
-      <form id="updateform" className="flex flex-col items-end space-y-4">
-        <TextArea rows={4} value={content}></TextArea>
-        <button type="submit" form="updateform" className="btn">
-          Update
-        </button>
-      </form>
-    </>
-  ) : (
-    <CommentText text={content} />
-  );
-
   return (
     <CommentSkeleton>
       <div className="col-span-full md:col-start-2 md:col-end-3">
