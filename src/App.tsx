@@ -1,14 +1,6 @@
 import AddComment from "./Components/AddComment/AddComment";
-import Comment from "./Components/Comment/Comment";
-import CommentReplyThread from "./Layout/CommentReplyThread/CommentReplyThread";
 import useComments from "./useComment";
-import data from "./data.json";
-import React from "react";
-import CurrentUserComment from "./Components/Comment/CurrentUserComment";
 import CommentList from "./Components/CommentList";
-
-const currentUser = data.currentUser;
-
 
 function App() {
   const { comments, replyingTo, setReplyingTo,reply, addComment,deleteComment } = useComments();
