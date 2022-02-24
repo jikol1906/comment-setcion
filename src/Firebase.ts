@@ -11,7 +11,11 @@ import {
     doc, 
     serverTimestamp, 
     arrayUnion,
-    setDoc
+    setDoc,
+    QuerySnapshot,
+    DocumentData,
+    FirestoreError,
+    writeBatch
 } from "firebase/firestore";
 import { getAuth, signInAnonymously} from "firebase/auth";
 // Import the functions you need from the SDKs you need
@@ -40,6 +44,10 @@ export const seedDatabase = async (uid:string) => {
     
     const commentsColl = collection(db,uid)
 
+    // // Get a new write batch
+    const batch = writeBatch(db);
+
+
 
     const q = query(commentsColl);
 
@@ -47,8 +55,19 @@ export const seedDatabase = async (uid:string) => {
 
     if(snap.empty) {
         data.comments.forEach(async(c) => {
-            await setDoc(doc(commentsColl),c,{merge:true})
+            batch.set(doc(commentsColl),c,{merge:true})
         })
     } 
+
+    await batch.commit();
 }
 
+export const subscribeComments = 
+        (uid:string,
+        next:(snapshot: QuerySnapshot<DocumentData>) => void | undefined,
+        error?: ((error: FirestoreError) => void) | undefined
+        ) => {
+    const commentsColl = collection(db,uid)
+    const commentsQuery = query(commentsColl,orderBy("createdAt"))
+    return onSnapshot(commentsQuery,{next,error})
+}

@@ -19,6 +19,9 @@ function App() {
 
     if(user) {
       FirestoreService.seedDatabase(user.uid)
+      FirestoreService.subscribeComments(user.uid,(s => {
+        s.docs.forEach(d => console.log(d.data()))
+      }))
     }
   },[user])
 
