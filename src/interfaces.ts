@@ -1,19 +1,16 @@
-export interface Comment {
+export interface CommentBase {
   id: number;
   content: string;
   createdAt: string;
   score: number;
   user: User;
+}
+export interface Comment extends CommentBase {
   replies: Reply[];
 }
 
-export interface Reply {
-  id: number;
-  content: string;
-  createdAt: string;
-  score: number;
+export interface Reply extends CommentBase {
   replyingTo: string;
-  user: User;
 }
 
 export interface User {
