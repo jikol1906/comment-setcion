@@ -10,17 +10,14 @@ import {
     updateDoc,
     doc, 
     serverTimestamp, 
-    arrayUnion
+    arrayUnion,
+    setDoc
 } from "firebase/firestore";
 import { getAuth, signInAnonymously} from "firebase/auth";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import data from './data.json';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyB1e1eAoc2OPXd3FB3Ba2yMce0FFjIcSfs",
   authDomain: "comment-section-e9c09.firebaseapp.com",
@@ -31,13 +28,27 @@ const firebaseConfig = {
   measurementId: "G-9E4QKH0TRM"
 };
 
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore();
+
 export const authenticateAnonymously = () => {
     return signInAnonymously(getAuth(app));
 };
 
-export const seedDatabase = () => {
+export const seedDatabase = async (uid:string) => {
     
+    const commentsColl = collection(db,uid)
+
+
+    const q = query(commentsColl);
+
+    const snap = await getDocs(q)
+
+    if(snap.empty) {
+        data.comments.forEach(async(c) => {
+            await setDoc(doc(commentsColl),c,{merge:true})
+        })
+    } 
 }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
