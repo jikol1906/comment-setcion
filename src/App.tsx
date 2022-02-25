@@ -17,16 +17,14 @@ function App() {
   } = useComments(user?.uid);
 
   useEffect(() => {
-    FirestoreService.authenticateAnonymously().then((user) => {
+    async function authenticateAndSeedDp() {
+      const user = await FirestoreService.authenticateAnonymously()
       setUser(user.user);
-    });
+      FirestoreService.seedDatabase(user.user.uid);
+    }
+    authenticateAndSeedDp()
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      FirestoreService.seedDatabase(user.uid);
-    }
-  }, [user]);
 
   
  
