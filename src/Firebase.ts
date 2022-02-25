@@ -15,7 +15,8 @@ import {
     QuerySnapshot,
     DocumentData,
     FirestoreError,
-    writeBatch
+    writeBatch,
+    where
 } from "firebase/firestore";
 import { getAuth, signInAnonymously} from "firebase/auth";
 // Import the functions you need from the SDKs you need
@@ -42,32 +43,73 @@ export const authenticateAnonymously = () => {
 
 export const seedDatabase = async (uid:string) => {
     
-    const commentsColl = collection(db,uid)
+    const commentsColl = collection(db, uid);
 
-    // // Get a new write batch
     const batch = writeBatch(db);
-
-
-
+  
     const q = query(commentsColl);
-
-    const snap = await getDocs(q)
-
-    if(snap.empty) {
-        data.comments.forEach(async(c) => {
-            batch.set(doc(commentsColl),c,{merge:true})
-        })
-    } 
-
+  
+    const snap = await getDocs(q);
+  
+    if (snap.empty) {
+      batch.set(doc(commentsColl), {
+        content:
+          "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
+        createdAt: "1 month ago",
+        score: 12,
+        user: {
+          image: {
+            png: "./images/avatars/image-amyrobson.png",
+            webp: "./images/avatars/image-amyrobson.webp",
+          },
+          username: "amyrobson",
+        },
+        parentComment: null,
+        hasReplies: false,
+      });
+  
+      const docWithReplies = doc(commentsColl);
+  
+      batch.set(docWithReplies, {
+        content: "A comment that has some replies",
+        createdAt: "1 month ago",
+        score: 12,
+        user: {
+          image: {
+            png: "./images/avatars/image-amyrobson.png",
+            webp: "./images/avatars/image-amyrobson.webp",
+          },
+          username: "amyrobson",
+        },
+        parentComment: null,
+        hasReplies: true,
+      });
+  
+      batch.set(doc(commentsColl), {
+        content: "A comment that has some replies",
+        createdAt: "1 month ago",
+        score: 12,
+        user: {
+          image: {
+            png: "./images/avatars/image-amyrobson.png",
+            webp: "./images/avatars/image-amyrobson.webp",
+          },
+          username: "amyrobson",
+        },
+        parentComment: docWithReplies.id,
+        hasReplies: false,
+      });
+    }
+  
     await batch.commit();
 }
 
-export const subscribeComments = 
+export const subscribeRootComments = 
         (uid:string,
         next:(snapshot: QuerySnapshot<DocumentData>) => void | undefined,
         error?: ((error: FirestoreError) => void) | undefined
         ) => {
     const commentsColl = collection(db,uid)
-    const commentsQuery = query(commentsColl,orderBy("createdAt"))
+    const commentsQuery = query(commentsColl,where("parentComment","==",null))
     return onSnapshot(commentsQuery,{next,error})
 }
