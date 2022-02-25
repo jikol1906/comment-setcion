@@ -15,13 +15,16 @@ export default function useComments(userId:string|undefined)  {
 
         if(userId) {
             FirestoreService.subscribeRootComments(userId,(c) => {
-                c.forEach(doc => {
-                    const comm = doc.data() as Comment
-                    comm.id = doc.id
-                    tempComments.push(comm)
-                })
                 
-                setComments(tempComments)
+                if(!c.empty) {
+                    c.forEach(doc => {
+                        const comm = doc.data() as Comment
+                        comm.id = doc.id
+                        tempComments.push(comm)
+                    })
+                    
+                    setComments(tempComments)
+                }
             })
         }
 

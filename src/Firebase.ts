@@ -16,7 +16,8 @@ import {
     DocumentData,
     FirestoreError,
     writeBatch,
-    where
+    where,
+    connectFirestoreEmulator
 } from "firebase/firestore";
 import { getAuth, signInAnonymously} from "firebase/auth";
 // Import the functions you need from the SDKs you need
@@ -36,6 +37,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
+connectFirestoreEmulator(db, 'localhost', 8080);
 
 export const authenticateAnonymously = () => {
     return signInAnonymously(getAuth(app));

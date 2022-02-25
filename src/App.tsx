@@ -22,20 +22,24 @@ function App() {
     });
   }, []);
 
-  console.log(comments);
-  
+  useEffect(() => {
+    if (user) {
+      FirestoreService.seedDatabase(user.uid);
+    }
+  }, [user]);
 
+  
+ 
+  
   return (
     <div className="grid gap-2 p-2 max-w-4xl mx-auto py-20">
-      {comments && (
-        <CommentList
-          comments={comments}
-          deleteComment={deleteComment}
-          reply={reply}
-          setReplyingTo={setReplyingTo}
-          replyingTo={""}
-        />
-      )}
+      <CommentList
+        comments={comments}
+        deleteComment={deleteComment}
+        reply={reply}
+        setReplyingTo={setReplyingTo}
+        replyingTo={""}
+      />
       <AddComment submit={addComment} />
     </div>
   );

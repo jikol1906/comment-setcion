@@ -8,7 +8,7 @@ import { Comment as IComment, ReplyInfo } from "../interfaces";
 const currentUser = data.currentUser;
 
 interface ICommentListProps {
-  comments: IComment[];
+  comments: IComment[] | undefined;
   replyingTo: string;
   deleteComment: (commentId: string) => void;
   setReplyingTo: (commentId: string) => void;
@@ -22,42 +22,48 @@ const CommentList: React.FunctionComponent<ICommentListProps> = ({
   setReplyingTo,
   reply,
 }) => {
-  let commentsRendered: JSX.Element[] = [];
-
-  const createComment = (c: IComment) => {
-    const comment =
-      c.user.username === currentUser.username ? (
-        <CurrentUserComment
-          {...c}
-          onDeleteButtonClicked={() => deleteComment(c.id)}
-        />
+  let commentsRendered: JSX.Element[] = []; 
+    
+    const createComment = (c: IComment) => {
+      const comment =
+        c.user.username === currentUser.username ? (
+          <CurrentUserComment
+            {...c}
+            onDeleteButtonClicked={() => deleteComment(c.id)}
+          />
+        ) : (
+          <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
+        );
+  
+      return replyingTo === c.id ? (
+        <>
+          <AddComment
+            submit={() =>
+              reply(c.id, {
+                replyingToUsername: c.user.username,
+                topLevelCommentId: c.id,
+              })
+            }
+            replying
+          />
+        </>
       ) : (
-        <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
+        comment
       );
+    };
+  
+    comments?.forEach((c) => {
+      
+      
+      commentsRendered.push(
+        <React.Fragment key={c.id}>{createComment(c)}</React.Fragment>
+      );
+    })
+  
+  
+  
 
-    return replyingTo === c.id ? (
-      <>
-        <AddComment
-          submit={() =>
-            reply(c.id, {
-              replyingToUsername: c.user.username,
-              topLevelCommentId: c.id,
-            })
-          }
-          replying
-        />
-      </>
-    ) : (
-      comment
-    );
-  };
-
-  comments.forEach((c) => {
-    commentsRendered.push(
-      <React.Fragment key={c.id}>{createComment(c)}</React.Fragment>
-    );
-  })
-
+  
   //   if (c.replies.length > 0) {
   //     commentsRendered.push(
   //       <CommentReplyThread key={`r${c.id}`}>
