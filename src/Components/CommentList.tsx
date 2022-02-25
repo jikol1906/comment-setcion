@@ -35,24 +35,27 @@ const CommentList: React.FunctionComponent<ICommentListProps> = ({
           <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
         );
   
-      return replyingTo === c.id ? (
-        <>
-          <AddComment
-            submit={() =>
-              reply(c.id, {
-                replyingToUsername: c.user.username,
-                topLevelCommentId: c.id,
-              })
-            }
-            replying
-          />
-        </>
-      ) : (
-        comment
-      );
+      return comment
+      // replyingTo === c.id ? (
+      //   <>
+      //     <AddComment
+      //       submit={() =>
+      //         reply(c.id, {
+      //           replyingToUsername: c.user.username,
+      //           topLevelCommentId: c.id,
+      //         })
+      //       }
+      //       replying
+      //     />
+      //   </>
+      // ) : (
+      //   comment
+      // );
     };
   
     comments?.forEach((c) => {
+      
+      
       
       
       commentsRendered.push(
