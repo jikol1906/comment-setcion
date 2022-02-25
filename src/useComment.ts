@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import data from './data.json'
-import { Comment, ReplyInfo, User } from './interfaces'
+import { Comment, ReplyInfo } from './interfaces'
 import * as FirestoreService from './Firebase';
+import { User } from 'firebase/auth';
 
-export default function useComments(userId:string|undefined)  {
+export default function useComments(user:User|undefined)  {
 
     
     const [comments,setComments] = useState<Comment[]>();
@@ -13,8 +14,8 @@ export default function useComments(userId:string|undefined)  {
 
         const tempComments : Comment[] = []
 
-        if(userId) {
-            FirestoreService.subscribeRootComments(userId,(c) => {
+        if(user) {
+            FirestoreService.subscribeRootComments(user.uid,(c) => {
                 
                 if(!c.empty) {
                     c.forEach(doc => {
@@ -31,7 +32,7 @@ export default function useComments(userId:string|undefined)  {
         
         
 
-    },[userId])
+    },[user])
 
 
     const addComment = (content:string,replyInfo?:ReplyInfo) => { 
@@ -39,6 +40,12 @@ export default function useComments(userId:string|undefined)  {
       
         
     }  
+
+    const getReplies = (parentCommentId:string) => {
+        if(user) {
+            return FirestoreService.getReplies(user.uid,parentCommentId)
+        }
+    }
 
     const reply = () => {
 

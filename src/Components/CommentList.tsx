@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as FirestoreService from '../Firebase';
 import CommentReplyThread from "../Layout/CommentReplyThread/CommentReplyThread";
 import AddComment from "./AddComment/AddComment";
 import Comment from "../Components/Comment/Comment";
@@ -34,6 +35,10 @@ const CommentList: React.FunctionComponent<ICommentListProps> = ({
         ) : (
           <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
         );
+
+        if(c.hasReplies) {
+          
+        }
   
       return comment
       // replyingTo === c.id ? (

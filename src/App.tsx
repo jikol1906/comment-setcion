@@ -14,7 +14,7 @@ function App() {
     reply,
     addComment,
     deleteComment,
-  } = useComments(user?.uid);
+  } = useComments(user);
 
   useEffect(() => {
     async function authenticateAndSeedDp() {
