@@ -6,26 +6,16 @@ import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
 
 function App() {
-  const [user, setUser] = useState<User>();
+
   const {
     comments,
     replyingTo,
     setReplyingTo,
     reply,
+    getReplies,
     addComment,
     deleteComment,
-  } = useComments(user);
-
-  useEffect(() => {
-    async function authenticateAndSeedDp() {
-      const user = await FirestoreService.authenticateAnonymously()
-      setUser(user.user);
-      FirestoreService.seedDatabase(user.user.uid);
-    }
-    authenticateAndSeedDp()
-  }, []);
-
-
+  } = useComments();
   
  
   
@@ -33,6 +23,7 @@ function App() {
     <div className="grid gap-2 p-2 max-w-4xl mx-auto py-20">
       <CommentList
         comments={comments}
+        getReplies={getReplies}
         deleteComment={deleteComment}
         reply={reply}
         setReplyingTo={setReplyingTo}

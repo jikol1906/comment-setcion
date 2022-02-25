@@ -6,11 +6,13 @@ import Comment from "../Components/Comment/Comment";
 import CurrentUserComment from "./Comment/CurrentUserComment";
 import data from "../data.json";
 import { Comment as IComment, ReplyInfo } from "../interfaces";
+import { QuerySnapshot, DocumentData } from "firebase/firestore";
 const currentUser = data.currentUser;
 
 interface ICommentListProps {
   comments: IComment[] | undefined;
   replyingTo: string;
+  getReplies:(parentCommentId: string) => Promise<QuerySnapshot<DocumentData>>;
   deleteComment: (commentId: string) => void;
   setReplyingTo: (commentId: string) => void;
   reply: (commentId: string, replyInfo: ReplyInfo) => void;
