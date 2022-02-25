@@ -34,13 +34,13 @@ const firebaseConfig = {
   measurementId: "G-9E4QKH0TRM",
 };
 
-const app = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 connectFirestoreEmulator(db, "localhost", 8080);
 
 export const authenticateAnonymously = () => {
-  return signInAnonymously(getAuth(app));
+  return signInAnonymously(getAuth(firebaseApp));
 };
 
 export const seedDatabase = async (uid: string) => {

@@ -12,7 +12,7 @@ const currentUser = data.currentUser;
 interface ICommentListProps {
   comments: IComment[] | undefined;
   replyingTo: string;
-  getReplies:(parentCommentId: string) => Promise<QuerySnapshot<DocumentData>>;
+  getReplies:(parentCommentId: string) => Promise<QuerySnapshot<DocumentData>> | undefined;
   deleteComment: (commentId: string) => void;
   setReplyingTo: (commentId: string) => void;
   reply: (commentId: string, replyInfo: ReplyInfo) => void;
@@ -24,6 +24,7 @@ const CommentList: React.FunctionComponent<ICommentListProps> = ({
   deleteComment,
   setReplyingTo,
   reply,
+  getReplies
 }) => {
   let commentsRendered: JSX.Element[] = []; 
     
@@ -39,25 +40,19 @@ const CommentList: React.FunctionComponent<ICommentListProps> = ({
         );
 
         if(c.hasReplies) {
+          console.log('here');
           
+           getReplies(c.id)?.then(r => {
+             r.forEach(r => console.log(r.data()))
+           })
+            
+          
+          
+           
         }
   
       return comment
-      // replyingTo === c.id ? (
-      //   <>
-      //     <AddComment
-      //       submit={() =>
-      //         reply(c.id, {
-      //           replyingToUsername: c.user.username,
-      //           topLevelCommentId: c.id,
-      //         })
-      //       }
-      //       replying
-      //     />
-      //   </>
-      // ) : (
-      //   comment
-      // );
+
     };
   
     comments?.forEach((c) => {
