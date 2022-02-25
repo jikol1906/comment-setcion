@@ -13,6 +13,7 @@ export interface Comment {
 export interface User {
   image: Image;
   username: string;
+  userId:string
 }
 
 export interface Image {

@@ -1,69 +1,61 @@
 import * as React from "react";
 import * as FirestoreService from '../Firebase';
-import CommentReplyThread from "../Layout/CommentReplyThread/CommentReplyThread";
-import AddComment from "./AddComment/AddComment";
-import Comment from "../Components/Comment/Comment";
-import CurrentUserComment from "./Comment/CurrentUserComment";
-import data from "../data.json";
-import { Comment as IComment, ReplyInfo } from "../interfaces";
-import { QuerySnapshot, DocumentData } from "firebase/firestore";
-const currentUser = data.currentUser;
+import { collection, query, where } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { db } from "../Firebase";
+const auth = getAuth(FirestoreService.firebaseApp);
 
-interface ICommentListProps {
-  comments: IComment[] | undefined;
-  replyingTo: string;
-  getReplies:(parentCommentId: string) => Promise<QuerySnapshot<DocumentData>> | undefined;
-  deleteComment: (commentId: string) => void;
-  setReplyingTo: (commentId: string) => void;
-  reply: (commentId: string, replyInfo: ReplyInfo) => void;
-}
 
-const CommentList: React.FunctionComponent<ICommentListProps> = ({
-  comments,
-  replyingTo,
-  deleteComment,
-  setReplyingTo,
-  reply,
-  getReplies
-}) => {
-  let commentsRendered: JSX.Element[] = []; 
+
+const CommentList: React.FunctionComponent = () => {
+
+  const [user] = useAuthState(auth);
+  const [value, loading, error] = useCollection(query(collection(db,user!.uid),where("parentComment","==",null)))
+  
+   
     
-    const createComment = (c: IComment) => {
-      const comment =
-        c.user.username === currentUser.username ? (
-          <CurrentUserComment
-            {...c}
-            onDeleteButtonClicked={() => deleteComment(c.id)}
-          />
-        ) : (
-          <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
-        );
+  
 
-        if(c.hasReplies) {
-          console.log('here');
+  // let commentsRendered: JSX.Element[] = []; 
+    
+  //   const createComment = (c: IComment) => {
+  //     const comment =
+  //       c.user.username === currentUser.username ? (
+  //         <CurrentUserComment
+  //           {...c}
+  //           onDeleteButtonClicked={() => deleteComment(c.id)}
+  //         />
+  //       ) : (
+  //         <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
+  //       );
+
+  //       if(c.hasReplies) {
+  //         console.log('here');
           
-           getReplies(c.id)?.then(r => {
-             r.forEach(r => console.log(r.data()))
-           })
+  //          getReplies(c.id)?.then(r => {
+  //            r.forEach(r => console.log(r.data()))
+  //          })
             
           
           
            
-        }
+  //       }
   
-      return comment
+  //     return comment
 
-    };
+  //   };
   
-    comments?.forEach((c) => {
+  //   comments?.forEach((c) => {
       
       
       
       
-      commentsRendered.push(
-        <React.Fragment key={c.id}>{createComment(c)}</React.Fragment>
-      );
-    })
+  //     commentsRendered.push(
+  //       <React.Fragment key={c.id}>{createComment(c)}</React.Fragment>
+  //     );
+  //   })
   
   
   
@@ -85,7 +77,8 @@ const CommentList: React.FunctionComponent<ICommentListProps> = ({
   // });
 
  
-  return <>{commentsRendered}</>  
+  return <>{loading ? "loading" : JSON.stringify(value?.docs[0].data())}</>  
+  // return <>{commentsRendered}</>  
 
 }
 

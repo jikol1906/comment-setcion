@@ -36,7 +36,7 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig);
 
-const db = getFirestore();
+export const db = getFirestore(firebaseApp);
 connectFirestoreEmulator(db, "localhost", 8080);
 
 export const authenticateAnonymously = () => {
@@ -64,6 +64,7 @@ export const seedDatabase = async (uid: string) => {
           webp: "./images/avatars/image-juliusomo.webp",
         },
         username: "juliusomo",
+        userId:uid
       },
       parentComment: null,
       hasReplies: false,
@@ -81,6 +82,7 @@ export const seedDatabase = async (uid: string) => {
           webp: "./images/avatars/image-amyrobson.webp",
         },
         username: "amyrobson",
+        userId:"123"
       },
       parentComment: null,
       hasReplies: true,
@@ -96,6 +98,7 @@ export const seedDatabase = async (uid: string) => {
           webp: "./images/avatars/image-amyrobson.webp",
         },
         username: "amyrobson",
+        userId:"234"
       },
       parentComment: docWithReplies.id,
       hasReplies: false,

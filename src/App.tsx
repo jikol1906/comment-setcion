@@ -14,16 +14,6 @@ function App() {
   const [user, loading, error] = useAuthState(auth);
   
   
-  // const {
-  //   comments,
-  //   replyingTo,
-  //   setReplyingTo,
-  //   reply,
-  //   getReplies,
-  //   addComment,
-  //   deleteComment,
-  // } = useComments();
-  
   useEffect(() => {
     signInAnonymously(auth)
   },[])
@@ -37,15 +27,8 @@ function App() {
   
   return (
     <div className="grid gap-2 p-2 max-w-4xl mx-auto py-20">
-      {/* <CommentList
-        comments={comments}
-        getReplies={getReplies}
-        deleteComment={deleteComment}
-        reply={reply}
-        setReplyingTo={setReplyingTo}
-        replyingTo={""}
-      /> */}
-      {/* <AddComment submit={addComment} /> */}
+      {user && <CommentList/>}
+      <AddComment />
     </div>
   );
 }
