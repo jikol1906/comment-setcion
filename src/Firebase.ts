@@ -104,6 +104,10 @@ export const seedDatabase = async (uid:string) => {
     await batch.commit();
 }
 
+function getCurrentUserCommentsCollection(uid:string) {
+  return collection(db,uid)
+}
+
 export const subscribeRootComments = 
         (uid:string,
         next:(snapshot: QuerySnapshot<DocumentData>) => void | undefined,
@@ -112,4 +116,13 @@ export const subscribeRootComments =
     const commentsColl = collection(db,uid)
     const commentsQuery = query(commentsColl,where("parentComment","==",null))
     return onSnapshot(commentsQuery,{next,error})
+}
+
+export const getReplies = (uid:string,parentCommentId:string) => {
+  const commentsColl = getCurrentUserCommentsCollection(uid)
+
+  return getDocs(
+    query(commentsColl,where("parentComment","==",parentCommentId))
+  )
+
 }

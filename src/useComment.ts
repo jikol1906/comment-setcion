@@ -7,20 +7,27 @@ import * as FirestoreService from './Firebase';
 export default function useComments(userId:string|undefined)  {
 
     
-    const [comments,setComments] = useState();
+    const [comments,setComments] = useState<Comment[]>();
     
     useEffect(() => {
+
+        const tempComments : Comment[] = []
+
         if(userId) {
             FirestoreService.subscribeRootComments(userId,(c) => {
-                console.log('here');
                 c.forEach(doc => {
-                    console.log(doc.id," => ", doc.data());
-                    
+                    const comm = doc.data() as Comment
+                    comm.id = doc.id
+                    tempComments.push(comm)
                 })
                 
-                
+                setComments(tempComments)
             })
         }
+
+        
+        
+
     },[userId])
 
 
@@ -28,14 +35,14 @@ export default function useComments(userId:string|undefined)  {
         
       
         
-    }
+    }  
 
     const reply = () => {
 
     }
     
 
-    const deleteComment = (commentId:number) => {
+    const deleteComment = (commentId:string) => {
         
 
     }

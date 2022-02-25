@@ -22,7 +22,7 @@ export interface Image {
 
 export interface ReplyInfo {
   replyingToUsername:string
-  topLevelCommentId:number;
+  topLevelCommentId:string;
 }
 
 export interface CommentProps {

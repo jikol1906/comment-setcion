@@ -9,10 +9,10 @@ const currentUser = data.currentUser;
 
 interface ICommentListProps {
   comments: IComment[];
-  replyingTo: number;
-  deleteComment: (commentId: number) => void;
-  setReplyingTo: (commentId: number) => void;
-  reply: (commentId: number, replyInfo: ReplyInfo) => void;
+  replyingTo: string;
+  deleteComment: (commentId: string) => void;
+  setReplyingTo: (commentId: string) => void;
+  reply: (commentId: string, replyInfo: ReplyInfo) => void;
 }
 
 const CommentList: React.FunctionComponent<ICommentListProps> = ({
@@ -22,40 +22,41 @@ const CommentList: React.FunctionComponent<ICommentListProps> = ({
   setReplyingTo,
   reply,
 }) => {
-  // let commentsRendered: JSX.Element[] = [];
+  let commentsRendered: JSX.Element[] = [];
 
-  // const createComment = (c: IComment) => {
-  //   const comment =
-  //     c.user.username === currentUser.username ? (
-  //       <CurrentUserComment
-  //         {...c}
-  //         onDeleteButtonClicked={() => deleteComment(c.id)}
-  //       />
-  //     ) : (
-  //       <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
-  //     );
+  const createComment = (c: IComment) => {
+    const comment =
+      c.user.username === currentUser.username ? (
+        <CurrentUserComment
+          {...c}
+          onDeleteButtonClicked={() => deleteComment(c.id)}
+        />
+      ) : (
+        <Comment onReplyButtonClicked={() => setReplyingTo(c.id)} {...c} />
+      );
 
-  //   return replyingTo === c.id ? (
-  //     <>
-  //       <AddComment
-  //         submit={() =>
-  //           reply(c.id, {
-  //             replyingToUsername: c.user.username,
-  //             topLevelCommentId: c.id,
-  //           })
-  //         }
-  //         replying
-  //       />
-  //     </>
-  //   ) : (
-  //     comment
-  //   );
-  // };
+    return replyingTo === c.id ? (
+      <>
+        <AddComment
+          submit={() =>
+            reply(c.id, {
+              replyingToUsername: c.user.username,
+              topLevelCommentId: c.id,
+            })
+          }
+          replying
+        />
+      </>
+    ) : (
+      comment
+    );
+  };
 
-  // comments.forEach((c) => {
-  //   commentsRendered.push(
-  //     <React.Fragment key={c.id}>{createComment(c)}</React.Fragment>
-  //   );
+  comments.forEach((c) => {
+    commentsRendered.push(
+      <React.Fragment key={c.id}>{createComment(c)}</React.Fragment>
+    );
+  })
 
   //   if (c.replies.length > 0) {
   //     commentsRendered.push(
@@ -72,9 +73,10 @@ const CommentList: React.FunctionComponent<ICommentListProps> = ({
   //   }
   // });
 
-  // return <>{commentsRendered}</>;
-  return <></>;
+ 
+  return <>{commentsRendered}</>  
 
-};
+}
+
 
 export default CommentList;
