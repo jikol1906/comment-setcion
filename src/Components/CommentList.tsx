@@ -5,6 +5,9 @@ import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from "../Firebase";
+import { Comment as IComment } from "../interfaces";
+import CurrentUserComment from "./Comment/CurrentUserComment";
+import Comment from "./Comment/Comment";
 const auth = getAuth(FirestoreService.firebaseApp);
 
 
@@ -17,9 +20,13 @@ const CommentList: React.FunctionComponent = () => {
   
   const [value, loading, error] = useCollectionData(query(coll,where("parentComment","==",null)))
   
+  const onDeleteButtonClicked = () => {
+
+  }
    
-   
-    
+  const onReplyButtonClicked = () => {
+
+  }
   
 
   // let commentsRendered: JSX.Element[] = []; 
@@ -83,6 +90,11 @@ const CommentList: React.FunctionComponent = () => {
  
   return <>
     {value && value.map(v => {
+      const c = v as IComment
+      return user?.uid === c.user.userId ?
+        <CurrentUserComment {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
+        : <Comment {...c} onReplyButtonClicked={onReplyButtonClicked}/>
+
       
     })}
   </>  
