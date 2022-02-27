@@ -15,6 +15,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
   score,
   user,
 }) => {
+  
   return (
     <CommentSkeleton>
       <div className="col-span-full md:col-start-2 md:col-end-3">
