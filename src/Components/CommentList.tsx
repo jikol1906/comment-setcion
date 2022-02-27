@@ -3,7 +3,7 @@ import * as FirestoreService from '../Firebase';
 import { collection, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from 'react-firebase-hooks/firestore';
+import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from "../Firebase";
 const auth = getAuth(FirestoreService.firebaseApp);
 
@@ -12,8 +12,12 @@ const auth = getAuth(FirestoreService.firebaseApp);
 const CommentList: React.FunctionComponent = () => {
 
   const [user] = useAuthState(auth);
-  const [value, loading, error] = useCollection(query(collection(db,user!.uid),where("parentComment","==",null)))
+
+  const coll = collection(db,user!.uid)
   
+  const [value, loading, error] = useCollectionData(query(coll,where("parentComment","==",null)))
+  
+   
    
     
   
@@ -77,7 +81,11 @@ const CommentList: React.FunctionComponent = () => {
   // });
 
  
-  return <>{loading ? "loading" : JSON.stringify(value?.docs[0].data())}</>  
+  return <>
+    {value && value.map(v => {
+      
+    })}
+  </>  
   // return <>{commentsRendered}</>  
 
 }
