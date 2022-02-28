@@ -2,7 +2,7 @@ import { getAuth } from "firebase/auth";
 import { collection, query, where } from "firebase/firestore";
 import * as React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useCollection, useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../../Firebase";
 import CommentReplyThread from "../../Layout/CommentReplyThread/CommentReplyThread";
 import * as FirestoreService from "../../Firebase";
@@ -27,24 +27,28 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
     
   const coll = collection(db, user!.uid);
 
-  const [value, loading, error] = useCollectionData(
+  const [value, loading, error] = useCollection(
     query(coll, where("parentComment", "==", parentCommentId))
   );
 
+  const comments : JSX.Element[] = [];
+
+  if(value) {
+    value.forEach(v => {
+      const c = v.data() as IComment;
+        comments.push(
+          user?.uid === c.user.userId ?
+          <CurrentUserComment key={v.id} {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
+          :
+          <Comment key={v.id} {...c} onReplyButtonClicked={onReplyButtonClicked}/>
+        )
+      
+    })
+  }
+
   return (
     <CommentReplyThread>
-      {value &&
-        value.map((v) => {
-          const c = v as IComment;
-          return user?.uid === c.user.userId ? (
-            <CurrentUserComment
-              {...c}
-              onDeleteButtonClicked={onDeleteButtonClicked}
-            />
-          ) : (
-            <Comment {...c} onReplyButtonClicked={onReplyButtonClicked} />
-          );
-        })}
+      {comments}
     </CommentReplyThread>
   );
 };

@@ -41,23 +41,23 @@ const CommentList: React.FunctionComponent = () => {
         const replyList = <ReplyList parentCommentId={v.id} onDeleteButtonClicked={onDeleteButtonClicked} onReplyButtonClicked={onReplyButtonClicked}/>   
         comments.push(
           user?.uid === c.user.userId ?
-          <>
-          <CurrentUserComment {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
+          <React.Fragment key={v.id}>
+          <CurrentUserComment  {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
           {replyList}
-          </>
+          </React.Fragment>
           :
-          <>
+          <React.Fragment key={v.id}>
           <Comment {...c} onReplyButtonClicked={onReplyButtonClicked}/>
           {replyList}
-          </>
+          </React.Fragment>
         )
 
       } else {
         comments.push(
           user?.uid === c.user.userId ?
-          <CurrentUserComment {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
+          <CurrentUserComment key={v.id} {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
           :
-          <Comment {...c} onReplyButtonClicked={onReplyButtonClicked}/>
+          <Comment key={v.id} {...c} onReplyButtonClicked={onReplyButtonClicked}/>
         )
       }
 
