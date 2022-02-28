@@ -1,28 +1,22 @@
 import {
   getFirestore,
   query,
-  orderBy,
   onSnapshot,
   collection,
-  getDoc,
   getDocs,
-  addDoc,
-  updateDoc,
   doc,
-  serverTimestamp,
-  arrayUnion,
-  setDoc,
   QuerySnapshot,
   DocumentData,
   FirestoreError,
   writeBatch,
   where,
+  Timestamp,
   connectFirestoreEmulator,
 } from "firebase/firestore";
 import { getAuth, signInAnonymously } from "firebase/auth";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import data from "./data.json";
+import { User } from "./interfaces";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB1e1eAoc2OPXd3FB3Ba2yMce0FFjIcSfs",
@@ -37,7 +31,7 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 
 export const db = getFirestore(firebaseApp);
-connectFirestoreEmulator(db, "localhost", 8080);
+// connectFirestoreEmulator(db, "localhost", 8080);
 
 export const authenticateAnonymously = () => {
   return signInAnonymously(getAuth(firebaseApp));
@@ -48,6 +42,15 @@ export const seedDatabase = async (uid: string) => {
 
   const batch = writeBatch(db);
 
+  const user : User ={
+        image: {
+          png: "./images/avatars/image-juliusomo.png",
+          webp: "./images/avatars/image-juliusomo.webp",
+        },
+        username: "juliusomo",
+        userId:uid
+  }
+
   const q = query(commentsColl);
 
   const snap = await getDocs(q);
@@ -56,16 +59,9 @@ export const seedDatabase = async (uid: string) => {
     batch.set(doc(commentsColl), {
       content:
         "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
-      createdAt: "1 month ago",
+      createdAt: Timestamp.now(),
       score: 12,
-      user: {
-        image: {
-          png: "./images/avatars/image-juliusomo.png",
-          webp: "./images/avatars/image-juliusomo.webp",
-        },
-        username: "juliusomo",
-        userId:uid
-      },
+      user,
       parentComment: null,
       hasReplies: false,
     });
@@ -100,6 +96,15 @@ export const seedDatabase = async (uid: string) => {
         username: "amyrobson",
         userId:"234"
       },
+      parentComment: docWithReplies.id,
+      hasReplies: false,
+    });
+
+    batch.set(doc(commentsColl), {
+      content: "I agree lol",
+      createdAt: "1 month ago",
+      score: 12,
+      user,
       parentComment: docWithReplies.id,
       hasReplies: false,
     });
