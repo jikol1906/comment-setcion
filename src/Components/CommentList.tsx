@@ -28,6 +28,8 @@ const CommentList: React.FunctionComponent = () => {
   }
    
   const onReplyButtonClicked = (commentId:string) => {
+    console.log(commentId);
+    
     setReplyingTo(commentId);
   }
 
@@ -38,17 +40,27 @@ const CommentList: React.FunctionComponent = () => {
     value.forEach(v => {
       const c = v.data() as IComment
 
+      const commentProps = {
+        ...c,
+        onReplyButtonClicked:() => onReplyButtonClicked(v.id),
+      }
+
+      const currentUserCommentProps = {
+        ...c,
+        onDeleteButtonClicked
+      }
+
       if(c.hasReplies) {
         const replyList = <ReplyList parentCommentId={v.id} onDeleteButtonClicked={onDeleteButtonClicked} onReplyButtonClicked={onReplyButtonClicked}/>   
         comments.push(
           user?.uid === c.user.userId ?
           <React.Fragment key={v.id}>
-          <CurrentUserComment  {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
+          <CurrentUserComment  {...currentUserCommentProps}/>
           {replyList}
           </React.Fragment>
           :
           <React.Fragment key={v.id}>
-          <Comment {...c} onReplyButtonClicked={onReplyButtonClicked}/>
+          <Comment {...commentProps}/>
           {replyList}
           </React.Fragment>
         )
@@ -56,9 +68,9 @@ const CommentList: React.FunctionComponent = () => {
       } else {
         comments.push(
           user?.uid === c.user.userId ?
-          <CurrentUserComment key={v.id} {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
+          <CurrentUserComment key={v.id} {...currentUserCommentProps}/>
           :
-          <Comment key={v.id} {...c} onReplyButtonClicked={onReplyButtonClicked}/>
+          <Comment key={v.id} {...commentProps}/>
         )
       }
 
