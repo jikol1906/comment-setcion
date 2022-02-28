@@ -14,7 +14,7 @@ const auth = getAuth(FirestoreService.firebaseApp);
 
 interface IReplyListProps {
   parentCommentId: string;
-  onDeleteButtonClicked: () => void;
+  onDeleteButtonClicked: (commentId:string) => void;
   onReplyButtonClicked: (commentId:string) => void;
 }
 
@@ -38,7 +38,7 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
       const c = v.data() as IComment;
         comments.push(
           user?.uid === c.user.userId ?
-          <CurrentUserComment key={v.id} {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
+          <CurrentUserComment key={v.id} {...c} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
           :
           <Comment key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
         )

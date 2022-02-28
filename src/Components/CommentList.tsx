@@ -23,7 +23,7 @@ const CommentList: React.FunctionComponent = () => {
   const [replyingTo, setReplyingTo] = useState("")
   const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null)))
   
-  const onDeleteButtonClicked = () => {
+  const onDeleteButtonClicked = (commentId:string) => {
 
   }
    
@@ -47,7 +47,7 @@ const CommentList: React.FunctionComponent = () => {
 
       const currentUserCommentProps = {
         ...c,
-        onDeleteButtonClicked
+        onDeleteButtonClicked: () => onDeleteButtonClicked(v.id)
       }
 
       if(c.hasReplies) {
