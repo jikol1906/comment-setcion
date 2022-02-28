@@ -10,6 +10,7 @@ import CurrentUserComment from "./Comment/CurrentUserComment";
 import Comment from "./Comment/Comment";
 import CommentReplyList from "./CommentReplyList/CommentReplyList";
 import ReplyList from "./ReplyList/ReplyList";
+import { useState } from "react";
 const auth = getAuth(FirestoreService.firebaseApp);
 
 
@@ -19,15 +20,15 @@ const CommentList: React.FunctionComponent = () => {
   const [user] = useAuthState(auth);
 
   const coll = collection(db,user!.uid)
-  
+  const [replyingTo, setReplyingTo] = useState("")
   const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null)))
   
   const onDeleteButtonClicked = () => {
 
   }
    
-  const onReplyButtonClicked = () => {
-
+  const onReplyButtonClicked = (commentId:string) => {
+    setReplyingTo(commentId);
   }
 
   const comments : JSX.Element[] = [];
