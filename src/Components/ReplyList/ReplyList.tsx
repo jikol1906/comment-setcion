@@ -40,7 +40,7 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
           user?.uid === c.user.userId ?
           <CurrentUserComment key={v.id} {...c} onDeleteButtonClicked={onDeleteButtonClicked}/>
           :
-          <Comment key={v.id} {...c} onReplyButtonClicked={onReplyButtonClicked}/>
+          <Comment key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
         )
       
     })
