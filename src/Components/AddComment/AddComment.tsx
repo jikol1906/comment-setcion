@@ -1,5 +1,4 @@
 import * as React from "react";
-import CommentContainer from "../../Layout/CommentContainer/CommentContainer";
 import data from "../../data.json";
 import { useState } from "react";
 import TextArea from "../TextArea/TextArea";
