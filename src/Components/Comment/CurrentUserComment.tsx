@@ -9,18 +9,21 @@ import CommentText from "./CommentText";
 
 interface ICurrentUserComment extends CommentProps {
   onDeleteButtonClicked: () => void;
-  onUpdateSubmitted:(commentId:string,updatedContent:string) => void;
+  onUpdateSubmitted:(updatedContent: string) => Promise<void>;
 }
 
 const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   onDeleteButtonClicked,
+  onUpdateSubmitted,
   content,
   score,
   user,
 }) => {
 
   const [editing,setEditing] = useState(false)
-
+  const [commentContent,setCommentContent] = useState(content)
+  
+  
   return (
     <CommentSkeleton>
       <div className="col-span-full md:col-start-2 md:col-end-3">
@@ -29,12 +32,16 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
       <div className="col-span-full md:col-start-2 md:col-end-4">
         {editing ? (
           <>
-            <form id="updateform">
-              <TextArea rows={4} value={content}></TextArea>
+            <form id="updateform" onSubmit={e => {
+              e.preventDefault()
+              onUpdateSubmitted(commentContent)
+              setEditing(false)
+            }}>
+              <TextArea rows={4} value={commentContent} onChange={e=>setCommentContent(e.target.value)}></TextArea>
             </form>
           </>
         ) : (
-          <CommentText text={content} />
+          <CommentText text={commentContent} />
         )}
       </div>
       <div className="md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-3">
