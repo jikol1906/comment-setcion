@@ -12,6 +12,7 @@ import CommentReplyList from "./CommentReplyList/CommentReplyList";
 import ReplyList from "./ReplyList/ReplyList";
 import { useState } from "react";
 import Loadingspinner from "./Loadingspinner/Loadingspinner";
+import AddComment from "./AddComment/AddComment";
 const auth = getAuth(FirestoreService.firebaseApp);
 
 
@@ -91,6 +92,8 @@ const CommentList: React.FunctionComponent = () => {
 
     })
   }
+
+  comments.push(<AddComment/>)
  
 
   return <>

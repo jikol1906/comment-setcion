@@ -28,7 +28,6 @@ function App() {
   return (
     <div className="grid gap-2 p-2 max-w-4xl mx-auto py-20">
       {user && <CommentList/>}
-      <AddComment />
     </div>
   );
 }
