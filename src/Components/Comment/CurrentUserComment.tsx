@@ -9,6 +9,7 @@ import CommentText from "./CommentText";
 
 interface ICurrentUserComment extends CommentProps {
   onDeleteButtonClicked: () => void;
+  onUpdateSubmitted:(commentId:string,updatedContent:string) => void;
 }
 
 const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({

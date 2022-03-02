@@ -52,7 +52,8 @@ const CommentList: React.FunctionComponent = () => {
 
       const currentUserCommentProps = {
         ...c,
-        onDeleteButtonClicked: () => onDeleteButtonClicked(v.id)
+        onDeleteButtonClicked: () => onDeleteButtonClicked(v.id),
+        onUpdateSubmitted:updateButtonClicked
       }
 
       const replyListProps = {
