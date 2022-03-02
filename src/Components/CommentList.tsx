@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as FirestoreService from '../Firebase';
-import { collection, deleteDoc, doc, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, query, updateDoc, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
@@ -30,6 +30,12 @@ const CommentList: React.FunctionComponent = () => {
    
   const onReplyButtonClicked = (commentId:string) => {    
     setReplyingTo(commentId);
+  }
+
+  const updateButtonClicked = async (commentId:string,updatedContent:string) => {
+    await updateDoc(doc(db, user!.uid,commentId),{
+      content:updatedContent
+    });
   }
 
   const comments : JSX.Element[] = [];
