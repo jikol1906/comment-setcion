@@ -9,6 +9,7 @@ import * as FirestoreService from "../../Firebase";
 import { Comment as IComment } from "../../interfaces";
 import CurrentUserComment from "../Comment/CurrentUserComment";
 import Comment from "../Comment/Comment";
+import Loadingspinner from "../Loadingspinner/Loadingspinner";
 
 const auth = getAuth(FirestoreService.firebaseApp);
 
@@ -48,7 +49,7 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
 
   return (
     <CommentReplyThread>
-      {comments}
+      {loading ? <Loadingspinner/> : comments}
     </CommentReplyThread>
   );
 };

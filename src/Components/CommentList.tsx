@@ -11,6 +11,7 @@ import Comment from "./Comment/Comment";
 import CommentReplyList from "./CommentReplyList/CommentReplyList";
 import ReplyList from "./ReplyList/ReplyList";
 import { useState } from "react";
+import Loadingspinner from "./Loadingspinner/Loadingspinner";
 const auth = getAuth(FirestoreService.firebaseApp);
 
 
@@ -83,7 +84,10 @@ const CommentList: React.FunctionComponent = () => {
   }
  
 
-  return <>{comments}</>  
+  return <>
+  {loading ? <Loadingspinner/> : comments}
+  
+  </>  
 
 }
 
