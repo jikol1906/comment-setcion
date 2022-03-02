@@ -32,10 +32,12 @@ const CommentList: React.FunctionComponent = () => {
     setReplyingTo(commentId);
   }
 
-  const updateButtonClicked = async (commentId:string,updatedContent:string) => {
-    await updateDoc(doc(db, user!.uid,commentId),{
-      content:updatedContent
-    });
+  const updateButtonClicked = (commentId:string) => {
+    return async (updatedContent:string) => {
+      await updateDoc(doc(db, user!.uid,commentId),{
+        content:updatedContent
+      });
+    }
   }
 
   const comments : JSX.Element[] = [];
@@ -53,7 +55,7 @@ const CommentList: React.FunctionComponent = () => {
       const currentUserCommentProps = {
         ...c,
         onDeleteButtonClicked: () => onDeleteButtonClicked(v.id),
-        onUpdateSubmitted:updateButtonClicked
+        onUpdateSubmitted:updateButtonClicked(v.id)
       }
 
       const replyListProps = {
