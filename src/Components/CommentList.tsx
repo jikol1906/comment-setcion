@@ -59,6 +59,7 @@ const CommentList: React.FunctionComponent = () => {
       const replyListProps = {
         onReplyButtonClicked,
         onDeleteButtonClicked,
+        onUpdateSubmitted:updateButtonClicked,
         replyingTo
       }
 

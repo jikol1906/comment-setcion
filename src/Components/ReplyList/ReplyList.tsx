@@ -18,6 +18,7 @@ interface IReplyListProps {
   replyingTo:string;
   onDeleteButtonClicked: (commentId:string) => void;
   onReplyButtonClicked: (commentId:string) => void;
+  onUpdateSubmitted:(commentId:string,updatedContent:string) => void;
 }
 
 const ReplyList: React.FunctionComponent<IReplyListProps> = ({
@@ -25,6 +26,7 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
   replyingTo,
   onDeleteButtonClicked,
   onReplyButtonClicked,
+  onUpdateSubmitted
 }) => {
   const [user] = useAuthState(auth);
     
@@ -41,7 +43,7 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
       const c = v.data() as IComment;
         comments.push(
           user?.uid === c.user.userId ?
-          <CurrentUserComment key={v.id} {...c} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
+          <CurrentUserComment key={v.id} {...c} onUpdateSubmitted={onUpdateSubmitted} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
           :
           <Comment key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
         )
