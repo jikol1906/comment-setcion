@@ -15,12 +15,14 @@ const auth = getAuth(FirestoreService.firebaseApp);
 
 interface IReplyListProps {
   parentCommentId: string;
+  replyingTo:string;
   onDeleteButtonClicked: (commentId:string) => void;
   onReplyButtonClicked: (commentId:string) => void;
 }
 
 const ReplyList: React.FunctionComponent<IReplyListProps> = ({
   parentCommentId,
+  replyingTo,
   onDeleteButtonClicked,
   onReplyButtonClicked,
 }) => {

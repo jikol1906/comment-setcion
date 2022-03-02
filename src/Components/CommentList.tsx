@@ -28,9 +28,7 @@ const CommentList: React.FunctionComponent = () => {
     await deleteDoc(doc(db, user!.uid,commentId));
   }
    
-  const onReplyButtonClicked = (commentId:string) => {
-    console.log(commentId);
-    
+  const onReplyButtonClicked = (commentId:string) => {    
     setReplyingTo(commentId);
   }
 
@@ -53,7 +51,8 @@ const CommentList: React.FunctionComponent = () => {
 
       const replyListProps = {
         onReplyButtonClicked,
-        onDeleteButtonClicked
+        onDeleteButtonClicked,
+        replyingTo
       }
 
       if(c.hasReplies) {
