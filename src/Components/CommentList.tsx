@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as FirestoreService from '../Firebase';
-import { collection, deleteDoc, doc, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, query, serverTimestamp, Timestamp, updateDoc, where, writeBatch } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from "../Firebase";
-import { Comment as IComment } from "../interfaces";
+import { Comment as IComment, User } from "../interfaces";
 import CurrentUserComment from "./Comment/CurrentUserComment";
 import Comment from "./Comment/Comment";
 import CommentReplyList from "./CommentReplyList/CommentReplyList";
@@ -31,6 +31,35 @@ const CommentList: React.FunctionComponent = () => {
    
   const onReplyButtonClicked = (commentId:string) => {    
     setReplyingTo(commentId);
+  }
+
+  const addComment = async (content:string,replyingTo:string|null = null) => {
+
+    const currentUser : User ={
+      image: {
+        png: "./images/avatars/image-juliusomo.png",
+        webp: "./images/avatars/image-juliusomo.webp",
+      },
+      username: "juliusomo",
+      userId:user!.uid
+    }
+
+    const comment : Partial<IComment> = {
+      content,
+      createdAt:serverTimestamp(),
+      user:currentUser,
+      score:0,
+      parentComment:replyingTo,
+      hasReplies:false
+    }
+
+    await addDoc(coll,comment)
+
+    if(replyingTo) {
+      await updateDoc(doc(db,user!.uid,replyingTo),{
+        hasReplies:true
+      })
+    }
   }
 
   const updateButtonClicked = (commentId:string) => {
@@ -93,7 +122,7 @@ const CommentList: React.FunctionComponent = () => {
     })
   }
 
-  comments.push(<AddComment/>)
+  comments.push(<AddComment addComment={addComment}/>)
  
 
   return <>

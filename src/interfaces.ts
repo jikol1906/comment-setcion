@@ -1,7 +1,9 @@
+import { FieldValue } from "firebase/firestore";
+
 export interface Comment {
   id: string;
   content: string;
-  createdAt: string;
+  createdAt: FieldValue;
   score: number;
   user: User;
   hasReplies:boolean;

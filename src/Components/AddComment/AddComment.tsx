@@ -8,15 +8,16 @@ const currentUser = data.currentUser;
 
 const AddComment: React.FunctionComponent<{
   replying?: boolean;
+  addComment:(content:string,replyingTo:string|null) => void
   
-}> = ({ replying }) => {
+}> = ({ replying,addComment }) => {
 
   const [content, setContent] = useState("");
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    
+    addComment(content,null)
     
   };
 
