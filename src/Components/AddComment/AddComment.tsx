@@ -7,10 +7,11 @@ import CommentSkeleton from "../Comment/CommentSkeleton";
 const currentUser = data.currentUser;
 
 const AddComment: React.FunctionComponent<{
-  replying?: boolean;
+
+  replyingTo?:string;
   addComment:(content:string,replyingTo:string|null) => void
   
-}> = ({ replying,addComment }) => {
+}> = ({ replyingTo,addComment }) => {
 
   const [content, setContent] = useState("");
 
@@ -25,7 +26,7 @@ const AddComment: React.FunctionComponent<{
     <CommentSkeleton>
       <form
         className="col-span-full"
-        id={replying ? "replycommentform":"sendcommentform"}
+        id={replyingTo ? "replycommentform":"sendcommentform"}
         onSubmit={(e) => submitHandler(e)}
       >
         <TextArea
@@ -45,9 +46,9 @@ const AddComment: React.FunctionComponent<{
       <button
         type="submit"
         className="btn col-start-3 self-center btn-hover-styles"
-        form={replying ? "replycommentform":"sendcommentform"}
+        form={replyingTo ? "replycommentform":"sendcommentform"}
       >
-          {replying ? "Reply" : "Send"}
+          {replyingTo ? "Reply" : "Send"}
       </button>
     </CommentSkeleton>
   );
