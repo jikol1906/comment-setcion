@@ -50,8 +50,13 @@ const CommentList: React.FunctionComponent = () => {
         onDeleteButtonClicked: () => onDeleteButtonClicked(v.id)
       }
 
+      const replyListProps = {
+        onReplyButtonClicked,
+        onDeleteButtonClicked
+      }
+
       if(c.hasReplies) {
-        const replyList = <ReplyList parentCommentId={v.id} onDeleteButtonClicked={onDeleteButtonClicked} onReplyButtonClicked={onReplyButtonClicked}/>   
+        const replyList = <ReplyList parentCommentId={v.id} {...replyListProps}/>   
         comments.push(
           user?.uid === c.user.userId ?
           <React.Fragment key={v.id}>
