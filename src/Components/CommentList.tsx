@@ -94,18 +94,21 @@ const CommentList: React.FunctionComponent = () => {
         onUpdateSubmitted:updateButtonClicked,
         replyingTo
       }
-
+      
+      const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} addComment={addComment}/> : null
       if(c.hasReplies) {
-        const replyList = <ReplyList parentCommentId={v.id} {...replyListProps}/>   
+        const replyList = <ReplyList parentCommentId={v.id} {...replyListProps}/>
         comments.push(
           user?.uid === c.user.userId ?
           <React.Fragment key={v.id}>
           <CurrentUserComment  {...currentUserCommentProps}/>
+          {replyingToComponent}
           {replyList}
           </React.Fragment>
           :
           <React.Fragment key={v.id}>
           <Comment {...commentProps}/>
+          {replyingToComponent}
           {replyList}
           </React.Fragment>
         )
@@ -113,9 +116,15 @@ const CommentList: React.FunctionComponent = () => {
       } else {
         comments.push(
           user?.uid === c.user.userId ?
+          <>
           <CurrentUserComment key={v.id} {...currentUserCommentProps}/>
+          {replyingToComponent}
+          </>
           :
+          <>
           <Comment key={v.id} {...commentProps}/>
+          {replyingToComponent}
+          </>
         )
       }
 

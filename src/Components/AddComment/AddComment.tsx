@@ -18,7 +18,11 @@ const AddComment: React.FunctionComponent<{
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    addComment(content,null)
+    if(replyingTo) {
+      addComment(content,replyingTo)
+    } else {
+      addComment(content,null)
+    }
     
   };
 
