@@ -95,7 +95,7 @@ const CommentList: React.FunctionComponent = () => {
         replyingTo
       }
       
-      const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} addComment={addComment}/> : null
+      const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo} addComment={addComment}/> : null
       if(c.hasReplies) {
         const replyList = <ReplyList parentCommentId={v.id} {...replyListProps}/>
         comments.push(

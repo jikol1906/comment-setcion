@@ -9,9 +9,10 @@ const currentUser = data.currentUser;
 const AddComment: React.FunctionComponent<{
 
   replyingTo?:string;
+  setReplyingTo?:React.Dispatch<React.SetStateAction<string>>;
   addComment:(content:string,replyingTo:string|null) => void
   
-}> = ({ replyingTo,addComment }) => {
+}> = ({ replyingTo,addComment,setReplyingTo }) => {
 
   const [content, setContent] = useState("");
 
@@ -22,6 +23,10 @@ const AddComment: React.FunctionComponent<{
       addComment(content,replyingTo)
     } else {
       addComment(content,null)
+    }
+
+    if(setReplyingTo) {
+      setReplyingTo("")
     }
     
   };
