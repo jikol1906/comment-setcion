@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as FirestoreService from '../Firebase';
-import { collection, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
@@ -23,8 +23,8 @@ const CommentList: React.FunctionComponent = () => {
   const [replyingTo, setReplyingTo] = useState("")
   const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null)))
   
-  const onDeleteButtonClicked = (commentId:string) => {
-
+  const onDeleteButtonClicked = async (commentId:string) => {
+    await deleteDoc(doc(db, user!.uid,commentId));
   }
    
   const onReplyButtonClicked = (commentId:string) => {
