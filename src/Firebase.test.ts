@@ -30,8 +30,11 @@ import {
 } from "@firebase/rules-unit-testing";
 import { Comment, User } from "./interfaces";
 
+const currentDate = new Date();
+currentDate.setDate(currentDate.getDate() - 14)
+
 const newComment: Partial<Comment> = {
-  createdAt: serverTimestamp(),
+  createdAt: Timestamp.fromDate(currentDate),
   content: "sef",
   score: 0,
   parentComment: null,
@@ -104,9 +107,40 @@ test("users can only increment counter by one", async () => {
 
   await assertSucceeds(
     updateDoc(theDoc, {
+      score: increment(-1),
+    })
+  );
+});
+test("can only update allowed fields", async () => {
+  const juliusomo_id = "test_user";
+  const juliusomo = testEnv.authenticatedContext(juliusomo_id);
+  const juliusomo_db = juliusomo.firestore();
+
+  const theDoc = doc(juliusomo_db, juliusomo_id, "test");
+
+  await assertSucceeds(setDoc(theDoc, newComment));
+
+  await assertSucceeds(
+    updateDoc(theDoc, {
+      content: "sefes",
+    })
+  );
+  await assertSucceeds(
+    updateDoc(theDoc, {
       score: increment(1),
     })
   );
+  await assertSucceeds(
+    updateDoc(theDoc, {
+      hasReplies: true,
+    })
+  );
+  await assertFails(
+    updateDoc(theDoc, {
+      createdAt: Timestamp.fromMillis(24123),
+    })
+  );
+
 });
 
 const seedDatabase = async (uid: string, db: any) => {
