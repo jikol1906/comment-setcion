@@ -31,7 +31,7 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 
 export const db = getFirestore(firebaseApp);
-// connectFirestoreEmulator(db, "localhost", 8080);
+connectFirestoreEmulator(db, "localhost", 8080);
 
 export const authenticateAnonymously = () => {
   return signInAnonymously(getAuth(firebaseApp));

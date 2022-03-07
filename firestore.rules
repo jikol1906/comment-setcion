@@ -2,8 +2,56 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{userID}/{document=**} {
-      allow read, update, delete: if request.auth != null && request.auth.uid == userID;
-      allow create: if request.auth != null;
+      allow read, delete: if request.auth != null && request.auth.uid == userID;
+
+      allow create: if 
+        isLoggedIn() && 
+        scoreIsInitially0() &&
+        validFields(incoming()) &&
+        verifyFields(['content','score','createdAt','hasReplies','parentComment'],[])
+
+      allow update: if
+        scoreAtMostChangedByOne()
+      
+
+      function isLoggedIn() {
+        return request.auth != null;
+      }
+
+      function scoreIsInitially0() {
+        return incoming().score == 0
+      }
+
+      function scoreAtMostChangedByOne() {
+        return math.abs(incoming().score) - current().score == 1 || 
+              incoming().score == current().score
+      }
+
+    function validFields(docData) {
+      return docData.score is int &&
+        docData.content is string &&
+        docData.createdAt is timestamp &&
+        (docData.parentComment == null || docData.parentComment is string) &&
+        docData.hasReplies is bool
+    }
+
+    function verifyFields(required, optional) {
+      let allAllowedFields = required.concat(optional);
+      return incoming().keys().hasAll(required) &&
+        incoming().keys().hasOnly(allAllowedFields);
+    }
+
+      function incoming() {
+        return request.resource.data;
+      }
+
+      function current() {
+        return resource.data;
+      }
+
+
+
+  
     }
   }
-}
+} 
