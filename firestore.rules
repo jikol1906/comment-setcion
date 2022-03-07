@@ -23,7 +23,8 @@ service cloud.firestore {
       }
 
       function scoreAtMostChangedByOne() {
-        return math.abs(incoming().score) - current().score == 1 || 
+        return incoming().score == current().score + 1 ||
+              incoming().score == current().score - 1 ||
               incoming().score == current().score
       }
 
