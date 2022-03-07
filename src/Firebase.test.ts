@@ -14,6 +14,14 @@ import {
 } from "@firebase/rules-unit-testing"
 import { Comment, User } from './interfaces';
 
+const newComment : Partial<Comment> = {
+  createdAt:serverTimestamp(),
+  content:"sef",
+  score:0,
+  parentComment:null,
+  hasReplies:false
+}
+
     
 
 let testEnv : RulesTestEnvironment;
@@ -97,15 +105,7 @@ test.only("users can only increment counter by one", async () => {
 
   const theDoc = doc(juliusomo_db,juliusomo_id,"test")
 
-  const comment : Partial<Comment> = {
-    createdAt:serverTimestamp(),
-    content:"sef",
-    score:0,
-    parentComment:null,
-    hasReplies:false
-  }
-
-  await assertSucceeds(setDoc(theDoc,comment))
+  await assertSucceeds(setDoc(theDoc,newComment))
 
   await assertSucceeds(updateDoc(theDoc,{
     score:increment(1)
