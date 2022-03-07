@@ -59,8 +59,6 @@ test("users can only access their own documents", async () => {
         const bob = testEnv.authenticatedContext(bob_id);
         const bob_db = bob.firestore()
 
-        // await seedDatabase(juliusomo_id,juliusomo_db)
-
         const theDoc = doc(juliusomo_db,juliusomo_id,"test")
 
 
@@ -71,22 +69,7 @@ test("users can only access their own documents", async () => {
         }))
 
 
-        await assertSucceeds(updateDoc(theDoc,{
-          score:increment(1)
-        }))
-        await assertSucceeds(updateDoc(theDoc,{
-          score:increment(1)
-        }))
-        await assertFails(updateDoc(theDoc,{
-          score:increment(2)
-        }))
 
-        await assertFails(updateDoc(theDoc,{
-          score:increment(3)
-        }))
-        await assertSucceeds(updateDoc(theDoc,{
-          score:increment(1)
-        }))
 
 
 
