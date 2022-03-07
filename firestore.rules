@@ -8,7 +8,8 @@ service cloud.firestore {
       incoming().username is string &&
       incoming().image.png is string &&
       incoming().image.webp is string &&
-      verifyFields(['username','image'],[]);
+      verifyFields(incoming(),['username','image'],[]) &&
+      verifyFields(incoming().image,['png','webp'],[]);
 
       
     }
@@ -20,7 +21,7 @@ service cloud.firestore {
         isLoggedIn() && 
         scoreIsInitially0() &&
         validFields(incoming()) &&
-        verifyFields(['content','score','createdAt','hasReplies','parentComment'],[])
+        verifyFields(incoming(),['content','score','createdAt','hasReplies','parentComment'],[])
 
       allow update: if
         scoreAtMostChangedByOne() && 
@@ -66,10 +67,10 @@ service cloud.firestore {
   
     }
 
-      function verifyFields(required, optional) {
+      function verifyFields(data,required, optional) {
         let allAllowedFields = required.concat(optional);
-        return incoming().keys().hasAll(required) &&
-          incoming().keys().hasOnly(allAllowedFields);
+        return data.keys().hasAll(required) &&
+          data.keys().hasOnly(allAllowedFields);
       }
       function incoming() {
         return request.resource.data;
