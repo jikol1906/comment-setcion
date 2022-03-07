@@ -1,6 +1,18 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    match /users/{userId} {
+      allow read: if request.auth.uid == userId
+      allow create: if request.auth.uid == userId &&
+      incoming().username is string &&
+      incoming().image.png is string &&
+      incoming().image.webp is string &&
+      verifyFields(['username','image'],[]);
+
+      
+    }
+
     match /{userID}/{document=**} {
       allow read, delete: if userOwnsDocument();
 
@@ -13,6 +25,7 @@ service cloud.firestore {
       allow update: if
         scoreAtMostChangedByOne() && 
         userOwnsDocument() &&
+        validFields(incoming()) &&
         allowedFieldsToUpdate(['content','score','hasReplies'])
       
 
@@ -30,28 +43,34 @@ service cloud.firestore {
               incoming().score == current().score
       }
 
-    function validFields(docData) {
-      return docData.score is int &&
-        docData.content is string &&
-        docData.createdAt is timestamp &&
-        (docData.parentComment == null || docData.parentComment is string) &&
-        docData.hasReplies is bool
+      function validFields(docData) {
+        return docData.score is int &&
+          docData.content is string &&
+          docData.createdAt is timestamp &&
+          (docData.parentComment == null || docData.parentComment is string) &&
+          docData.hasReplies is bool
+      }
+
+      function userOwnsDocument() {
+        return request.auth.uid == userID;
+      }
+
+
+      function allowedFieldsToUpdate(fields) {
+        return incoming().diff(current()).affectedKeys().hasOnly(fields)
+      }
+
+
+
+
+  
     }
 
-    function userOwnsDocument() {
-      return request.auth.uid == userID;
-    }
-
-    function verifyFields(required, optional) {
-      let allAllowedFields = required.concat(optional);
-      return incoming().keys().hasAll(required) &&
-        incoming().keys().hasOnly(allAllowedFields);
-    }
-
-    function allowedFieldsToUpdate(fields) {
-      return incoming().diff(current()).affectedKeys().hasOnly(fields)
-    }
-
+      function verifyFields(required, optional) {
+        let allAllowedFields = required.concat(optional);
+        return incoming().keys().hasAll(required) &&
+          incoming().keys().hasOnly(allAllowedFields);
+      }
       function incoming() {
         return request.resource.data;
       }
@@ -59,10 +78,5 @@ service cloud.firestore {
       function current() {
         return resource.data;
       }
-
-
-
-  
-    }
   }
 } 
