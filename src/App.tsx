@@ -7,6 +7,7 @@ import { signInAnonymously, User } from "firebase/auth";
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { firebaseApp } from "./Firebase";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 const auth = getAuth(firebaseApp);
 function App() {
@@ -15,14 +16,20 @@ function App() {
   
   
   useEffect(() => {
-    signInAnonymously(auth)
-  },[])
+    signInAnonymously(auth).then(async u => {
+      
+      await setDoc(doc(FirestoreService.db,"users",u.user.uid),{
+        username:'juliomoso',
+        image: {
+          png: "./images/avatars/image-juliusomo.png",
+          webp: "./images/avatars/image-juliusomo.webp",
+        },
+      })
 
-  useEffect(() => {
-    if(user) {
-      FirestoreService.seedDatabase(user.uid)
-    }
-  },[user])
+      await FirestoreService.seedDatabase(u.user.uid)
+      
+    })
+  },[])
  
   
   return (
