@@ -3,32 +3,23 @@ import useComments from "./useComment";
 import CommentList from "./Components/CommentList";
 import * as FirestoreService from "./Firebase";
 import { useEffect, useState } from "react";
-import { signInAnonymously, User } from "firebase/auth";
+import { connectAuthEmulator, signInAnonymously, User } from "firebase/auth";
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { firebaseApp } from "./Firebase";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 const auth = getAuth(firebaseApp);
+if(process.env.NODE_ENV === 'development') {
+  connectAuthEmulator(auth,"http://localhost:9099")
+}
 function App() {
 
   const [user, loading, error] = useAuthState(auth);
   
   
   useEffect(() => {
-    signInAnonymously(auth).then(async u => {
-      
-      await setDoc(doc(FirestoreService.db,"users",u.user.uid),{
-        username:'juliomoso',
-        image: {
-          png: "./images/avatars/image-juliusomo.png",
-          webp: "./images/avatars/image-juliusomo.webp",
-        },
-      })
-
-      await FirestoreService.seedDatabase(u.user.uid)
-      
-    })
+    signInAnonymously(auth)
   },[])
  
   
