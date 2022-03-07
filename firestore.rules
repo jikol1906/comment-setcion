@@ -11,7 +11,9 @@ service cloud.firestore {
         verifyFields(['content','score','createdAt','hasReplies','parentComment'],[])
 
       allow update: if
-        scoreAtMostChangedByOne()
+        scoreAtMostChangedByOne() && 
+        userOwnsDocument() &&
+        allowedFieldsToUpdate(['content','score','hasReplies'])
       
 
       function isLoggedIn() {
@@ -44,6 +46,10 @@ service cloud.firestore {
       let allAllowedFields = required.concat(optional);
       return incoming().keys().hasAll(required) &&
         incoming().keys().hasOnly(allAllowedFields);
+    }
+
+    function allowedFieldsToUpdate(fields) {
+      return incoming().diff(current()).affectedKeys().hasOnly(fields)
     }
 
       function incoming() {
