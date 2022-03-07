@@ -61,27 +61,18 @@ test("users can only access their own documents", async () => {
 
         const theDoc = doc(juliusomo_db,juliusomo_id,"test")
 
-
-
-        await assertSucceeds(setDoc(theDoc,{
-          content:'test',
-          score:0,
-        }))
-
-
-
-
-
+        await assertSucceeds(setDoc(theDoc,newComment))
 
         await assertFails(getDoc(doc(bob_db,juliusomo_id,"test")))
-        // await assertSucceeds(getDoc(doc(juliusomo_db,juliusomo_id,"test")))
+        await assertSucceeds(getDoc(doc(juliusomo_db,juliusomo_id,"test")))
+
         
         
 
         
 })
 
-test.only("users can only increment counter by one", async () => {
+test("users can only increment counter by one", async () => {
   const juliusomo_id = "test_user"
   const juliusomo = testEnv.authenticatedContext(juliusomo_id);
   const juliusomo_db = juliusomo.firestore();
