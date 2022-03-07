@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{userID}/{document=**} {
-      allow read, delete: if request.auth != null && request.auth.uid == userID;
+      allow read, delete: if userOwnsDocument();
 
       allow create: if 
         isLoggedIn() && 
@@ -34,6 +34,10 @@ service cloud.firestore {
         docData.createdAt is timestamp &&
         (docData.parentComment == null || docData.parentComment is string) &&
         docData.hasReplies is bool
+    }
+
+    function userOwnsDocument() {
+      return request.auth.uid == userID;
     }
 
     function verifyFields(required, optional) {
