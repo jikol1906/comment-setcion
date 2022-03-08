@@ -3,14 +3,8 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     match /users/{userId} {
-      allow read: if request.auth.uid == userId
-      allow create: if request.auth.uid == userId &&
-      incoming().username is string &&
-      incoming().image.png is string &&
-      incoming().image.webp is string &&
-      verifyFields(incoming(),['username','image'],[]) &&
-      verifyFields(incoming().image,['png','webp'],[]);
-
+      allow read: if true;
+      allow write: if false;
       
     }
 
