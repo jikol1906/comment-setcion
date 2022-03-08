@@ -24,7 +24,7 @@ const CommentList: React.FunctionComponent = () => {
   const coll = collection(db,"comments")
   const userColl = collection(db,"users")
   const [replyingTo, setReplyingTo] = useState("")
-  const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null)))
+  const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null),where("commentThreadOwner","==",user?.uid)))
   const [userData] = useDocumentData(doc(userColl,user?.uid))
   
   const onDeleteButtonClicked = async (commentId:string) => {
