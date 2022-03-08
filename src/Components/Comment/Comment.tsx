@@ -13,13 +13,13 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
   onReplyButtonClicked,
   content,
   score,
-  user,
+  // user,
 }) => {
   
   return (
     <CommentSkeleton>
       <div className="col-span-full md:col-start-2 md:col-end-3">
-        <UserInfo user={user} />
+        {/* <UserInfo user={user} /> */}
       </div>
       <div className="col-span-full md:col-start-2 md:col-end-4">
       <CommentText text={content} />

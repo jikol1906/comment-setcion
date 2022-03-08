@@ -5,7 +5,7 @@ export interface Comment {
   content: string;
   createdAt: FieldValue;
   score: number;
-  user: User;
+  userId:string;
   hasReplies:boolean;
   parentComment:string|null
 }
@@ -15,7 +15,6 @@ export interface Comment {
 export interface User {
   image: Image;
   username: string;
-  userId:string
 }
 
 export interface Image {
@@ -31,5 +30,5 @@ export interface ReplyInfo {
 export interface CommentProps {
   content: string;
   score: number;
-  user:User
+  userId:string
 }

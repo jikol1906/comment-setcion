@@ -67,6 +67,10 @@ service cloud.firestore {
   
     }
 
+    match /comments/{commentId} {
+      allow read, write: if true;
+    }
+
       function verifyFields(data,required, optional) {
         let allAllowedFields = required.concat(optional);
         return data.keys().hasAll(required) &&

@@ -48,7 +48,6 @@ export const seedDatabase = async (uid: string) => {
           webp: "./images/avatars/image-juliusomo.webp",
         },
         username: "juliusomo",
-        userId:uid
   }
 
   const q = query(commentsColl);

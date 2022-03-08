@@ -3,7 +3,7 @@ import * as FirestoreService from '../Firebase';
 import { addDoc, collection, deleteDoc, doc, query, serverTimestamp, Timestamp, updateDoc, where, writeBatch } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection, useCollectionData, useDocument, useDocumentData } from 'react-firebase-hooks/firestore';
 import { db } from "../Firebase";
 import { Comment as IComment, User } from "../interfaces";
 import CurrentUserComment from "./Comment/CurrentUserComment";
@@ -21,9 +21,11 @@ const CommentList: React.FunctionComponent = () => {
 
   const [user] = useAuthState(auth);
 
-  const coll = collection(db,user!.uid)
+  const coll = collection(db,"comments")
+  const userColl = collection(db,"users")
   const [replyingTo, setReplyingTo] = useState("")
   const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null)))
+  const [userData] = useDocumentData(doc(userColl,user?.uid))
   
   const onDeleteButtonClicked = async (commentId:string) => {
     await deleteDoc(doc(db, user!.uid,commentId));
@@ -35,19 +37,11 @@ const CommentList: React.FunctionComponent = () => {
 
   const addComment = async (content:string,replyingTo:string|null = null) => {
 
-    const currentUser : User ={
-      image: {
-        png: "./images/avatars/image-juliusomo.png",
-        webp: "./images/avatars/image-juliusomo.webp",
-      },
-      username: "juliusomo",
-      userId:user!.uid
-    }
+
 
     const comment : Partial<IComment> = {
       content,
       createdAt:serverTimestamp(),
-      user:currentUser,
       score:0,
       parentComment:replyingTo,
       hasReplies:false
@@ -76,7 +70,7 @@ const CommentList: React.FunctionComponent = () => {
   if(value) {
     value.forEach(v => {
       const c = v.data() as IComment
-
+      
       const commentProps = {
         ...c,
         onReplyButtonClicked:() => onReplyButtonClicked(v.id),
@@ -98,7 +92,7 @@ const CommentList: React.FunctionComponent = () => {
       const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo} addComment={addComment}/> : null
       const replyList = c.hasReplies ? <ReplyList parentCommentId={v.id} {...replyListProps}/> : null
         comments.push(
-          user?.uid === c.user.userId ?
+          user?.uid === c.userId ?
           <React.Fragment key={v.id}>
           <CurrentUserComment {...currentUserCommentProps}/>
           {replyingToComponent}

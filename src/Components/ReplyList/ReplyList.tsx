@@ -38,18 +38,18 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
 
   const comments : JSX.Element[] = [];
 
-  if(value) {
-    value.forEach(v => {
-      const c = v.data() as IComment;
-        comments.push(
-          user?.uid === c.user.userId ?
-          <CurrentUserComment key={v.id} {...c} onUpdateSubmitted={onUpdateSubmitted(v.id)} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
-          :
-          <Comment key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
-        )
+  // if(value) {
+  //   value.forEach(v => {
+  //     const c = v.data() as IComment;
+  //       comments.push(
+  //         user?.uid === c.user.userId ?
+  //         <CurrentUserComment key={v.id} {...c} onUpdateSubmitted={onUpdateSubmitted(v.id)} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
+  //         :
+  //         <Comment key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
+  //       )
       
-    })
-  }
+  //   })
+  // }
 
   return (
     <CommentReplyThread>
