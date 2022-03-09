@@ -10,9 +10,7 @@ import { firebaseApp } from "./Firebase";
 import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 const auth = getAuth(firebaseApp);
-if(process.env.NODE_ENV === 'development') {
-  connectAuthEmulator(auth,"http://localhost:9099")
-}
+
 function App() {
 
   const [user, loading, error] = useAuthState(auth);

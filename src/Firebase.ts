@@ -13,7 +13,7 @@ import {
   Timestamp,
   connectFirestoreEmulator,
 } from "firebase/firestore";
-import { getAuth, signInAnonymously } from "firebase/auth";
+import { connectAuthEmulator, getAuth, signInAnonymously } from "firebase/auth";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { User } from "./interfaces";
@@ -31,7 +31,11 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 
 export const db = getFirestore(firebaseApp);
-connectFirestoreEmulator(db, "localhost", 8080);
+const auth = getAuth(firebaseApp);
+if(window.location.hostname === 'localhost') {
+  connectFirestoreEmulator(db, "localhost", 8080);
+  connectAuthEmulator(auth,"http://localhost:9099")
+}
 
 export const authenticateAnonymously = () => {
   return signInAnonymously(getAuth(firebaseApp));
