@@ -35,27 +35,6 @@ const CommentList: React.FunctionComponent = () => {
     setReplyingTo(commentId);
   }
 
-  const addComment = async (content:string,replyingTo:string|null = null) => {
-
-
-
-    const comment : Partial<IComment> = {
-      content,
-      createdAt:serverTimestamp(),
-      score:0,
-      parentComment:replyingTo,
-      hasReplies:false
-    }
-
-    await addDoc(coll,comment)
-
-    if(replyingTo) {
-      await updateDoc(doc(db,user!.uid,replyingTo),{
-        hasReplies:true
-      })
-    }
-  }
-
   const updateButtonClicked = (commentId:string) => {
     return async (updatedContent:string) => {
       await updateDoc(doc(db, user!.uid,commentId),{
@@ -89,7 +68,7 @@ const CommentList: React.FunctionComponent = () => {
         replyingTo
       }
       
-      const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo} addComment={addComment}/> : null
+      const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo}/> : null
       const replyList = c.hasReplies ? <ReplyList parentCommentId={v.id} {...replyListProps}/> : null
         comments.push(
           user?.uid === c.userId ?
@@ -110,7 +89,7 @@ const CommentList: React.FunctionComponent = () => {
     })
   }
 
-  comments.push(<AddComment key={"addcomment"} addComment={addComment}/>)
+  comments.push(<AddComment key={"addcomment"}/>)
  
 
   return <>

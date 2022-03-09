@@ -3,6 +3,7 @@ import data from "../../data.json";
 import { useState } from "react";
 import TextArea from "../TextArea/TextArea";
 import CommentSkeleton from "../Comment/CommentSkeleton";
+import { addComment } from "../../Firebase";
 
 const currentUser = data.currentUser;
 
@@ -10,9 +11,8 @@ const AddComment: React.FunctionComponent<{
 
   replyingTo?:string;
   setReplyingTo?:React.Dispatch<React.SetStateAction<string>>;
-  addComment:(content:string,replyingTo:string|null) => void
   
-}> = ({ replyingTo,addComment,setReplyingTo }) => {
+}> = ({ replyingTo,setReplyingTo }) => {
 
   const [content, setContent] = useState("");
 
