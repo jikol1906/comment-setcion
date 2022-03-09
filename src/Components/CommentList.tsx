@@ -72,6 +72,7 @@ const CommentList: React.FunctionComponent = () => {
         onReplyButtonClicked,
         onDeleteButtonClicked,
         onUpdateSubmitted:updateButtonClicked,
+        setReplyingTo,
         replyingTo
       }
       
@@ -81,7 +82,6 @@ const CommentList: React.FunctionComponent = () => {
           c.user.username === 'juliusomo' ?
           <React.Fragment key={v.id}>
           <CurrentUserComment {...currentUserCommentProps}/>
-          {replyingToComponent}
           {replyList}
           </React.Fragment>
           :

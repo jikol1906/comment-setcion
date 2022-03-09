@@ -11,6 +11,7 @@ import CurrentUserComment from "../Comment/CurrentUserComment";
 import Comment from "../Comment/Comment";
 import Loadingspinner from "../Loadingspinner/Loadingspinner";
 import { User } from "../../interfaces";
+import AddComment from "../AddComment/AddComment";
 
 const auth = getAuth(FirestoreService.firebaseApp);
 
@@ -20,6 +21,7 @@ interface IReplyListProps {
   replyingTo:string;
   onDeleteButtonClicked: (commentId:string) => void;
   onReplyButtonClicked: (commentId:string) => void;
+  setReplyingTo: React.Dispatch<React.SetStateAction<string>>;
   onUpdateSubmitted:(commentId: string) => (updatedContent: string) => Promise<void>;
 }
 
@@ -29,6 +31,7 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
   onDeleteButtonClicked,
   onReplyButtonClicked,
   onUpdateSubmitted,
+  setReplyingTo
 
 }) => {
   const [user] = useAuthState(auth);
@@ -46,11 +49,15 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
   if(value) {
     value.forEach(v => {
       const c = v.data() as IComment;
+      const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo}/> : null
         comments.push(
           user?.uid === "juli" ?
           <CurrentUserComment key={v.id} {...c} userInfo={c.user} onUpdateSubmitted={onUpdateSubmitted(v.id)} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
           :
-          <Comment userInfo={c.user} key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
+          <>
+            <Comment userInfo={c.user} key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
+            {replyingToComponent}
+          </>
         )
       
     })
