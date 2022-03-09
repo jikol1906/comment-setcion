@@ -27,11 +27,7 @@ export default function useComments() {
 
   const addComment = (content: string, replyInfo?: ReplyInfo) => {};
 
-  const getReplies = (parentCommentId: string) => {
-    
-    return FirestoreService.getReplies("tes", parentCommentId);
-    
-  };
+  
 
   const reply = () => {};
 
@@ -50,6 +46,5 @@ export default function useComments() {
     reply,
     addComment,
     deleteComment,
-    getReplies,
   };
 }
