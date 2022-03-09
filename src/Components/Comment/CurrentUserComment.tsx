@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CommentProps } from "../../interfaces";
+import { CommentProps, User } from "../../interfaces";
 import IconButton from "../Button/IconButton";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import TextArea from "../TextArea/TextArea";
@@ -9,6 +9,7 @@ import CommentText from "./CommentText";
 
 interface ICurrentUserComment extends CommentProps {
   onDeleteButtonClicked: () => void;
+  userInfo:User;
   onUpdateSubmitted:(updatedContent: string) => Promise<void>;
 }
 
@@ -16,6 +17,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   onDeleteButtonClicked,
   onUpdateSubmitted,
   content,
+  userInfo,
   score,
 }) => {
 
@@ -26,7 +28,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   return (
     <CommentSkeleton>
       <div className="col-span-full md:col-start-2 md:col-end-3">
-        {/* <UserInfo user={user} /> */}
+        <UserInfo user={userInfo} currentUser />
       </div>
       <div className="col-span-full md:col-start-2 md:col-end-4">
         {editing ? (

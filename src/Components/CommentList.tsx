@@ -25,11 +25,12 @@ const CommentList: React.FunctionComponent = () => {
   const userColl = collection(db,"users")
   const [replyingTo, setReplyingTo] = useState("")
   const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null),where("commentThreadOwner","==",user?.uid)))
-  const [userData] = useDocumentData(doc(userColl,user?.uid))
+  
   
   const onDeleteButtonClicked = async (commentId:string) => {
     await deleteDoc(doc(db, user!.uid,commentId));
   }
+  
    
   const onReplyButtonClicked = (commentId:string) => {    
     setReplyingTo(commentId);
@@ -49,19 +50,24 @@ const CommentList: React.FunctionComponent = () => {
   if(value) {
     value.forEach(v => {
       const c = v.data() as IComment
+      const userInfo = c.user
+      
       
       const commentProps = {
         ...c,
+        userInfo,
         onReplyButtonClicked:() => onReplyButtonClicked(v.id),
       }
 
       const currentUserCommentProps = {
         ...c,
+        userInfo,
         onDeleteButtonClicked: () => onDeleteButtonClicked(v.id),
         onUpdateSubmitted:updateButtonClicked(v.id)
       }
 
       const replyListProps = {
+        
         onReplyButtonClicked,
         onDeleteButtonClicked,
         onUpdateSubmitted:updateButtonClicked,
@@ -69,9 +75,9 @@ const CommentList: React.FunctionComponent = () => {
       }
       
       const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo}/> : null
-      const replyList = c.hasReplies ? <ReplyList parentCommentId={v.id} {...replyListProps}/> : null
+      const replyList = c.hasReplies ? <ReplyList userInfo={c.user} parentCommentId={v.id} {...replyListProps}/> : null
         comments.push(
-          user?.uid === c.userId ?
+          user?.uid === c.commentThreadOwner ?
           <React.Fragment key={v.id}>
           <CurrentUserComment {...currentUserCommentProps}/>
           {replyingToComponent}

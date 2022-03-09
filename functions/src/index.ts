@@ -19,7 +19,13 @@
         score: 12,
         parentComment: null,
         hasReplies: false,
-        userId:"juli",
+        user:{
+          image: {
+            png: "./images/avatars/image-juliusomo.png",
+            webp: "./images/avatars/image-juliusomo.webp",
+          },
+          username: "juliusomo",
+        },
         commentThreadOwner:user.uid
       })
 

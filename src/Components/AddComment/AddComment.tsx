@@ -28,6 +28,8 @@ const AddComment: React.FunctionComponent<{
     if(setReplyingTo) {
       setReplyingTo("")
     }
+
+    setContent("")
     
   };
 

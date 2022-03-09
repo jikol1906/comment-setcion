@@ -34,7 +34,7 @@ export const authenticateAnonymously = () => {
   return signInAnonymously(getAuth(firebaseApp));
 };
 
-export const addComment = async (content:string) => {
+export const addComment = async (content:string,replyingTo:string|null) => {
   const addComment = httpsCallable<({content:string})>(functions,"addComment");
   await addComment({content})
 }

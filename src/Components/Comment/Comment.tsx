@@ -1,11 +1,13 @@
-import { CommentProps } from "../../interfaces";
+import { CommentProps,User } from "../../interfaces";
 import IconButton from "../Button/IconButton";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import UserInfo from "../UserInfo";
 import CommentSkeleton from "./CommentSkeleton";
 import CommentText from "./CommentText";
 
+
 interface ICommentProps extends CommentProps {
+  userInfo:User
   onReplyButtonClicked: (commentId:string) => void;
 }
 
@@ -13,13 +15,13 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
   onReplyButtonClicked,
   content,
   score,
-  // user,
+  userInfo,
 }) => {
   
   return (
     <CommentSkeleton>
       <div className="col-span-full md:col-start-2 md:col-end-3">
-        {/* <UserInfo user={user} /> */}
+        <UserInfo user={userInfo} />
       </div>
       <div className="col-span-full md:col-start-2 md:col-end-4">
       <CommentText text={content} />

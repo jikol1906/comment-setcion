@@ -10,11 +10,13 @@ import { Comment as IComment } from "../../interfaces";
 import CurrentUserComment from "../Comment/CurrentUserComment";
 import Comment from "../Comment/Comment";
 import Loadingspinner from "../Loadingspinner/Loadingspinner";
+import { User } from "../../interfaces";
 
 const auth = getAuth(FirestoreService.firebaseApp);
 
 interface IReplyListProps {
   parentCommentId: string;
+  userInfo:User;
   replyingTo:string;
   onDeleteButtonClicked: (commentId:string) => void;
   onReplyButtonClicked: (commentId:string) => void;
@@ -26,30 +28,33 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
   replyingTo,
   onDeleteButtonClicked,
   onReplyButtonClicked,
-  onUpdateSubmitted
+  onUpdateSubmitted,
+  userInfo
 }) => {
   const [user] = useAuthState(auth);
+  
     
-  const coll = collection(db, user!.uid);
+  const coll = collection(db, "comments");
 
   const [value, loading, error] = useCollection(
-    query(coll, where("parentComment", "==", parentCommentId))
+    query(coll, where("parentComment", "==", parentCommentId), where("commentThreadOwner", "==", user?.uid))
   );
 
   const comments : JSX.Element[] = [];
-
-  // if(value) {
-  //   value.forEach(v => {
-  //     const c = v.data() as IComment;
-  //       comments.push(
-  //         user?.uid === c.user.userId ?
-  //         <CurrentUserComment key={v.id} {...c} onUpdateSubmitted={onUpdateSubmitted(v.id)} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
-  //         :
-  //         <Comment key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
-  //       )
+    console.log(user?.uid);
+    
+  if(value) {
+    value.forEach(v => {
+      const c = v.data() as IComment;
+        comments.push(
+          user?.uid === "juli" ?
+          <CurrentUserComment key={v.id} {...c} userInfo={userInfo} onUpdateSubmitted={onUpdateSubmitted(v.id)} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
+          :
+          <Comment userInfo={userInfo} key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
+        )
       
-  //   })
-  // }
+    })
+  }
 
   return (
     <CommentReplyThread>
