@@ -36,7 +36,7 @@ const AddComment: React.FunctionComponent<{
   return (
     <CommentSkeleton>
       <form
-        className="col-span-full"
+        className="col-span-full md:col-start-2 md:col-end-3"
         id={replyingTo ? "replycommentform":"sendcommentform"}
         onSubmit={(e) => submitHandler(e)}
       >
@@ -49,14 +49,14 @@ const AddComment: React.FunctionComponent<{
         ></TextArea>
       </form>
       <img
-        className="w-9"
+        className="w-9 md:col-start-1 md:row-start-1"
         src={`${process.env.PUBLIC_URL}${
           currentUser.image.webp.split("./")[1]
         }`}
       />
       <button
         type="submit"
-        className="btn col-start-3 self-center btn-hover-styles"
+        className="btn col-start-3 self-start btn-hover-styles md:col-start-3 md:row-start-1"
         form={replyingTo ? "replycommentform":"sendcommentform"}
       >
           {replyingTo ? "Reply" : "Send"}
