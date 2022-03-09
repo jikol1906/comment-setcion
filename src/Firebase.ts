@@ -38,7 +38,7 @@ const functions = getFunctions(firebaseApp);
 
 if(window.location.hostname === 'localhost') {
   connectFirestoreEmulator(db, "localhost", 8080);
-  connectFunctionsEmulator(functions, "localhost", 8080);
+  connectFunctionsEmulator(functions, "localhost", 5001);
   connectAuthEmulator(auth,"http://localhost:9099")
 }
 
@@ -123,6 +123,11 @@ export const seedDatabase = async (uid: string) => {
 
 function getCurrentUserCommentsCollection(uid: string) {
   return collection(db, uid);
+}
+
+export const addComment = async (content:string) => {
+  const addComment = httpsCallable<({content:string})>(functions,"addComment");
+  await addComment({content})
 }
 
 export const subscribeRootComments = (

@@ -44,7 +44,7 @@
         score: 12,
         parentComment: null,
         hasReplies: false,
-        userId:"345",
+        userId:"juli",
         commentThreadOwner:user.uid
       })
 
@@ -57,7 +57,7 @@
           score: 12,
           parentComment: null,
           hasReplies: true,
-          userId:"123",
+          userId:"max",
           commentThreadOwner:user.uid
       })
 
@@ -68,7 +68,7 @@
           score: 12,
           parentComment: commentWithReplies.id,
           hasReplies: false,
-          userId:"234",
+          userId:"amy",
           commentThreadOwner:user.uid
       })
 
@@ -79,10 +79,27 @@
           score: 12,
           parentComment: commentWithReplies.id,
           hasReplies: false,
-          userId:"234",
+          userId:"amy",
           commentThreadOwner:user.uid
       })
 
     await batch.commit()
 
     })
+
+    exports.addComment = functions.https.onCall((data,{auth}) => {      
+      if (auth) {
+        const {content} = data;
+        return admin.firestore().collection("comments").add({
+          content,
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          score: 0,
+          parentComment: null,
+          hasReplies: false,
+          userId:"juli",
+          commentThreadOwner:auth.uid
+      })
+    } else {
+        throw new functions.https.HttpsError("unauthenticated", "You must be authenticated");
+    }
+})
