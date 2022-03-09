@@ -8,10 +8,11 @@ import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, firebaseApp } from "./Firebase";
 import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import Loadingspinner from "./Components/Loadingspinner/Loadingspinner";
 
 function App() {
 
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   
   
   useEffect(() => {
@@ -21,7 +22,7 @@ function App() {
   
   return (
     <div className="grid gap-2 p-2 max-w-4xl mx-auto py-20">
-      {user && <CommentList/>}
+      {!user ? <Loadingspinner/> : <CommentList/>}
     </div>
   );
 }
