@@ -2,80 +2,13 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    match /users/{userId} {
-      allow read: if true;
-      allow write: if false;
-      
-    }
-
-    match /{userID}/{document=**} {
-      allow read, delete: if userOwnsDocument();
-
-      allow create: if 
-        isLoggedIn() && 
-        scoreIsInitially0() &&
-        validFields(incoming()) &&
-        verifyFields(incoming(),['content','score','createdAt','hasReplies','parentComment'],[])
-
-      allow update: if
-        scoreAtMostChangedByOne() && 
-        userOwnsDocument() &&
-        validFields(incoming()) &&
-        allowedFieldsToUpdate(['content','score','hasReplies'])
-      
-
-      function isLoggedIn() {
-        return request.auth != null;
-      }
-
-      function scoreIsInitially0() {
-        return incoming().score == 0
-      }
-
-      function scoreAtMostChangedByOne() {
-        return incoming().score == current().score + 1 ||
-              incoming().score == current().score - 1 ||
-              incoming().score == current().score
-      }
-
-      function validFields(docData) {
-        return docData.score is int &&
-          docData.content is string &&
-          docData.createdAt is timestamp &&
-          (docData.parentComment == null || docData.parentComment is string) &&
-          docData.hasReplies is bool
-      }
-
-      function userOwnsDocument() {
-        return request.auth.uid == userID;
-      }
-
-
-      function allowedFieldsToUpdate(fields) {
-        return incoming().diff(current()).affectedKeys().hasOnly(fields)
-      }
-
-
-
-
-  
-    }
-
+ 
     match /comments/{commentId} {
-      allow read, write: if true;
+      allow write: if false;
+      allow read: if request.auth != null && 
+      request.auth.uid == resource.data.commentThreadOwner;
     }
 
-      function verifyFields(data,required, optional) {
-        let allAllowedFields = required.concat(optional);
-        return data.keys().hasAll(required) &&
-          data.keys().hasOnly(allAllowedFields);
-      }
-      function incoming() {
-        return request.resource.data;
-      }
 
-      function current() {
-        return resource.data;
-      }
   }
 } 
