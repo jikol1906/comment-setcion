@@ -33,7 +33,7 @@ const LikeDislikeButton: React.FunctionComponent<ILikeDislikeButtonProps> = (
 };
 
 const Button : React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({children,...rest}) => (
-  <button className="w-8 h-8 flex justify-center items-center group">
+  <button className="w-10 h-10 flex justify-center items-center group">
     {children}
   </button>
 )
