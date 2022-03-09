@@ -4,7 +4,7 @@ import { addDoc, collection, deleteDoc, doc, query, serverTimestamp, Timestamp, 
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData, useDocument, useDocumentData } from 'react-firebase-hooks/firestore';
-import { db, deleteComment } from "../Firebase";
+import { db, deleteComment, updateComment } from "../Firebase";
 import { Comment as IComment, User } from "../interfaces";
 import CurrentUserComment from "./Comment/CurrentUserComment";
 import Comment from "./Comment/Comment";
@@ -34,9 +34,7 @@ const CommentList: React.FunctionComponent = () => {
 
   const updateButtonClicked = (commentId:string) => {
     return async (updatedContent:string) => {
-      await updateDoc(doc(db, user!.uid,commentId),{
-        content:updatedContent
-      });
+      updateComment(commentId,updatedContent)
     }
   }
 

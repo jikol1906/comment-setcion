@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { updateComment } from "../../Firebase";
 import { CommentProps, User } from "../../interfaces";
 import IconButton from "../Button/IconButton";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
