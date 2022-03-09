@@ -52,6 +52,7 @@ const CommentList: React.FunctionComponent = () => {
       const c = v.data() as IComment
       const userInfo = c.user
       
+      console.log(userInfo);
       
       const commentProps = {
         ...c,
@@ -75,7 +76,7 @@ const CommentList: React.FunctionComponent = () => {
       }
       
       const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo}/> : null
-      const replyList = c.hasReplies ? <ReplyList userInfo={c.user} parentCommentId={v.id} {...replyListProps}/> : null
+      const replyList = c.hasReplies ? <ReplyList parentCommentId={v.id} {...replyListProps}/> : null
         comments.push(
           user?.uid === c.commentThreadOwner ?
           <React.Fragment key={v.id}>
