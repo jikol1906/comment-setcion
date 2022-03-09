@@ -6,10 +6,8 @@ import { useEffect, useState } from "react";
 import { connectAuthEmulator, signInAnonymously, User } from "firebase/auth";
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { firebaseApp } from "./Firebase";
+import { auth, firebaseApp } from "./Firebase";
 import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
-
-const auth = getAuth(firebaseApp);
 
 function App() {
 
