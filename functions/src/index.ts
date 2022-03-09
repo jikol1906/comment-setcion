@@ -6,7 +6,7 @@
     const db = admin.firestore()
 
 
-    exports.createUser = functions.auth.user().onCreate(async user => {
+    exports.createUser = functions.auth.user().onCreate(user => {
 
       const batch = db.batch()
 
@@ -82,14 +82,14 @@
           commentThreadOwner:user.uid
       })
 
-    await batch.commit()
+    return batch.commit()
 
     })
 
-    exports.addComment = functions.https.onCall((data,{auth}) => {      
+    exports.addComment = functions.https.onCall(async (data,{auth}) => {      
       if (auth) {
         const {content,replyingTo} = data;
-        return admin.firestore().collection("comments").add({
+        return await admin.firestore().collection("comments").add({
           content,
           createdAt: admin.firestore.FieldValue.serverTimestamp(),
           score: 0,
@@ -151,6 +151,8 @@
             content
           })
         }
+      } else {
+        throw new functions.https.HttpsError("not-found", "Comment doesn't exist");
       }
 
 
