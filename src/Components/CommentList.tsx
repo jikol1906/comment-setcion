@@ -78,7 +78,7 @@ const CommentList: React.FunctionComponent = () => {
       const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo}/> : null
       const replyList = c.hasReplies ? <ReplyList parentCommentId={v.id} {...replyListProps}/> : null
         comments.push(
-          user?.uid === c.commentThreadOwner ?
+          c.user.username === 'juliusomo' ?
           <React.Fragment key={v.id}>
           <CurrentUserComment {...currentUserCommentProps}/>
           {replyingToComponent}
