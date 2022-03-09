@@ -44,4 +44,9 @@ export const deleteComment = async (commentId:string) => {
   await deleteComment({commentId})
 }
 
+export const updateComment = async (commentId:string,content:string) => {
+  const updateComment = httpsCallable<({commentId:string,content:string})>(functions,"updateComment");
+  await updateComment({commentId,content})
+}
+
 
