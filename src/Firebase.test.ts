@@ -34,7 +34,6 @@ const currentDate = new Date();
 currentDate.setDate(currentDate.getDate() - 14)
 
 const newComment: Partial<Comment> = {
-  createdAt: Timestamp.fromDate(currentDate),
   content: "sef",
   score: 0,
   parentComment: null,

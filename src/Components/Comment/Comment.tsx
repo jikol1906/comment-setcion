@@ -16,12 +16,13 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
   content,
   score,
   userInfo,
+  createdAt
 }) => {
   
   return (
     <CommentSkeleton>
       <div className="col-span-full md:col-start-2 md:col-end-3">
-        <UserInfo user={userInfo} />
+        <UserInfo createdAt={createdAt} user={userInfo} />
       </div>
       <div className="col-span-full md:col-start-2 md:col-end-4">
       <CommentText text={content} />

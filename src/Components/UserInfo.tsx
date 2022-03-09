@@ -3,12 +3,14 @@ import { User } from "../interfaces";
 
 interface IUserInfoProps {
   currentUser?: boolean;
+  createdAt:string;
   user: User;
 }
 
 const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
   currentUser,
   user,
+  createdAt
 }) => {
   return (
     <div className="flex items-center space-x-3">
@@ -24,7 +26,7 @@ const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
           </div>
         )}
       </div>
-      <span className="text-sm text-grayishBlue">Now</span>
+      <span className="text-sm text-grayishBlue">{createdAt}</span>
     </div>
   );
 };

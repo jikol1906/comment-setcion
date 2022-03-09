@@ -19,6 +19,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   content,
   userInfo,
   score,
+  createdAt
 }) => {
 
   const [editing,setEditing] = useState(false)
@@ -28,7 +29,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   return (
     <CommentSkeleton>
       <div className="col-span-full md:col-start-2 md:col-end-3">
-        <UserInfo user={userInfo} currentUser />
+        <UserInfo user={userInfo} currentUser createdAt={createdAt} />
       </div>
       <div className="col-span-full md:col-start-2 md:col-end-4">
         {editing ? (

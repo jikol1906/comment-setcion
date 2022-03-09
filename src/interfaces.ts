@@ -3,7 +3,7 @@ import { FieldValue } from "firebase/firestore";
 export interface Comment {
   id: string;
   content: string;
-  createdAt: FieldValue;
+  createdAt: string;
   score: number;
   user:User,
   hasReplies:boolean;
@@ -30,5 +30,6 @@ export interface ReplyInfo {
 
 export interface CommentProps {
   content: string;
+  createdAt:string;
   score: number;
 }

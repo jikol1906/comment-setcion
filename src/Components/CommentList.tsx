@@ -13,6 +13,7 @@ import ReplyList from "./ReplyList/ReplyList";
 import { useState } from "react";
 import Loadingspinner from "./Loadingspinner/Loadingspinner";
 import AddComment from "./AddComment/AddComment";
+import { formatDistance} from 'date-fns'
 const auth = getAuth(FirestoreService.firebaseApp);
 
 
@@ -52,7 +53,7 @@ const CommentList: React.FunctionComponent = () => {
       const c = v.data() as IComment
       const userInfo = c.user
       
-      console.log(userInfo);
+      c.createdAt = formatDistance(v.data().createdAt.toDate(),new Date(),{ addSuffix: true })
       
       const commentProps = {
         ...c,

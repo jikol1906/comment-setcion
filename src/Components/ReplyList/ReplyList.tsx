@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { collection, query, where } from "firebase/firestore";
+import { collection, orderBy, query, where } from "firebase/firestore";
 import * as React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData } from "react-firebase-hooks/firestore";
@@ -12,6 +12,7 @@ import Comment from "../Comment/Comment";
 import Loadingspinner from "../Loadingspinner/Loadingspinner";
 import { User } from "../../interfaces";
 import AddComment from "../AddComment/AddComment";
+import { formatDistance } from "date-fns";
 
 const auth = getAuth(FirestoreService.firebaseApp);
 
@@ -40,24 +41,28 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
   const coll = collection(db, "comments");
 
   const [value, loading, error] = useCollection(
-    query(coll, where("parentComment", "==", parentCommentId), where("commentThreadOwner", "==", user?.uid))
+    query(coll, 
+      where("parentComment", "==", parentCommentId), 
+      where("commentThreadOwner", "==", user?.uid),
+      orderBy("createdAt")
+      )
   );
 
   const comments : JSX.Element[] = [];
-    console.log(user?.uid);
     
   if(value) {
     value.forEach(v => {
       const c = v.data() as IComment;
-      const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={v.id} setReplyingTo={setReplyingTo}/> : null
+      c.createdAt = formatDistance(v.data().createdAt.toDate(),new Date(),{ addSuffix: true })
+      const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={parentCommentId} setReplyingTo={setReplyingTo}/> : null
         comments.push(
-          user?.uid === "juli" ?
+          c.user.username === 'juliusomo' ?
           <CurrentUserComment key={v.id} {...c} userInfo={c.user} onUpdateSubmitted={onUpdateSubmitted(v.id)} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
           :
-          <>
-            <Comment userInfo={c.user} key={v.id} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
+          <React.Fragment key={v.id}>
+            <Comment userInfo={c.user} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>
             {replyingToComponent}
-          </>
+          </React.Fragment>
         )
       
     })
