@@ -14,6 +14,7 @@ import {
   connectFirestoreEmulator,
 } from "firebase/firestore";
 import { connectAuthEmulator, getAuth, signInAnonymously } from "firebase/auth";
+import { connectFunctionsEmulator,httpsCallable,getFunctions } from "firebase/functions";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { User } from "./interfaces";
@@ -32,10 +33,12 @@ export const firebaseApp = initializeApp(firebaseConfig);
 
 export const db = getFirestore(firebaseApp);
 export const auth = getAuth(firebaseApp);
+const functions = getFunctions(firebaseApp);
 
 
 if(window.location.hostname === 'localhost') {
   connectFirestoreEmulator(db, "localhost", 8080);
+  connectFunctionsEmulator(functions, "localhost", 8080);
   connectAuthEmulator(auth,"http://localhost:9099")
 }
 
