@@ -107,4 +107,29 @@
     } else {
         throw new functions.https.HttpsError("unauthenticated", "You must be authenticated");
     }
+  })
+
+  exports.deleteComment = functions.https.onCall(async (data,{auth}) => {      
+    if (auth) {
+      const {commentId} = data;
+      
+      const docRef = admin.firestore().collection("comments").doc(commentId);
+      const doc = await docRef.get();
+      const docData = doc.data();
+      if(docData) {
+
+        if(docData.commentThreadOwner !== auth.uid) {
+          throw new functions.https.HttpsError("permission-denied", "Comment does not belong to you");
+        } else {
+          await docRef.delete()
+        }
+      }
+
+
+
+  } else {
+      throw new functions.https.HttpsError("unauthenticated", "You must be authenticated");
+  }
 })
+
+
