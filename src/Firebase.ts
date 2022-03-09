@@ -35,8 +35,8 @@ export const authenticateAnonymously = () => {
 };
 
 export const addComment = async (content:string,replyingTo:string|null) => {
-  const addComment = httpsCallable<({content:string})>(functions,"addComment");
-  await addComment({content})
+  const addComment = httpsCallable<({content:string,replyingTo:string|null})>(functions,"addComment");
+  await addComment({content,replyingTo:replyingTo || null})
 }
 
 

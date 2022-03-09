@@ -88,12 +88,12 @@
 
     exports.addComment = functions.https.onCall((data,{auth}) => {      
       if (auth) {
-        const {content} = data;
+        const {content,replyingTo} = data;
         return admin.firestore().collection("comments").add({
           content,
           createdAt: admin.firestore.FieldValue.serverTimestamp(),
           score: 0,
-          parentComment: null,
+          parentComment: replyingTo,
           hasReplies: false,
           user:{
             image: {
