@@ -39,4 +39,9 @@ export const addComment = async (content:string,replyingTo:string|null) => {
   await addComment({content,replyingTo:replyingTo || null})
 }
 
+export const deleteComment = async (commentId:string) => {
+  const deleteComment = httpsCallable<({commentId:string})>(functions,"deleteComment");
+  await deleteComment({commentId})
+}
+
 

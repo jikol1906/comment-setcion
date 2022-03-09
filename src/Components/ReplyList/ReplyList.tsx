@@ -3,7 +3,7 @@ import { collection, orderBy, query, where } from "firebase/firestore";
 import * as React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData } from "react-firebase-hooks/firestore";
-import { db } from "../../Firebase";
+import { db, deleteComment } from "../../Firebase";
 import CommentReplyThread from "../../Layout/CommentReplyThread/CommentReplyThread";
 import * as FirestoreService from "../../Firebase";
 import { Comment as IComment } from "../../interfaces";
@@ -20,7 +20,6 @@ interface IReplyListProps {
   parentCommentId: string;
 
   replyingTo:string;
-  onDeleteButtonClicked: (commentId:string) => void;
   onReplyButtonClicked: (commentId:string) => void;
   setReplyingTo: React.Dispatch<React.SetStateAction<string>>;
   onUpdateSubmitted:(commentId: string) => (updatedContent: string) => Promise<void>;
@@ -29,7 +28,6 @@ interface IReplyListProps {
 const ReplyList: React.FunctionComponent<IReplyListProps> = ({
   parentCommentId,
   replyingTo,
-  onDeleteButtonClicked,
   onReplyButtonClicked,
   onUpdateSubmitted,
   setReplyingTo
@@ -57,7 +55,7 @@ const ReplyList: React.FunctionComponent<IReplyListProps> = ({
       const replyingToComponent = replyingTo === v.id ? <AddComment replyingTo={parentCommentId} setReplyingTo={setReplyingTo}/> : null
         comments.push(
           c.user.username === 'juliusomo' ?
-          <CurrentUserComment key={v.id} {...c} userInfo={c.user} onUpdateSubmitted={onUpdateSubmitted(v.id)} onDeleteButtonClicked={() => onDeleteButtonClicked(v.id)}/>
+          <CurrentUserComment key={v.id} {...c} userInfo={c.user} onUpdateSubmitted={onUpdateSubmitted(v.id)} onDeleteButtonClicked={() => deleteComment(v.id)}/>
           :
           <React.Fragment key={v.id}>
             <Comment userInfo={c.user} {...c} onReplyButtonClicked={() => onReplyButtonClicked(v.id)}/>

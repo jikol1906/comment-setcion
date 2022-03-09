@@ -4,7 +4,7 @@ import { addDoc, collection, deleteDoc, doc, query, serverTimestamp, Timestamp, 
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData, useDocument, useDocumentData } from 'react-firebase-hooks/firestore';
-import { db } from "../Firebase";
+import { db, deleteComment } from "../Firebase";
 import { Comment as IComment, User } from "../interfaces";
 import CurrentUserComment from "./Comment/CurrentUserComment";
 import Comment from "./Comment/Comment";
@@ -26,11 +26,6 @@ const CommentList: React.FunctionComponent = () => {
   const userColl = collection(db,"users")
   const [replyingTo, setReplyingTo] = useState("")
   const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null),where("commentThreadOwner","==",user?.uid)))
-  
-  
-  const onDeleteButtonClicked = async (commentId:string) => {
-    await deleteDoc(doc(db, user!.uid,commentId));
-  }
   
    
   const onReplyButtonClicked = (commentId:string) => {    
@@ -64,14 +59,13 @@ const CommentList: React.FunctionComponent = () => {
       const currentUserCommentProps = {
         ...c,
         userInfo,
-        onDeleteButtonClicked: () => onDeleteButtonClicked(v.id),
+        onDeleteButtonClicked: () => deleteComment(v.id),
         onUpdateSubmitted:updateButtonClicked(v.id)
       }
 
       const replyListProps = {
         
         onReplyButtonClicked,
-        onDeleteButtonClicked,
         onUpdateSubmitted:updateButtonClicked,
         setReplyingTo,
         replyingTo
