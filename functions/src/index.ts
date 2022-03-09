@@ -121,9 +121,12 @@
         if(docData.commentThreadOwner !== auth.uid) {
           throw new functions.https.HttpsError("permission-denied", "Comment does not belong to you");
         } else {
-          await docRef.delete()
+          return await docRef.delete()
         }
+      } else {
+        throw new functions.https.HttpsError("not-found", "Comment doesn't exist");
       }
+
 
 
 
@@ -144,7 +147,7 @@
         if(docData.commentThreadOwner !== auth.uid) {
           throw new functions.https.HttpsError("permission-denied", "Comment does not belong to you");
         } else {
-          await docRef.update({
+          return await docRef.update({
             content
           })
         }
