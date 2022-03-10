@@ -34,19 +34,19 @@ export const authenticateAnonymously = () => {
   return signInAnonymously(getAuth(firebaseApp));
 };
 
-export const addComment = async (content:string,replyingTo:string|null) => {
-  const addComment = httpsCallable<({content:string,replyingTo:string|null})>(functions,"addComment");
-  await addComment({content,replyingTo:replyingTo || null})
+export const addComment = (content:string,replyingTo:string|null) => {
+  const addComment = httpsCallable<{content:string,replyingTo:string|null},DocumentReference<{content:string}>>(functions,"addComment");
+  return addComment({content,replyingTo:replyingTo || null});
 }
 
-export const deleteComment = async (commentId:string) => {
+export const deleteComment = (commentId:string) => {
   const deleteComment = httpsCallable<({commentId:string})>(functions,"deleteComment");
-  await deleteComment({commentId})
+  return deleteComment({commentId})
 }
 
-export const updateComment = async (commentId:string,content:string) => {
+export const updateComment = (commentId:string,content:string) => {
   const updateComment = httpsCallable<({commentId:string,content:string})>(functions,"updateComment");
-  await updateComment({commentId,content})
+  return updateComment({commentId,content})
 }
 
 
