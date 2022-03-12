@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as FirestoreService from '../Firebase';
-import { addDoc, collection, deleteDoc, doc, query, serverTimestamp, Timestamp, updateDoc, where, writeBatch } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, orderBy, query, serverTimestamp, Timestamp, updateDoc, where, writeBatch } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useCollectionData, useDocument, useDocumentData } from 'react-firebase-hooks/firestore';
@@ -25,7 +25,9 @@ const CommentList: React.FunctionComponent = () => {
   const coll = collection(db,"comments")
   const userColl = collection(db,"users")
   const [replyingTo, setReplyingTo] = useState("")
-  const [value, loading, error] = useCollection(query(coll,where("parentComment","==",null),where("commentThreadOwner","==",user?.uid)))
+  const [value, loading, error] = useCollection(
+    query(coll,where("parentComment","==",null),where("commentThreadOwner","==",user?.uid),orderBy("score","desc"))  
+  )
   
    
   const onReplyButtonClicked = (commentId:string) => {    
