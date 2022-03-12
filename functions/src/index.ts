@@ -137,7 +137,7 @@ exports.deleteComment = functions.https.onCall(async (data, { auth }) => {
           "Comment does not belong to you"
         );
       } else {
-        return await docRef.delete();
+        return docRef.delete();
       }
     } else {
       throw new functions.https.HttpsError(
@@ -167,7 +167,7 @@ exports.updateComment = functions.https.onCall(async (data, { auth }) => {
           "Comment does not belong to you"
         );
       } else {
-        return await docRef.update({
+        return docRef.update({
           content,
         });
       }
