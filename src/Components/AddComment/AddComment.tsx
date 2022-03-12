@@ -4,40 +4,48 @@ import { useState } from "react";
 import TextArea from "../TextArea/TextArea";
 import CommentSkeleton from "../Comment/CommentSkeleton";
 import { addComment } from "../../Firebase";
+import { getDoc } from "firebase/firestore";
 
 const currentUser = data.currentUser;
 
 const AddComment: React.FunctionComponent<{
-
-  replyingTo?:string;
-  setReplyingTo?:React.Dispatch<React.SetStateAction<string>>;
-  
-}> = ({ replyingTo,setReplyingTo }) => {
-
+  replyingTo?: string;
+  setReplyingTo?: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ replyingTo, setReplyingTo }) => {
   const [content, setContent] = useState("");
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if(replyingTo) {
-      addComment(content,replyingTo)
+
+    if (replyingTo) {
+      addComment(content, replyingTo);
     } else {
-      addComment(content,null)
+      console.log('adding');
+      
+      const res = await addComment(content, null);
+      console.log('adding done');
+      
+
+      
+      console.log((res.data));
+      
+
+      
+  
     }
 
-    if(setReplyingTo) {
-      setReplyingTo("")
+    if (setReplyingTo) {
+      setReplyingTo("");
     }
 
-    setContent("")
-    
+    setContent("");
   };
 
   return (
     <CommentSkeleton>
       <form
         className="col-span-full md:col-start-2 md:col-end-3"
-        id={replyingTo ? "replycommentform":"sendcommentform"}
+        id={replyingTo ? "replycommentform" : "sendcommentform"}
         onSubmit={(e) => submitHandler(e)}
       >
         <TextArea
@@ -57,9 +65,9 @@ const AddComment: React.FunctionComponent<{
       <button
         type="submit"
         className="btn col-start-3 self-start btn-hover-styles md:col-start-3 md:row-start-1"
-        form={replyingTo ? "replycommentform":"sendcommentform"}
+        form={replyingTo ? "replycommentform" : "sendcommentform"}
       >
-          {replyingTo ? "Reply" : "Send"}
+        {replyingTo ? "Reply" : "Send"}
       </button>
     </CommentSkeleton>
   );

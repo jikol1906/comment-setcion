@@ -1,6 +1,7 @@
 import {
   getFirestore,
   connectFirestoreEmulator,
+  DocumentReference,
 } from "firebase/firestore";
 import { connectAuthEmulator, getAuth, signInAnonymously } from "firebase/auth";
 import { connectFunctionsEmulator,httpsCallable,getFunctions } from "firebase/functions";

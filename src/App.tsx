@@ -1,5 +1,4 @@
 import AddComment from "./Components/AddComment/AddComment";
-import useComments from "./useComment";
 import CommentList from "./Components/CommentList";
 import * as FirestoreService from "./Firebase";
 import { useEffect, useState } from "react";
