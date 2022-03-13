@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import { AuthData } from "firebase-functions/lib/common/providers/https";
 
 admin.initializeApp();
 
@@ -9,10 +10,10 @@ exports.createUser = functions.auth.user().onCreate((user) => {
   const batch = db.batch();
 
   const oneMonthAgo = new Date().setTime(
-      new Date().getTime() - 30 * 1000 * 60 * 60 * 24
+    new Date().getTime() - 30 * 1000 * 60 * 60 * 24
   );
   const twoWeekAgo = new Date().setTime(
-      new Date().getTime() - 14 * 1000 * 60 * 60 * 24
+    new Date().getTime() - 14 * 1000 * 60 * 60 * 24
   );
 
   batch.create(db.collection("comments").doc(), {
@@ -184,3 +185,14 @@ exports.updateComment = functions.https.onCall(async (data, { auth }) => {
     );
   }
 });
+
+function authDecorator(functionWithLogic: () => any,auth:AuthData | undefined) {
+  if (auth) {
+    return functionWithLogic();
+  } else {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "You must be authenticated"
+    );
+  }
+}
