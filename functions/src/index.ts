@@ -154,36 +154,31 @@ exports.deleteComment = functions.https.onCall(async (data, { auth }) => {
   }
 });
 
-exports.updateComment = functions.https.onCall(async (data, { auth }) => {
-  if (auth) {
-    const { commentId, content } = data;
-
-    const docRef = admin.firestore().collection("comments").doc(commentId);
-    const doc = await docRef.get();
-    const docData = doc.data();
-    if (docData) {
-      if (docData.commentThreadOwner !== auth.uid) {
-        throw new functions.https.HttpsError(
-          "permission-denied",
-          "Comment does not belong to you"
-        );
+exports.updateComment = functions.https.onCall((data, { auth }) => {
+    authDecorator(async () => {
+      const { commentId, content } = data;
+      const docRef = admin.firestore().collection("comments").doc(commentId);
+      const doc = await docRef.get();
+      const docData = doc.data();
+      if (docData) {
+        if (docData.commentThreadOwner !== auth!.uid) {
+          throw new functions.https.HttpsError(
+            "permission-denied",
+            "Comment does not belong to you"
+          );
+        } else {
+          return docRef.update({
+            content,
+          });
+        }
       } else {
-        return docRef.update({
-          content,
-        });
+        throw new functions.https.HttpsError(
+          "not-found",
+          "Comment doesn't exist"
+        );
       }
-    } else {
-      throw new functions.https.HttpsError(
-        "not-found",
-        "Comment doesn't exist"
-      );
-    }
-  } else {
-    throw new functions.https.HttpsError(
-      "failed-precondition",
-      "You must be authenticated"
-    );
-  }
+    },auth)
+
 });
 
 function authDecorator(functionWithLogic: () => any,auth:AuthData | undefined) {
