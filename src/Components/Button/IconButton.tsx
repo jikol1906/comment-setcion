@@ -3,6 +3,7 @@ import * as React from "react";
 interface IIconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: React.ReactNode;
+  loading?:boolean;
   variant: "normal" | "danger";
 }
 
@@ -10,6 +11,7 @@ const IconButton: React.FunctionComponent<IIconButtonProps> = ({
   children,
   icon,
   variant,
+  loading,
   ...rest
 }) => {
   return (
