@@ -157,6 +157,23 @@ exports.deleteComment = functions.https.onCall(async (data, { auth }) => {
           "Comment does not belong to you"
         );
       } else {
+        //If comment is a reply and the only reply left in the reply thread. set 'hasReplies' to 'false' in parent comment
+        if(docData.parentComment) {
+          const otherReplies = await admin.firestore()
+            .collection("comments")
+            .where("parentComment","==",docData.parentComment)
+            .get()
+          
+          if(otherReplies.size === 1) {
+            await admin
+              .firestore()
+              .collection("comments")
+              .doc(docData.parentComment)
+              .update({
+                hasReplies:false
+              })
+          }
+        }
         return docRef.delete();
       }
     } else {
