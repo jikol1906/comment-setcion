@@ -9,10 +9,10 @@ import * as FirestoreService from "../../Firebase";
 import { Comment as IComment } from "../../interfaces";
 import CurrentUserComment from "../Comment/CurrentUserComment";
 import Comment from "../Comment/Comment";
-import Loadingspinner from "../Loadingspinner/Loadingspinner";
 import { User } from "../../interfaces";
 import AddComment from "../AddComment/AddComment";
 import { formatDistance } from "date-fns";
+import Loadingspinner from "../Loadingspinner/MessageLoadingSpinner/Loadingspinner";
 
 const auth = getAuth(FirestoreService.firebaseApp);
 

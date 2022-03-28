@@ -11,9 +11,9 @@ import Comment from "./Comment/Comment";
 import CommentReplyList from "./CommentReplyList/CommentReplyList";
 import ReplyList from "./ReplyList/ReplyList";
 import { useState } from "react";
-import Loadingspinner from "./Loadingspinner/Loadingspinner";
 import AddComment from "./AddComment/AddComment";
 import { formatDistance} from 'date-fns'
+import Loadingspinner from "./Loadingspinner/MessageLoadingSpinner/Loadingspinner";
 const auth = getAuth(FirestoreService.firebaseApp);
 
 

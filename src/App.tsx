@@ -7,7 +7,8 @@ import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, firebaseApp } from "./Firebase";
 import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
-import Loadingspinner from "./Components/Loadingspinner/Loadingspinner";
+import Loadingspinner from "./Components/Loadingspinner/MessageLoadingSpinner/Loadingspinner";
+
 
 function App() {
 
