@@ -112,6 +112,25 @@ exports.addComment = functions.https.onCall(async (data, { auth }) => {
           commentThreadOwner: auth.uid,
         });
 
+      if(replyingTo) {
+        const docToReplyRef = admin
+          .firestore()
+          .collection("comments")
+          .doc(replyingTo)
+        
+        const docToReply = await docToReplyRef.get();
+          
+        
+        if(!docToReply.data()?.hasReplies) {
+          return docToReplyRef.update({
+            hasReplies:true
+          })
+        }
+        
+        
+          
+      }
+
       return res;
     } catch (err) {
       throw new functions.https.HttpsError("internal", "Something went wrong");
