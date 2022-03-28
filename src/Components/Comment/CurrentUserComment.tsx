@@ -9,7 +9,7 @@ import CommentSkeleton from "./CommentSkeleton";
 import CommentText from "./CommentText";
 
 interface ICurrentUserComment extends CommentProps {
-  onDeleteButtonClicked: () => void;
+  onDeleteButtonClicked: () => Promise<any>;
   userInfo:User;
   onUpdateSubmitted:(updatedContent: string) => Promise<void>;
 }
@@ -25,6 +25,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
 
   const [editing,setEditing] = useState(false)
   const [commentContent,setCommentContent] = useState(content)
+  const [deleting,setIsDeleting] = useState(false);
   
   
   return (
@@ -54,7 +55,12 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
         <div className="flex col-start-3 space-x-2 md:row-start-1 md:row-end-2">
           <IconButton
             variant="danger"
-            onClick={onDeleteButtonClicked}
+            loading={deleting}
+            onClick={async () => {
+              setIsDeleting(true)
+              await onDeleteButtonClicked()
+              setIsDeleting(false)
+            }}
             icon={
               <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2.167 12.448C2.167 13.302 2.867 14 3.722 14H9.944C10.8 14 11.5 13.302 11.5 12.448V3.5H2.167V12.448ZM12.667 1.167H9.75L8.773 0H4.893L3.917 1.167H1V2.333H12.667V1.167V1.167Z" />
