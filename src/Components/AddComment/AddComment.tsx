@@ -13,26 +13,20 @@ const AddComment: React.FunctionComponent<{
   setReplyingTo?: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ replyingTo, setReplyingTo }) => {
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setLoading(true)
+
     if (replyingTo) {
-      addComment(content, replyingTo);
-    } else {
-      console.log('adding');
-      
-      const res = await addComment(content, null);
-      console.log('adding done');
-      
-
-      
-      console.log((res.data));
-      
-
-      
-  
+      await addComment(content, replyingTo);
+    } else {      
+      await addComment(content, null);
     }
+
+    setLoading(false)
 
     if (setReplyingTo) {
       setReplyingTo("");
