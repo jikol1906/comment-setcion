@@ -1,4 +1,5 @@
 import * as React from "react";
+import ButtonLoadingSpinner from "../Loadingspinner/ButtonLoadingSpinner/ButtonLoadingSpinner";
 
 interface IIconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,13 +17,13 @@ const IconButton: React.FunctionComponent<IIconButtonProps> = ({
 }) => {
   return (
     <button
-      className={`flex items-center btn-hover-styles font-semibold text-sm ${
+      className={`flex items-center space-x-1 btn-hover-styles font-semibold text-sm ${
         variant === "normal" ? "text-moderateblue" : "text-softRed"
       }`}
       {...rest}
     >
-      <div className="mr-2 w-3 fill-current">{icon}</div>
-      {children}
+      {loading ? <ButtonLoadingSpinner/> : <div className="w-3 fill-current">{icon}</div>}
+      <span>{children}</span>
     </button>
   );
 };
