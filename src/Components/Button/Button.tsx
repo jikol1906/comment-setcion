@@ -14,13 +14,18 @@ const Button: React.FunctionComponent<IButtonProps> = ({loading,children,...rest
         if(btnRef.current) {
             btnWidth.current = btnRef.current.getBoundingClientRect().width
         }
-    })
+    },[])
+
+    const loadingStyle = {
+        width:btnWidth.current!
+    }
 
   return <button
   className="btn btn-hover-styles leading-none"
+  style={loading ? loadingStyle : {}}
   ref={btnRef}
    {...rest}>
-      {children}
+    {loading ? <ButtonLoadingSpinner/> : children}
   </button>;
 };
 
