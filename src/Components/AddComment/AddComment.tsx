@@ -5,6 +5,8 @@ import TextArea from "../TextArea/TextArea";
 import CommentSkeleton from "../Comment/CommentSkeleton";
 import { addComment } from "../../Firebase";
 import { getDoc } from "firebase/firestore";
+import ButtonLoadingSpinner from "../Loadingspinner/ButtonLoadingSpinner/ButtonLoadingSpinner";
+import Button from "../Button/Button";
 
 const currentUser = data.currentUser;
 
@@ -56,13 +58,15 @@ const AddComment: React.FunctionComponent<{
           currentUser.image.webp.split("./")[1]
         }`}
       />
-      <button
-        type="submit"
-        className="btn col-start-3 self-start btn-hover-styles md:col-start-3 md:row-start-1"
-        form={replyingTo ? "replycommentform" : "sendcommentform"}
-      >
-        {replyingTo ? "Reply" : "Send"}
-      </button>
+      <div className="col-start-3 self-start md:col-start-3 md:row-start-1">
+        <Button
+          type="submit"
+          loading={loading}
+          form={replyingTo ? "replycommentform" : "sendcommentform"}
+        >
+          {replyingTo ? "Reply" : "Send"}
+        </Button>
+      </div>
     </CommentSkeleton>
   );
 };
