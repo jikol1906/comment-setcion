@@ -1,11 +1,16 @@
 .loader {
-    border: 3px solid hsl(0, 0%, 95%);
+    border: 3px solid hsl(0, 0%, 90%);
     border-radius: 50%;
     border-top: 3px solid currentColor;
     width: 1em;
     height: 1em;
     animation: spin 2s linear infinite;
   }
+
+.loader.white{
+  border: 3px solid hsl(0, 0%, 50%);
+  border-top: 3px solid white;
+}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
