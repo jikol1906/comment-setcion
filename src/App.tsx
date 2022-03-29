@@ -21,7 +21,7 @@ function App() {
  
   
   return (
-    <div className="grid gap-4 md:gap-6 p-2 max-w-4xl mx-auto py-20">
+    <div className="grid gap-4 md:gap-6 px-4 max-w-4xl mx-auto py-20">
       {!user ? <Loadingspinner/> : <CommentList/>}
     </div>
   );
