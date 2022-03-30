@@ -22,7 +22,7 @@ interface IReplyListProps {
   replyingTo:string;
   onReplyButtonClicked: (commentId:string) => void;
   setReplyingTo: React.Dispatch<React.SetStateAction<string>>;
-  onUpdateSubmitted:(commentId: string) => (updatedContent: string) => Promise<void>;
+  onUpdateSubmitted:(commentId: string) => (updatedContent: string) => Promise<any>;
 }
 
 const ReplyList: React.FunctionComponent<IReplyListProps> = ({

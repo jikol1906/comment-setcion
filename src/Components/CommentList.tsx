@@ -35,8 +35,8 @@ const CommentList: React.FunctionComponent = () => {
   }
 
   const updateButtonClicked = (commentId:string) => {
-    return async (updatedContent:string) => {
-      updateComment(commentId,updatedContent)
+    return (updatedContent:string) => {
+      return updateComment(commentId,updatedContent)
     }
   }
 
