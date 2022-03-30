@@ -26,7 +26,7 @@ const UserInfo: React.FunctionComponent<IUserInfoProps> = ({
           </div>
         )}
       </div>
-      <span className="text-sm text-grayishBlue">{createdAt}</span>
+      <span className="text-xs md:text-sm text-grayishBlue">{createdAt}</span>
     </div>
   );
 };
