@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useLayoutEffect, useRef } from 'react';
+import ButtonLoadingSpinner from '../Loadingspinner/ButtonLoadingSpinner/ButtonLoadingSpinner';
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     loading?:boolean
@@ -25,7 +26,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({loading,children,...rest
   style={loading ? loadingStyle : {}}
   ref={btnRef}
    {...rest}>
-    {loading ? <ButtonLoadingSpinner/> : children}
+    {loading ? <ButtonLoadingSpinner white/> : children}
   </button>;
 };
 
