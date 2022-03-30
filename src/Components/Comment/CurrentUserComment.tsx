@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateComment } from "../../Firebase";
 import { CommentProps, User } from "../../interfaces";
+import Button from "../Button/Button";
 import IconButton from "../Button/IconButton";
 import LikeDislikeButton from "../LikeDislikeButton/LikeDislikeButton";
 import TextArea from "../TextArea/TextArea";
@@ -83,9 +84,11 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
         </div>
       )}
       {editing && (
-        <button type="submit" form="updateform" className="btn col-start-3">
-          Update
-        </button>
+        <div className="col-start-3">
+          <Button type="submit" form="updateform">
+            Update
+          </Button>
+        </div>
       )}
     </CommentSkeleton>
   );
