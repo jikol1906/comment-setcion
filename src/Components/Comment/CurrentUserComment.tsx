@@ -27,6 +27,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
   const [editing,setEditing] = useState(false)
   const [commentContent,setCommentContent] = useState(content)
   const [deleting,setIsDeleting] = useState(false);
+  const [loading, setLoading] = useState(false);
   
   
   return (
@@ -37,9 +38,11 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
       <div className="col-span-full md:col-start-2 md:col-end-4">
         {editing ? (
           <>
-            <form id="updateform" onSubmit={e => {
+            <form id="updateform" onSubmit={async e => {
               e.preventDefault()
-              onUpdateSubmitted(commentContent)
+              setLoading(true)
+              await onUpdateSubmitted(commentContent)
+              setLoading(false)
               setEditing(false)
             }}>
               <TextArea rows={4} value={commentContent} onChange={e=>setCommentContent(e.target.value)}></TextArea>
@@ -85,7 +88,7 @@ const CurrentUserComment: React.FunctionComponent<ICurrentUserComment> = ({
       )}
       {editing && (
         <div className="col-start-3">
-          <Button type="submit" form="updateform">
+          <Button type="submit" form="updateform" loading={loading}>
             Update
           </Button>
         </div>
