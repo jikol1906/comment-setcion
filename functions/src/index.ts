@@ -217,7 +217,7 @@ exports.updateComment = functions.https.onCall((data, { auth }) => {
 
 });
 
-function authDecorator(functionWithLogic: () => any,auth:AuthData | undefined) {
+async function authDecorator(functionWithLogic: () => any,auth:AuthData | undefined) {
   if (auth) {
     return functionWithLogic();
   } else {
