@@ -191,7 +191,7 @@ exports.deleteComment = functions.https.onCall(async (data, { auth }) => {
 });
 
 exports.updateComment = functions.https.onCall((data, { auth }) => {
-    authDecorator(async () => {
+    return authDecorator(async () => {
       const { commentId, content } = data;
       const docRef = admin.firestore().collection("comments").doc(commentId);
       const doc = await docRef.get();
