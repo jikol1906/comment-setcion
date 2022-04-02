@@ -90,7 +90,8 @@ exports.createUser = functions.auth.user().onCreate((user) => {
 });
 
 exports.addComment = functions.https.onCall(async (data, { auth }) => {
-  if (auth) {
+
+  return authDecorator(async() => {
     const { content, replyingTo } = data;
     try {
       const res = await admin
@@ -109,7 +110,7 @@ exports.addComment = functions.https.onCall(async (data, { auth }) => {
             },
             username: "juliusomo",
           },
-          commentThreadOwner: auth.uid,
+          commentThreadOwner: auth!.uid,
         });
 
       if(replyingTo) {
@@ -135,23 +136,22 @@ exports.addComment = functions.https.onCall(async (data, { auth }) => {
     } catch (err) {
       throw new functions.https.HttpsError("internal", "Something went wrong");
     }
-  } else {
-    throw new functions.https.HttpsError(
-      "failed-precondition",
-      "You must be authenticated"
-    );
-  }
+  },auth)
+  
+    
+
 });
 
 exports.deleteComment = functions.https.onCall(async (data, { auth }) => {
-  if (auth) {
+
+  return authDecorator( async () => {
     const { commentId } = data;
 
     const docRef = admin.firestore().collection("comments").doc(commentId);
     const doc = await docRef.get();
     const docData = doc.data();
     if (docData) {
-      if (docData.commentThreadOwner !== auth.uid) {
+      if (docData.commentThreadOwner !== auth!.uid) {
         throw new functions.https.HttpsError(
           "permission-denied",
           "Comment does not belong to you"
@@ -182,12 +182,9 @@ exports.deleteComment = functions.https.onCall(async (data, { auth }) => {
         "Comment doesn't exist"
       );
     }
-  } else {
-    throw new functions.https.HttpsError(
-      "failed-precondition",
-      "You must be authenticated"
-    );
-  }
+  },auth)
+
+    
 });
 
 exports.updateComment = functions.https.onCall((data, { auth }) => {
