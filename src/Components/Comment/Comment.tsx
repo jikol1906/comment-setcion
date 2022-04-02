@@ -28,7 +28,7 @@ const Comment: React.FunctionComponent<ICommentProps> = ({
       <CommentText text={content} />
       </div>
       <div className="md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-3">
-        <LikeDislikeButton score={score} />
+        <LikeDislikeButton onPlusClicked={() => Promise.resolve(console.log('tset'))} onMinusClicked={() => Promise.resolve(console.log('tset'))} score={score} />
       </div>
       <div className="flex col-start-3 space-x-2 md:row-start-1 md:row-end-2">
         <IconButton
