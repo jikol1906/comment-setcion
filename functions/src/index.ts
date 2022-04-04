@@ -214,6 +214,14 @@ exports.updateComment = functions.https.onCall((data, { auth }) => {
 
 });
 
+exports.incrementScore = functions.https.onCall((data, { auth }) => {
+  return authDecorator(async () => {
+    
+  },auth)
+});
+
+
+
 async function authDecorator(functionWithLogic: () => any,auth:AuthData | undefined) {
   if (auth) {
     return functionWithLogic();
