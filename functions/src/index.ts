@@ -223,6 +223,15 @@ exports.incrementScore = functions.https.onCall((data, { auth }) => {
       .doc(commentId)
     
     const comment = await commentRef.get();
+
+    if(comment.exists) {
+      const commentData = comment.data()!;
+      if(!("likedBy" in commentData)) {
+        commentRef.update({
+          likedBy:[auth?.uid]
+        })
+      }
+    }
   },auth)
 });
 
