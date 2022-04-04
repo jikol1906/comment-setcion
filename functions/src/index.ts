@@ -216,7 +216,13 @@ exports.updateComment = functions.https.onCall((data, { auth }) => {
 
 exports.incrementScore = functions.https.onCall((data, { auth }) => {
   return authDecorator(async () => {
+    const {commentId} = data;
+
+    const commentRef = admin.firestore()
+      .collection("comments")
+      .doc(commentId)
     
+    const comment = await commentRef.get();
   },auth)
 });
 
